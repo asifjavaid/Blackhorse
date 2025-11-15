@@ -1,0 +1,1849 @@
+import 'package:ekvi/Models/BottomNavigationBar/botton_nav_bar_model.dart';
+import 'package:ekvi/Models/DailyTracker/Alcohol/alcohol_model.dart';
+import 'package:ekvi/Models/DailyTracker/Bloating/bloating_model.dart';
+import 'package:ekvi/Models/DailyTracker/BowelMovement/bowel_mov_model.dart';
+import 'package:ekvi/Models/DailyTracker/BrainFog/brain_fog_model.dart';
+import 'package:ekvi/Models/DailyTracker/Energy/energy_model.dart';
+import 'package:ekvi/Models/DailyTracker/Fatigue/fatigue_model.dart';
+import 'package:ekvi/Models/DailyTracker/Hormones/hormones_model.dart';
+import 'package:ekvi/Models/DailyTracker/Intimacy/intimacy_model.dart';
+import 'package:ekvi/Models/DailyTracker/Mood/mood_model.dart';
+import 'package:ekvi/Models/DailyTracker/Movement/movement_model.dart';
+import 'package:ekvi/Models/DailyTracker/Nausea/nausea_model.dart';
+import 'package:ekvi/Models/DailyTracker/OvulationTest/ovulation_test_model.dart';
+import 'package:ekvi/Models/DailyTracker/PainKillers/pain_killers_model.dart';
+import 'package:ekvi/Models/DailyTracker/PainRelief/pain_relief_model.dart';
+import 'package:ekvi/Models/DailyTracker/PregnancyTest/pregnancy_test_model.dart';
+import 'package:ekvi/Models/DailyTracker/SelfCare/selfcare_model.dart';
+import 'package:ekvi/Models/DailyTracker/Stress/stress_model.dart';
+import 'package:ekvi/Models/DailyTracker/options_model.dart';
+import 'package:ekvi/Models/DailyTracker/symptom_categories_model.dart';
+import 'package:ekvi/Models/Dashboard/hormone_cheat_sheet_model.dart';
+import 'package:ekvi/Models/FAQs/faq_model.dart';
+import 'package:ekvi/Utils/constants/app_colors.dart';
+import 'package:ekvi/Utils/constants/app_constant.dart';
+import 'package:ekvi/Utils/constants/app_enums.dart';
+import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
+import 'package:flutter/material.dart';
+
+class DataInitializations {
+  // Bottom Navigation Bar Data
+  static final List<BottomNavData> bottomNavData = [
+    BottomNavData(
+        title: "Home", iconAddress: "${AppConstant.assetIcons}home_icon.png"),
+    BottomNavData(
+        title: "Cycle", iconAddress: "${AppConstant.assetIcons}cycle_icon.png"),
+    BottomNavData(
+        title: "Tracking",
+        iconAddress: "${AppConstant.assetIcons}tracking_icon.png"),
+    BottomNavData(
+        title: "Stories",
+        iconAddress: "${AppConstant.assetIcons}stories_icon.png"),
+    BottomNavData(
+        title: "Feedback",
+        iconAddress: "${AppConstant.assetIcons}feedback_icon.png"),
+  ];
+
+  //Symptom Categories UI Data
+  static final List<CategoriesData> painAndBleedingCategories = [
+    CategoriesData(
+        title: "Body Pain",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.bolt,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Bleeding",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.drip,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+            CategoriesData(
+        title: "Headache",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.headache,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Mood",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.emotions,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Stress",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.stress,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Energy",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.energy,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category)
+  ];
+
+  static final List<CategoriesData> symptomsCategories = [
+    CategoriesData(
+        title: "Nausea",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.nausea,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Fatigue",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.fatigue,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Bloating",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.bloating,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Brain fog",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.brainfog,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+
+  ];
+  static final List<CategoriesData> thingsPutinBody = [
+    CategoriesData(
+        title: "Painkillers",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.pill_1,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Hormones",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.hormones,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Alcohol",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(
+          AppCustomIcons.alcohol,
+          color: AppColors.actionColor600,
+          size: 24,
+        ),
+        dataType: CategoryDataType.Category),
+  ];
+
+  static final List<CategoriesData> bathroomHabits = [
+    CategoriesData(
+        title: "Bowel movement",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.bowel_movent,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Urination",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.bowel_movent,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+  ];
+
+  static final List<CategoriesData> wellbeing = [
+    CategoriesData(
+        title: "Movement",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.training,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Self-care",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.follicular,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Pain relief",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.pain_relief,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+  ];
+  static final List<CategoriesData> fertilityAndPregnancy = [
+    CategoriesData(
+        title: "Intimacy",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.heart,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Ovulation test",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.ovulation_test,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+    CategoriesData(
+        title: "Pregnancy test",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.pregnancy_test,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Category),
+  ];
+
+  static final List<CategoriesData> eventCategories = [
+    CategoriesData(
+        title: "Dr Visit",
+        bgColor: AppColors.accentColorFour400,
+        icon: const Icon(AppCustomIcons.pregnancy_test,
+            color: AppColors.accentColorThree500, size: 24),
+        dataType: CategoryDataType.Category),
+  ];
+
+  static final List<CategoriesData> eventsAndThingsIdo = [
+    CategoriesData(
+        title: "I’m just existing",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.existing,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Eating",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.eating,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Toilet",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(Icons.wc, color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Travel",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.travel,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Exercise",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.training,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Sleep",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.sleep,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Intimacy",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(AppCustomIcons.heart,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+    CategoriesData(
+        title: "Work",
+        bgColor: AppColors.whiteColor,
+        icon: const Icon(Icons.work_outline_outlined,
+            color: AppColors.actionColor600, size: 24),
+        dataType: CategoryDataType.Event),
+  ];
+
+  static SymptomCategoriesModel categoriesData() {
+    return SymptomCategoriesModel(
+        bodyPain: CategoryBodyPartPain(
+          selectedBodyParts: [],
+          justExisting: JustExisting(
+              painLevel: 0,
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonizing"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          eating: Eating(
+              painLevel: 0,
+              conditions: [
+                OptionModel(text: "Abdominal pain"),
+                OptionModel(text: "Stomach cramps"),
+                OptionModel(text: "Bloating"),
+                OptionModel(text: "Nausea"),
+                OptionModel(text: "Vomiting"),
+                OptionModel(text: "Acid reflux"),
+                OptionModel(text: "Heartburn"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonizing"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          toilet: Toilet(
+              painLevel: 0,
+              conditions: [
+                OptionModel(text: "Pain opening bowels"),
+                OptionModel(text: "Pain passing urine"),
+                OptionModel(text: "Bladder pain"),
+                OptionModel(text: "Diarrhea"),
+                OptionModel(text: "Constipation"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonizing"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          travel: Travel(
+              painLevel: 0,
+              conditions: [
+                OptionModel(text: "Flight"),
+                OptionModel(text: "Train"),
+                OptionModel(text: "Bus"),
+                OptionModel(text: "Tram"),
+                OptionModel(text: "Car"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonizing"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          exercise: Exercise(
+              painLevel: 0,
+              cardio: [
+                OptionModel(text: "Walking"),
+                OptionModel(text: "Running"),
+                OptionModel(text: "Cycling"),
+                OptionModel(text: "Swimming"),
+                OptionModel(text: "Dancing"),
+                OptionModel(text: "Aerobics"),
+                OptionModel(text: "Hiking"),
+                OptionModel(text: "Skipping rope"),
+                OptionModel(text: "Rowing"),
+              ],
+              strengthTraining: [
+                OptionModel(text: "Weightlifting"),
+                OptionModel(text: "Bodyweight exercises"),
+                OptionModel(text: "Resistant band"),
+                OptionModel(text: "Pilates"),
+                OptionModel(text: "Crossfit"),
+              ],
+              flexibilityAndBalance: [
+                OptionModel(text: "Stretching"),
+                OptionModel(text: "Yoga"),
+                OptionModel(text: "Tai Chi"),
+                OptionModel(text: "Barre"),
+              ],
+              sports: [
+                OptionModel(text: "Soccer"),
+                OptionModel(text: "Basketball"),
+                OptionModel(text: "Volleyball"),
+                OptionModel(text: "Tennis"),
+                OptionModel(text: "Badminton"),
+                OptionModel(text: "Golf"),
+              ],
+              others: [
+                OptionModel(text: "Rock Climbing"),
+                OptionModel(text: "Martial Arts"),
+                OptionModel(text: "Skateboarding"),
+                OptionModel(text: "Rollerblading"),
+                OptionModel(text: "Skiing"),
+                OptionModel(text: "Snowboarding"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonizing"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          sleep: Sleep(
+              painLevel: 0,
+              conditions: [
+                OptionModel(text: "Difficulty falling asleep"),
+                OptionModel(text: "Insomnia"),
+                OptionModel(text: "Waking up during the night"),
+                OptionModel(text: "Daytime fatigue"),
+                OptionModel(text: "Sleepwalking"),
+                OptionModel(text: "Night terrors"),
+                OptionModel(text: "Waking up tired"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonizing"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          sex: Sex(
+              painLevel: 0,
+              experience: [
+                OptionModel(text: "During sex"),
+                OptionModel(text: "After sex"),
+                OptionModel(text: "Not sure"),
+              ],
+              intimacyType: [
+                OptionModel(text: "Solo"),
+                OptionModel(text: "With partner"),
+                OptionModel(text: "Protected"),
+                OptionModel(text: "Unprotected"),
+              ],
+              activity: [
+                OptionModel(text: "Masturbation"),
+                OptionModel(text: "Cuddle"),
+                OptionModel(text: "Manual"),
+                OptionModel(text: "Outercourse"),
+                OptionModel(text: "Fingering"),
+                OptionModel(text: "Vaginal"),
+                OptionModel(text: "Oral"),
+                OptionModel(text: "Intercourse"),
+                OptionModel(text: "Sensory play"),
+                OptionModel(text: "Erotic literature"),
+                OptionModel(text: "Body exploration"),
+                OptionModel(text: "Breathing exercises"),
+                OptionModel(text: "Dirty talk"),
+                OptionModel(text: "BDSM"),
+                OptionModel(text: "Tantra"),
+                OptionModel(text: "Erotic massage"),
+                OptionModel(text: "Anal"),
+                OptionModel(text: "Temperature play"),
+                OptionModel(text: "Clitoral stimulation"),
+                OptionModel(text: "Toy-assisted"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonising"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              toolType: [
+                OptionModel(text: "Ohnut"),
+                OptionModel(text: "External vibrator"),
+                OptionModel(text: "Internal vibrator"),
+                OptionModel(text: "Dilator"),
+                OptionModel(text: "Clitoral stimulator"),
+                OptionModel(text: "Lubricant"),
+              ],
+              climaxType: [
+                OptionModel(text: "Vaginal"),
+                OptionModel(text: "Clitoral"),
+                OptionModel(text: "Vaginal and clitoral"),
+                OptionModel(text: "Not sure"),
+                OptionModel(text: "No"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          work: Work(
+              painLevel: 0,
+              describeWorkDay: [
+                OptionModel(text: "Noisy"),
+                OptionModel(text: "Quiet"),
+                OptionModel(text: "Distracting"),
+                OptionModel(text: "Overwhelming"),
+                OptionModel(text: "Supportive"),
+                OptionModel(text: "Collaborative"),
+                OptionModel(text: "Isolated"),
+                OptionModel(text: "Urgent"),
+                OptionModel(text: "Challenging"),
+                OptionModel(text: "Overtime"),
+                OptionModel(text: "Balanced"),
+                OptionModel(text: "Disconnected"),
+                OptionModel(text: "High productivity"),
+                OptionModel(text: "Low productivity"),
+                OptionModel(text: "Procrastination"),
+                OptionModel(text: "Regular breaks"),
+                OptionModel(text: "Frequent breaks"),
+                OptionModel(text: "Skipped breaks"),
+              ],
+              impactGrid: ImpactGrid(
+                  workValue: 0,
+                  socialLifeValue: 0,
+                  sleepValue: 0,
+                  qualityOfLifeValue: 0),
+              feelsLikeOptions: [
+                OptionModel(text: "Aching"),
+                OptionModel(text: "Agonising"),
+                OptionModel(text: "Barbed wire"),
+                OptionModel(text: "Burning"),
+                OptionModel(text: "Constant"),
+                OptionModel(text: "Cramping"),
+                OptionModel(text: "Deep"),
+                OptionModel(text: "Dull"),
+                OptionModel(text: "Radiating"),
+                OptionModel(text: "Random"),
+                OptionModel(text: "Sharp"),
+                OptionModel(text: "Shooting"),
+                OptionModel(text: "Spasm"),
+                OptionModel(text: "Stabbing"),
+                OptionModel(text: "Throbbing"),
+                OptionModel(text: "Twisting"),
+                OptionModel(text: "Tugging"),
+                OptionModel(text: "Tingling"),
+              ],
+              painTimeOptions: [
+                OptionModel(text: "Morning"),
+                OptionModel(text: "Afternoon"),
+                OptionModel(text: "Evening"),
+                OptionModel(text: "Night"),
+                OptionModel(text: "All Day"),
+              ]),
+          headache: Headache(
+            painLevel: 0,
+            painTimeOptions: [
+              OptionModel(text: "Morning"),
+              OptionModel(text: "Afternoon"),
+              OptionModel(text: "Evening"),
+              OptionModel(text: "Night"),
+              OptionModel(text: "All Day"),
+            ],
+            feltLikeOptions: [
+              OptionModel(text: "Throbbing"),
+              OptionModel(text: "Sharp"),
+              OptionModel(text: "Dull"),
+              OptionModel(text: "Aching"),
+              OptionModel(text: "Pressure-like"),
+              OptionModel(text: "Pulsing"),
+              OptionModel(text: "Pressure"),
+              OptionModel(text: "Burning"),
+              OptionModel(text: "Electric shock"),
+              OptionModel(text: "Piercing"),
+              OptionModel(text: "Pounding"),
+              OptionModel(text: "Radiating"),
+              OptionModel(text: "Heavy"),
+              OptionModel(text: "Nagging"),
+              OptionModel(text: "Splitting"),
+              OptionModel(text: "Crushing"),
+            ],
+            locationOptions: [
+              OptionModel(text: "Forehead"),
+              OptionModel(text: "Temples"),
+              OptionModel(text: "Jaw"),
+              OptionModel(text: "Neck"),
+              OptionModel(text: "Behind the ear"),
+              OptionModel(text: "Back of the head"),
+              OptionModel(text: "Around the eyes"),
+              OptionModel(text: "Right side"),
+              OptionModel(text: "Left side"),
+              OptionModel(text: "All over"),
+            ],
+            typeOptions: [
+              OptionModel(text: "Tension"),
+              OptionModel(text: "Migraine"),
+              OptionModel(text: "Aura"),
+              OptionModel(text: "Cluster"),
+              OptionModel(text: "Sinus"),
+              OptionModel(text: "Rebound"),
+              OptionModel(text: "Hormonal"),
+              OptionModel(text: "Cervicogenic"),
+              OptionModel(text: "Ice Pick"),
+              OptionModel(text: "Hemicrania Continua"),
+              OptionModel(text: "Thunderclap"),
+            ],
+            onsetOptions: [
+              OptionModel(text: "Sudden Onset"),
+              OptionModel(text: "Gradual Onset"),
+            ],
+            impactGrid: ImpactGrid(
+                workValue: 0,
+                socialLifeValue: 0,
+                sleepValue: 0,
+                qualityOfLifeValue: 0),
+            durationTime: DateTime(0, 1, 1, 0, 0),
+            headacheNotes: "",
+            notesPlaceholder:
+                "Leave your notes here. They will only be visible to you.",
+          ),
+        ),
+        bleeding: CategoryBleeding(
+          painTimeOptions: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          options: [
+            OptionModel(
+              text: "Spotting",
+              trailingIcon: "${AppConstant.assetIcons}spotting.svg",
+            ),
+            OptionModel(
+              text: "Light",
+              trailingIcon: "${AppConstant.assetIcons}light_bleeding.svg",
+            ),
+            OptionModel(
+              text: "Moderate",
+              trailingIcon: "${AppConstant.assetIcons}moderate_bleeding.svg",
+            ),
+            OptionModel(
+              text: "Heavy",
+              trailingIcon: "${AppConstant.assetIcons}heavy_bleeding.svg",
+            ),
+            OptionModel(
+              text: "Super Heavy",
+              trailingIcon: "${AppConstant.assetIcons}super_heavy_bleeding.svg",
+            ),
+          ],
+          colour: [
+            OptionModel(
+              text: "Bright red",
+            ),
+            OptionModel(
+              text: "Dark red",
+            ),
+            OptionModel(
+              text: "Brown",
+            ),
+            OptionModel(
+              text: "Pink",
+            ),
+            OptionModel(
+              text: "Gray",
+            ),
+          ],
+          consistency: [
+            OptionModel(
+              text: "Watery",
+            ),
+            OptionModel(
+              text: "Thin",
+            ),
+            OptionModel(
+              text: "Thick",
+            ),
+            OptionModel(
+              text: "Small clots",
+            ),
+            OptionModel(
+              text: "Big clots",
+            ),
+            OptionModel(
+              text: "Smooth",
+            ),
+            OptionModel(
+              text: "Mucus-like",
+            ),
+          ],
+          pads: 0,
+        ),
+        mood: CategoryMood(
+            moodTime: [
+              OptionModel(text: "Morning"),
+              OptionModel(text: "Afternoon"),
+              OptionModel(text: "Evening"),
+              OptionModel(text: "Night"),
+              OptionModel(text: "All Day"),
+            ],
+            moodLevel: 0,
+            moodOptions: [
+              OptionModel(text: "Euphoric"),
+              OptionModel(text: "Calm"),
+              OptionModel(text: "Happy"),
+              OptionModel(text: "Hopeful"),
+              OptionModel(text: "Self-compassion"),
+              OptionModel(text: "Grateful"),
+              OptionModel(text: "Relaxed"),
+              OptionModel(text: "Content"),
+              OptionModel(text: "Indifferent"),
+              OptionModel(text: "Insecure"),
+              OptionModel(text: "Sensitive"),
+              OptionModel(text: "Apathetic"),
+              OptionModel(text: "Confused"),
+              OptionModel(text: "Mood swings"),
+              OptionModel(text: "Obsessive thoughts"),
+              OptionModel(text: "Guilty"),
+              OptionModel(text: "Fearful"),
+              OptionModel(text: "Self critical"),
+              OptionModel(text: "Angry"),
+              OptionModel(text: "Anxious"),
+              OptionModel(text: "Sad"),
+              OptionModel(text: "Depressed"),
+              OptionModel(text: "Suicidal"),
+            ],
+            notesPlaceholder:
+                "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+            moodNotes: ""),
+        stress: CategoryStress(
+            stressTime: [
+              OptionModel(text: "Morning"),
+              OptionModel(text: "Afternoon"),
+              OptionModel(text: "Evening"),
+              OptionModel(text: "Night"),
+              OptionModel(text: "All Day"),
+            ],
+            stressLevel: 0,
+            stressOptions: [
+              OptionModel(text: "Peaceful"),
+              OptionModel(text: "Tranquil"),
+              OptionModel(text: "Relaxed"),
+              OptionModel(text: "At ease"),
+              OptionModel(text: "Content"),
+              OptionModel(text: "Uneasy"),
+              OptionModel(text: "Tense"),
+              OptionModel(text: "Nervous"),
+              OptionModel(text: "Irritable"),
+              OptionModel(text: "Stressed"),
+              OptionModel(text: "Anxious"),
+              OptionModel(text: "Frustrated"),
+              OptionModel(text: "Feeling guilty"),
+              OptionModel(text: "Shameful"),
+              OptionModel(text: "Lonely"),
+              OptionModel(text: "Overwhelmed"),
+              OptionModel(text: "Overthinking"),
+              OptionModel(text: "Paralyzed"),
+              OptionModel(text: "Panic"),
+            ],
+            notesPlaceholder:
+                "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+            stressNotes: ""),
+        energy: CategoryEnergy(
+            energyTime: [
+              OptionModel(text: "Morning"),
+              OptionModel(text: "Afternoon"),
+              OptionModel(text: "Evening"),
+              OptionModel(text: "Night"),
+              OptionModel(text: "All Day"),
+            ],
+            energyLevel: 0,
+            energyOptions: [
+              OptionModel(text: "Exhilarated"),
+              OptionModel(text: "Buzzing"),
+              OptionModel(text: "Excited"),
+              OptionModel(text: "Vibrant"),
+              OptionModel(text: "Peppy"),
+              OptionModel(text: "Alert"),
+              OptionModel(text: "Energized"),
+              OptionModel(text: "Motivated"),
+              OptionModel(text: "Focused"),
+              OptionModel(text: "Productive"),
+              OptionModel(text: "Hopeful"),
+              OptionModel(text: "Creative"),
+              OptionModel(text: "Sluggish"),
+              OptionModel(text: "Weary"),
+              OptionModel(text: "Drained"),
+              OptionModel(text: "Drowsy"),
+              OptionModel(text: "Lethargic"),
+              OptionModel(text: "Fatigued"),
+              OptionModel(text: "Exhausted"),
+              OptionModel(text: "Unmotivated"),
+              OptionModel(text: "Unproductive"),
+            ],
+            notesPlaceholder:
+                "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+            energyNotes: ""),
+        nausea: CategoryNausea(
+          nauseaTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          nauseaLevel: 0,
+          nauseaOptions: [
+            OptionModel(text: "Vomiting"),
+            OptionModel(text: "Dizziness"),
+            OptionModel(text: "Abdominal pain"),
+            OptionModel(text: "Queasy"),
+            OptionModel(text: "Clammy"),
+            OptionModel(text: "Stomach-churning"),
+            OptionModel(text: "Unsteady"),
+            OptionModel(text: "Dizzy"),
+            OptionModel(text: "Sudden onset"),
+            OptionModel(text: "Gradual onset"),
+          ],
+          durationOptions: [
+            OptionModel(text: "Brief"),
+            OptionModel(text: "Prolonged"),
+            OptionModel(text: "Intermittent"),
+          ],
+          nauseaNotes: "",
+          notesPlaceholder:
+              "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+        ),
+        fatigue: CategoryFatigue(
+          fatigueTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          fatigueLevel: 0,
+          fatigueOptions: [
+            OptionModel(text: "Weakness"),
+            OptionModel(text: "Poor concentration"),
+            OptionModel(text: "Sleepy"),
+            OptionModel(text: "Unable to concentrate"),
+            OptionModel(text: "Exhausted"),
+            OptionModel(text: "Lethargic"),
+            OptionModel(text: "Sluggish"),
+            OptionModel(text: "Burnt out"),
+            OptionModel(text: "Groggy"),
+            OptionModel(text: "Weak"),
+            OptionModel(text: "Overwhelmed"),
+            OptionModel(text: "Depleted"),
+            OptionModel(text: "Drained"),
+            OptionModel(text: "Sudden onset"),
+            OptionModel(text: "Gradual onset"),
+          ],
+          durationOptions: [
+            OptionModel(text: "Brief"),
+            OptionModel(text: "Prolonged"),
+            OptionModel(text: "Intermittent"),
+          ],
+          fatigueNotes: "",
+          notesPlaceholder:
+              "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+        ),
+        bloating: CategoryBloating(
+          bloatingTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          bloatingLevel: 0,
+          bloatingOptions: [
+            OptionModel(text: "Upper abdomen"),
+            OptionModel(text: "Lower abdomen"),
+            OptionModel(text: "All over"),
+            OptionModel(text: "Post-meal"),
+            OptionModel(text: "Random"),
+            OptionModel(text: "Gas"),
+            OptionModel(text: "Hard stomach"),
+            OptionModel(text: "Swollen"),
+            OptionModel(text: "Puffy"),
+            OptionModel(text: "Gassy"),
+            OptionModel(text: "Tight"),
+            OptionModel(text: "Pressured"),
+            OptionModel(text: "Constricted"),
+          ],
+          durationOptions: [
+            OptionModel(text: "Brief"),
+            OptionModel(text: "Prolonged"),
+            OptionModel(text: "Intermittent"),
+          ],
+          bloatingNotes: "",
+          notesPlaceholder:
+              "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+        ),
+        brainFog: CategoryBrainFog(
+          brainFogTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          brainFogLevel: 0,
+          brainFogOptions: [
+            OptionModel(text: "Poor memory"),
+            OptionModel(text: "Slow thinking"),
+            OptionModel(text: "Difficult concentrating"),
+            OptionModel(text: "Difficult making decisions"),
+            OptionModel(text: "Foggy"),
+            OptionModel(text: "Unfocused"),
+            OptionModel(text: "Groggy"),
+            OptionModel(text: "Hazy"),
+            OptionModel(text: "Mentally drained"),
+            OptionModel(text: "Distracted"),
+            OptionModel(text: "Confusion"),
+            OptionModel(text: "Disorganization"),
+            OptionModel(text: "Sudden"),
+          ],
+          durationOptions: [
+            OptionModel(text: "Brief"),
+            OptionModel(text: "Prolonged"),
+            OptionModel(text: "Intermittent"),
+          ],
+          brainFogNotes: "",
+          notesPlaceholder:
+              "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+        ),
+        hormones: CategoryHormones(
+          hormonesTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          hormonesCombinedPills: [
+            OptionModel(text: "Microgynon"),
+            OptionModel(text: "Yasminelle"),
+            OptionModel(text: "Oralcon"),
+            OptionModel(text: "Loette"),
+            OptionModel(text: "Mercilon"),
+            OptionModel(text: "Zoely"),
+            OptionModel(text: "Cilest"),
+            OptionModel(text: "Desogestrel"),
+          ],
+          notes: "",
+          notesPlaceholder:
+              "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+        ),
+        alcohol: CategoryAlcohol(
+          alcoholTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          typeOfAlcohol: [
+            OptionModel(text: "Red wine"),
+            OptionModel(text: "White wine"),
+            OptionModel(text: "Spirits"),
+            OptionModel(text: "Sparkling wine"),
+            OptionModel(text: "Cider"),
+            OptionModel(text: "Coctails"),
+            OptionModel(text: "Beer"),
+          ],
+          units: "Select units",
+          notes: "",
+          notesPlaceholder:
+              "We’re using your feedback to enhance your Ekvi experience! Rest assured, your input is completely anonymous and helps us make the app even better for you.",
+        ),
+        ovulationTest: CategoryOvulationTest(ovulationTestTime: [
+          OptionModel(text: "Morning"),
+          OptionModel(text: "Afternoon"),
+          OptionModel(text: "Evening"),
+          OptionModel(text: "Night"),
+          OptionModel(text: "All Day"),
+        ], ovulationTestResult: [
+          OptionModel(text: "Negative"),
+          OptionModel(text: "Positive"),
+        ]),
+        pregnancyTest: CategoryPregnancyTest(pregnancyTestTime: [
+          OptionModel(text: "Morning"),
+          OptionModel(text: "Afternoon"),
+          OptionModel(text: "Evening"),
+          OptionModel(text: "Night"),
+          OptionModel(text: "All Day"),
+        ], pregnancyTestResult: [
+          OptionModel(text: "Negative"),
+          OptionModel(text: "Positive"),
+          OptionModel(text: "Faint line"),
+        ]),
+        intimacy: CategoryIntimacy(intimacyTime: [
+          OptionModel(text: "Morning"),
+          OptionModel(text: "Afternoon"),
+          OptionModel(text: "Evening"),
+          OptionModel(text: "Night"),
+          OptionModel(text: "All Day"),
+        ], typeOfIntimacy: [
+          OptionModel(text: "Solo"),
+          OptionModel(text: "With partner"),
+        ], activityOfInitmacy: [
+          OptionModel(text: "Outercourse"),
+          OptionModel(text: "Cuddle"),
+          OptionModel(text: "Manual"),
+          OptionModel(text: "Toys"),
+          OptionModel(text: "Fingering"),
+          OptionModel(text: "Anal"),
+          OptionModel(text: "Vaginal"),
+        ]),
+        bowlMovement: CategoryBowelMovement(
+          bowelMovementTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          bowelMovementLevel: 0,
+          frequencyLevel: 1,
+          bristolStoolScaleOptions: [
+            OptionModel(text: "Type 1"),
+            OptionModel(text: "Type 2"),
+            OptionModel(text: "Type 3"),
+            OptionModel(text: "Type 4"),
+            OptionModel(text: "Type 5"),
+            OptionModel(text: "Type 6"),
+            OptionModel(text: "Type 7"),
+          ],
+          colorOptions: [
+            OptionModel(text: "Brown"),
+            OptionModel(text: "Green"),
+            OptionModel(text: "Yellow"),
+            OptionModel(text: "Orange"),
+            OptionModel(text: "Black"),
+            OptionModel(text: "Red"),
+            OptionModel(text: "Pale"),
+            OptionModel(text: "Clay"),
+          ],
+          sizeOptions: [
+            OptionModel(text: "Average"),
+            OptionModel(text: "Large"),
+            OptionModel(text: "Small"),
+            OptionModel(text: "Thick"),
+            OptionModel(text: "Narrow"),
+            OptionModel(text: "Pencil-thin"),
+          ],
+          effortOptions: [
+            OptionModel(text: "Straining"),
+            OptionModel(text: "Easy to pass"),
+            OptionModel(text: "Urgent"),
+            OptionModel(text: "Painful"),
+          ],
+          unusualComponentsOptions: [
+            OptionModel(text: "Blood"),
+            OptionModel(text: "Mucus"),
+            OptionModel(text: "Fat"),
+            OptionModel(text: "Undigested food"),
+          ],
+          durationOptions: [
+            OptionModel(text: "Quick"),
+            OptionModel(text: "Prolonged"),
+          ],
+          bowelMovementNotes: "",
+          notesPlaceholder:
+              "Leave your notes here. It will only be visible to you.",
+        ),
+        painKillers: CategoryPainKillers(
+          painKillersTime: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          effectiveScale: 0,
+          painKillerNotes: "",
+          notesPlaceholder: "Leave notes here. It will only be visible to you.",
+        ),
+        movements: CategoryMovement(
+          movementsOptionalModel: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          intensityScale: 0,
+          enjoymentScale: 0,
+          practices: [],
+          movementsNotes: "",
+          notesPlaceholder:
+              "Leave notes here, i.e. \"How did it make me feel?\" or \"How connected did I feel to myself?\". It will only be visible to you.",
+          durationTime: DateTime(0, 1, 1, 0, 0),
+        ),
+        selfCare: CategorySelfCare(
+          selfCareOptionalModel: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          enjoymentScale: 0,
+          practices: [],
+          selfCareNotes: "",
+          notesPlaceholder:
+              "Leave notes here, i.e. \"How did it make me feel?\" or \"How connected did I feel to myself?\". It will only be visible to you.",
+        ),
+        painRelief: CategoryPainRelief(
+          painReliefOptionalModel: [
+            OptionModel(text: "Morning"),
+            OptionModel(text: "Afternoon"),
+            OptionModel(text: "Evening"),
+            OptionModel(text: "Night"),
+            OptionModel(text: "All Day"),
+          ],
+          enjoymentScale: 0,
+          practices: [],
+          painReliefNotes: "",
+          notesPlaceholder:
+              "Leave notes here, i.e. ‘How did it make me feel?’ or ‘How has this practice supported me long-term?’. It will only be visible to you.",
+        ));
+  }
+
+  static final List<FAQ> faqs = [
+    FAQ(
+        section: "Account & Registration",
+        question: "How do I sign up for Ekvi?",
+        answer:
+            "Visit the registration page and select the BankID option. Input your BankID credentials and follow the on-screen prompts to finalize your Ekvi account creation."),
+    FAQ(
+        section: "Account & Registration",
+        question: "Why use BankID for signup?",
+        answer:
+            "BankID provides a secure and efficient method for user authentication, ensuring your data remains protected."),
+    FAQ(
+        section: "Account & Registration",
+        question: "I'm having trouble signing in with BankID. What can I do?",
+        answer:
+            "Confirm your BankID details are accurate and you're connected to a stable internet. If problems persist, contact our support via the app or email."),
+    FAQ(
+        section: "Features Overview",
+        question: "What does the 'My Day' dashboard show?",
+        answer:
+            "'My Day' provides an at-a-glance view of your current menstrual cycle status, daily tracking reminders, and relevant tips or content based on your cycle phase."),
+    FAQ(
+        section: "Features Overview",
+        question: "How do I use the Daily Symptom Tracker?",
+        answer:
+            "In the app, navigate to 'Daily Symptom Tracking'. Here, you can log daily symptoms, including but not limited to pain, bleeding, mood, and emotions with activities and events that transpire in your daily life. Your inputs help Ekvi offer tailored insights."),
+    FAQ(
+        section: "Features Overview",
+        question: "Where can I see a record of past cycles?",
+        answer:
+            "Under the 'Cycle Stories ' tab, you'll find a chronological record of your past menstrual cycles, including the phases of the cycles and any irregularities."),
+    FAQ(
+        section: "Features Overview",
+        question: "How does the Insights feature work?",
+        answer:
+            "Insights uses your daily symptom tracking data to display a graph showing your current cycle, its phases, and the pain and bleeding you've logged. It also shows the emerging patterns based on past cycles highlighting"),
+    FAQ(
+        section: "Features Overview",
+        question: "How do I interpret the Insights graph?",
+        answer:
+            "'Insights' offers a visual representation of your ongoing cycle. It displays different cycle phases and correlates with logged symptoms, allowing you to understand patterns or irregularities in pain and bleeding."),
+    FAQ(
+        section: "Personalizing Ekvi",
+        question: "How can I set reminders?",
+        answer:
+            "Navigate to 'Settings' and then to 'Reminders Settings'. Here you can configure notifications for logging symptoms, taking medication, or other crucial cycle-related tasks."),
+    FAQ(
+        section: "Personalizing Ekvi",
+        question:
+            "I'd like to update my profile and cycle details. How can I do this?",
+        answer:
+            "Go to 'Settings', and you'll find options to update 'Profile Details' and 'Cycle Details'. Ensure you regularly update this information for more accurate analysis, patterns, and insights."),
+    FAQ(
+        section: "Personalizing Ekvi",
+        question: "Can I change the language of the app?",
+        answer:
+            "Yes, within 'Settings', head over to 'Language Settings' to select your preferred language."),
+    FAQ(
+        section: "Troubleshooting & Support",
+        question: "The Insights graph isn't updating. Why?",
+        answer:
+            "Ensure you're consistently logging your symptoms in the 'Daily Symptom Tracker'. If you have, try refreshing the app or ensuring you have a stable internet connection. Persistent issues can be reported to our support team."),
+    FAQ(
+        section: "Troubleshooting & Support",
+        question:
+            "How can I submit feedback, suggest a feature, or report an issue?",
+        answer:
+            "We value your feedback! In 'Settings', navigate to the 'Support and Feedback' section to send us your thoughts or report any app-related issues."),
+    FAQ(
+        section: "Troubleshooting & Support",
+        question: "I forgot my password. How can I reset it?",
+        answer:
+            "On the login page, click on \"Forgot Password?\" and follow the prompts. An email with reset instructions will be sent to your registered email address."),
+    FAQ(
+        section: "General Concerns",
+        question: "Is my personal data safe with Ekvi?",
+        answer:
+            "Absolutely. We prioritize user data protection and employ top-notch encryption and security protocols. Your privacy is paramount to us."),
+    FAQ(
+        section: "General Concerns",
+        question: "How often should I use Ekvi for best results?",
+        answer:
+            "For accurate predictions and comprehensive insights, we recommend logging symptoms daily or as frequently as possible.")
+  ];
+
+  static final List<HormoneCheatSheetData> hormoneCheatSheetData = [
+    HormoneCheatSheetData(
+        hormoneName: "Estrogen",
+        gradientColor: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFFFC5683).withOpacity(0.4),
+            const Color.fromARGB(
+              0,
+              252,
+              86,
+              131,
+            )
+          ],
+        ),
+        hormoneDescription:
+            "Known as the queen of hormones, estrogen keeps energy high and mood lifted. It's crucial for the development of secondary sexual characteristics and regulates the menstrual cycle."),
+    HormoneCheatSheetData(
+        hormoneName: "Testosterone",
+        gradientColor: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFF16A34A).withOpacity(0.4),
+            const Color.fromARGB(
+              0,
+              22,
+              163,
+              74,
+            )
+          ],
+        ),
+        hormoneDescription:
+            "Meet the powerhouse hormone! Testosterone isn't just for the guys; it's a superstar in women's bodies too. This hormone revs up your energy, fuels your muscles, and gives your libido a high-five. It's all about strength, vitality, and a dash of sass in your amazing, hormone-fueled journey!"),
+    HormoneCheatSheetData(
+        hormoneName: "FSH",
+        gradientColor: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFF6F5ED4).withOpacity(0.4),
+            const Color.fromARGB(
+              0,
+              111,
+              94,
+              212,
+            )
+          ],
+        ),
+        hormoneDescription:
+            "(Follicle-Stimulating Hormone): FSH is your body's project manager for egg development. It stimulates the growth of ovarian follicles, setting the stage for ovulation."),
+    HormoneCheatSheetData(
+        hormoneName: "LH",
+        gradientColor: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFFEA9B4D).withOpacity(0.4),
+            const Color.fromARGB(
+              0,
+              234,
+              155,
+              77,
+            )
+          ],
+        ),
+        hormoneDescription:
+            "(Luteinizing Hormone): LH is your ovulation conductor. It surges just before ovulation, triggering the release of a mature egg from the follicle, priming your body for possible pregnancy."),
+    HormoneCheatSheetData(
+        hormoneName: "Progesterone",
+        gradientColor: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFF2593F9).withOpacity(0.4),
+            const Color.fromARGB(
+              0,
+              37,
+              147,
+              249,
+            )
+          ],
+        ),
+        hormoneDescription:
+            "Think of progesterone as your body's comforter. It helps maintain the uterine lining, ensuring a cozy home for a potential embryo. If no pregnancy occurs, its levels drop, initiating menstruation."),
+  ];
+}
+
+List<BodyPart> availableBodyParts = [
+  BodyPart(
+      name: '1',
+      nameForUser: "Left hip",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(55, 220, 27, 58),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '2',
+      nameForUser: "Left inner thigh",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(80, 226, 35, 58),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '3',
+      nameForUser: "Right inner thigh",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(118, 226, 35, 58),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '4',
+      nameForUser: "Right hip",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(150, 220, 27, 58),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '5',
+      nameForUser: "Right upper hip",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(147, 196, 26, 30),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '6',
+      nameForUser: "Right pelvic area",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(129, 199, 28, 33),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '7',
+      nameForUser: "Left pelvic area",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(74, 199, 28, 33),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '8',
+      nameForUser: "Left upper hip",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(57, 196, 26, 33),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '9',
+      nameForUser: "Vulva",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(92, 224, 34, 48),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '10',
+      nameForUser: "Lower pelvis",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(100, 205, 32, 20),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '11',
+      nameForUser: "Left lower abdomen",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(65, 184, 33, 20),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '12',
+      nameForUser: "Middle lower abdomen",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(96, 188, 36, 17),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '13',
+      nameForUser: "Right lower abdomen",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(130, 184, 36, 20),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '14',
+      nameForUser: "Left upper abdomen",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(71, 137, 34, 56),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '15',
+      nameForUser: "Middle upper abdomen",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(100, 137, 34, 56),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '16',
+      nameForUser: "Right upper abdomen",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(125, 137, 36, 56),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '17',
+      nameForUser: "Left breast",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(64, 111, 42, 33),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '18',
+      nameForUser: "Chest",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(95, 54, 40, 85),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '19',
+      nameForUser: "Right breast",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(123, 111, 45, 33),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '20',
+      nameForUser: "Left upper chest",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(63, 66, 46, 48),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '21',
+      nameForUser: "Right upper chest ",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(121, 66, 46, 48),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '22',
+      nameForUser: "Right shoulder",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(149, 73, 38, 28),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '23',
+      nameForUser: "Right upper arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(162, 93, 34, 65),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '24',
+      nameForUser: "Right elbow",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(172, 154, 31, 30),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '25',
+      nameForUser: "Right lower arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(175, 180, 31, 48),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '26',
+      nameForUser: "Right hand",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(189, 225, 42, 54),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '27',
+      nameForUser: "Left shoulder",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(45, 73, 38, 28),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '28',
+      nameForUser: "Left upper arm ",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(35, 93, 34, 65),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '29',
+      nameForUser: "Left elbow",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(28, 154, 31, 30),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '30',
+      nameForUser: "Left lower arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(25, 180, 31, 48),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '31',
+      nameForUser: "Left hand",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(0, 225, 42, 54),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '33',
+      nameForUser: "Left front thigh",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(54, 262, 60, 68),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '34',
+      nameForUser: "Left front knee",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(68, 330, 45, 60),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '35',
+      nameForUser: "Left shin",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(73, 389, 40, 60),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '36',
+      nameForUser: "Left foot",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(73, 448, 41, 49),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '37',
+      nameForUser: "Right front thigh",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(118, 262, 60, 68),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '38',
+      nameForUser: "Right front knee",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(120, 329, 42, 60),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '39',
+      nameForUser: "Right shin",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(119, 388, 39, 60),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '40',
+      nameForUser: "Right foot",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(119, 447, 41, 51),
+      bodySide: BodySide.Front),
+  BodyPart(
+      name: '41',
+      nameForUser: "Left buttock",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(53, 206, 63, 80),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '42',
+      nameForUser: "Right buttock",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(115, 206, 63, 80),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '43',
+      nameForUser: "Left lower back",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(61, 177, 38, 38),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '44',
+      nameForUser: "Middle lower back",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(91, 181, 47, 41),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '45',
+      nameForUser: "Right lower back",
+      category1: "Pelvic area",
+      area: const Rect.fromLTWH(125, 177, 46, 40),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '46',
+      nameForUser: "Left back",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(67, 119, 35, 64),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '47',
+      nameForUser: "Middle back",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(98, 124, 35, 59),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '48',
+      nameForUser: "Right back",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(130, 119, 35, 64),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '49',
+      nameForUser: "Left upper back",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(42, 71, 58, 54),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '50',
+      nameForUser: "Middle upper back",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(89, 70, 53, 55),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '51',
+      nameForUser: "Right upper back",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(132, 71, 56, 54),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '53',
+      nameForUser: "Left back thigh",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(53, 265, 60, 56),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '54',
+      nameForUser: "Left back knee",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(66, 320, 47, 60),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '55',
+      nameForUser: "Left calf",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(72, 378, 41, 80),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '56',
+      nameForUser: "Left heel",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(83, 457, 32, 32),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '57',
+      nameForUser: "Right back thigh",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(118, 265, 60, 56),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '58',
+      nameForUser: "Right back knee",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(118, 320, 47, 60),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '59',
+      nameForUser: "Right calf",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(118, 378, 41, 80),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '60',
+      nameForUser: "Right heel",
+      category1: "Lower body",
+      area: const Rect.fromLTWH(116, 457, 32, 32),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '28b',
+      nameForUser: "Left upper arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(35, 117, 32, 35),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '29b',
+      nameForUser: "Left elbow",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(28, 149, 31, 35),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '30b',
+      nameForUser: "Left lower arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(25, 180, 30, 42),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '31b',
+      nameForUser: "Left hand",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(0, 218, 41, 62),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '23b',
+      nameForUser: "Right upper arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(165, 117, 32, 35),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '24b',
+      nameForUser: "Right elbow",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(172, 149, 31, 35),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '25b',
+      nameForUser: "Right lower arm",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(176, 180, 30, 42),
+      bodySide: BodySide.Back),
+  BodyPart(
+      name: '26b',
+      nameForUser: "Right hand",
+      category1: "Upper body",
+      area: const Rect.fromLTWH(190, 218, 41, 62),
+      bodySide: BodySide.Back),
+];

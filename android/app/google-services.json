@@ -1,0 +1,102 @@
+{
+  "project_info": {
+    "project_number": "1042529430711",
+    "project_id": "ekvi-28c70",
+    "storage_bucket": "ekvi-28c70.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042529430711:android:792480d8d07e7534acf132",
+        "android_client_info": {
+          "package_name": "com.ekvi.ekvi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042529430711-8aatj755ca85m4brstsklo4vhfggthkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "cb427e83ce7bcc64dfe86f96a7ba87f4fa62a772"
+          }
+        },
+        {
+          "client_id": "1042529430711-ai0lhg140171l8e0hl1rsnqupa6fd892.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "a09b219ae3eb1d2d26215372c4d7c024b4036924"
+          }
+        },
+        {
+          "client_id": "1042529430711-cngcr017g3hkeb6csg92gj4r7fossabh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "9a86f4899f00855f75347542f5aac4ccae58dd2b"
+          }
+        },
+        {
+          "client_id": "1042529430711-eq8rlo3f02nk2mqfm58streed2s34vj6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "de2f852d6be3ca81d83656aa34511b5d4d795579"
+          }
+        },
+        {
+          "client_id": "1042529430711-gp27esdop327veht7rn71ag92ugt5dhp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "001a01546b2ba11cf450053f9213b9e7db54e9ec"
+          }
+        },
+        {
+          "client_id": "1042529430711-ijb5b3hlevrpl64013shra6gjkokneje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "f6c429ca792ad2d9d7c36f400d6e8bd717329ee1"
+          }
+        },
+        {
+          "client_id": "1042529430711-ufca8a8atajaa1hea67gsug59aemfm54.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ekvi.ekvi",
+            "certificate_hash": "3b792d5b86846bd6912a420706b0b9a3d48a39fa"
+          }
+        },
+        {
+          "client_id": "1042529430711-s02ctrtuitqtcq5q1u5llh655b266hsa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA10Z-smbkY9uCp__xRzFen1koAl6nVxpw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042529430711-pb29n3p656n22u6tlfs2etnc7q5447id.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042529430711-ukh8qoftj4s0kssomttdlchm7f05tlpi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ekvi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

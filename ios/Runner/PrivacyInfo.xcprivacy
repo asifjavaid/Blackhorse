@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   PrivacyInfo.xcprivacy
+   Runner
+
+   Created by Muhammad Hamad Jamal on 30/04/2024.
+   Copyright (c) 2024 . All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <!-- User Defaults Access -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>CA92.1</string> <!-- Reason for accessing user defaults -->
+            </array>
+        </dict>
+        <!-- File Timestamp Access -->
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>DDA9.1</string> <!-- Reason for displaying file timestamps -->
+                <string>C617.1</string> <!-- Additional reason for accessing file metadata -->
+            </array>
+        </dict>
+    </array>
+</dict>
+</plist>
