@@ -12,7 +12,6 @@ import 'package:ekvi/Models/DailyTracker/Movement/movement_model.dart';
 import 'package:ekvi/Models/DailyTracker/Nausea/nausea_model.dart';
 import 'package:ekvi/Models/DailyTracker/OvulationTest/ovulation_test_model.dart';
 import 'package:ekvi/Models/DailyTracker/PainKillers/pain_killers_model.dart';
-import 'package:ekvi/Models/DailyTracker/PainRelief/pain_relief_model.dart';
 import 'package:ekvi/Models/DailyTracker/PregnancyTest/pregnancy_test_model.dart';
 import 'package:ekvi/Models/DailyTracker/SelfCare/selfcare_model.dart';
 import 'package:ekvi/Models/DailyTracker/Stress/stress_model.dart';
@@ -25,6 +24,9 @@ import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:ekvi/Utils/helpers/shared_preferences.dart';
 import 'package:ekvi/Utils/helpers/time_helper.dart';
 import 'package:flutter/material.dart';
+
+import '../Urination/urination_urgency_model.dart';
+import 'PainRelief/pain_relief_model.dart';
 
 class SymptomCategoriesModel {
   CategoryBodyPartPain bodyPain;
@@ -42,6 +44,7 @@ class SymptomCategoriesModel {
   CategoryBrainFog brainFog;
   CategoryIntimacy intimacy;
   CategoryBowelMovement bowlMovement;
+  CategoryUrinationUrgency urinationUrgency;
   CategoryPainKillers painKillers;
   CategoryMovement movements;
   CategorySelfCare selfCare;
@@ -64,6 +67,7 @@ class SymptomCategoriesModel {
       required this.brainFog,
       required this.bloating,
       required this.bowlMovement,
+      required this.urinationUrgency,
       required this.movements,
       required this.selfCare,
       required this.painRelief});
@@ -76,18 +80,11 @@ class CategoryBleeding {
   List<OptionModel> colour;
   int pads;
 
-  CategoryBleeding(
-      {required this.painTimeOptions,
-      required this.options,
-      required this.colour,
-      required this.consistency,
-      required this.pads});
+  CategoryBleeding({required this.painTimeOptions, required this.options, required this.colour, required this.consistency, required this.pads});
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
-    OptionModel? bleeding =
-        options.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? bleeding = options.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (bleeding == null) {
@@ -97,8 +94,7 @@ class CategoryBleeding {
 
   void updateFrom(DailyTrackerAnswers data) {
     for (var option in painTimeOptions) {
-      bool isSelected = data.timeOfDay?.replaceAll(" ", "").toLowerCase() ==
-          option.text.replaceAll(" ", "").toLowerCase();
+      bool isSelected = data.timeOfDay?.replaceAll(" ", "").toLowerCase() == option.text.replaceAll(" ", "").toLowerCase();
       option.isSelected = isSelected;
     }
     for (var option in options) {
@@ -112,8 +108,7 @@ class CategoryBleeding {
     }
 
     for (var option in consistency) {
-      bool isSelected =
-          data.consistency!.contains(option.text.replaceAll(" ", "_"));
+      bool isSelected = data.consistency!.contains(option.text.replaceAll(" ", "_"));
       option.isSelected = isSelected;
     }
     pads = data.pads ?? 0;
@@ -121,23 +116,13 @@ class CategoryBleeding {
 
   Future<DailyTrackerAnswers> convertTo(String date, String timeOfDay) async {
     DailyTrackerAnswers data = DailyTrackerAnswers();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
     data.timeOfDay = timeOfDay;
-    data.answer = options
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.answer = options.where((option) => option.isSelected).map((option) => option.text).toList();
     data.pads = pads;
-    data.color = colour
-        .where((option) => option.isSelected)
-        .map((option) => option.text.replaceAll(" ", "_"))
-        .toList();
-    data.consistency = consistency
-        .where((option) => option.isSelected)
-        .map((option) => option.text.replaceAll(" ", "_"))
-        .toList();
+    data.color = colour.where((option) => option.isSelected).map((option) => option.text.replaceAll(" ", "_")).toList();
+    data.consistency = consistency.where((option) => option.isSelected).map((option) => option.text.replaceAll(" ", "_")).toList();
     return data;
   }
 }
@@ -203,8 +188,7 @@ class JustExisting {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -215,72 +199,41 @@ class JustExisting {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Existing";
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
     data.timezone = await TimeHelper.getCurrentTimezone();
     return data;
@@ -297,15 +250,10 @@ class Eating {
   List<String> rows = ["Work", "Social life", "Sleep", "Quality of life"];
 
   Eating(
-      {required this.conditions,
-      required this.feelsLikeOptions,
-      required this.painTimeOptions,
-      required this.impactGrid,
-      required this.painLevel});
+      {required this.conditions, required this.feelsLikeOptions, required this.painTimeOptions, required this.impactGrid, required this.painLevel});
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -316,84 +264,48 @@ class Eating {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in conditions) {
-      bool isSelected = eventData.experience != null
-          ? eventData.experience!.contains(option.text)
-          : false;
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Eating";
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.experience = conditions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.experience = conditions.where((option) => option.isSelected).map((option) => option.text).toList();
 
     data.intensityScale = painLevel != null ? painLevel! : 0;
 
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
 
     data.timezone = await TimeHelper.getCurrentTimezone();
@@ -419,8 +331,7 @@ class Toilet {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -431,82 +342,46 @@ class Toilet {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in conditions) {
-      bool isSelected = eventData.experience != null
-          ? eventData.experience!.contains(option.text)
-          : false;
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Toilet";
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.experience = conditions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.experience = conditions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
 
     data.timezone = await TimeHelper.getCurrentTimezone();
@@ -532,8 +407,7 @@ class Travel {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -544,84 +418,48 @@ class Travel {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in conditions) {
-      bool isSelected = eventData.experience != null
-          ? eventData.experience!.contains(option.text)
-          : false;
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Travel";
 
-    data.experience = conditions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.experience = conditions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
 
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
 
     data.timezone = await TimeHelper.getCurrentTimezone();
@@ -647,8 +485,7 @@ class Work {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -659,84 +496,48 @@ class Work {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in describeWorkDay) {
-      bool isSelected = eventData.experience != null
-          ? eventData.experience!.contains(option.text)
-          : false;
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Work";
 
-    data.experience = describeWorkDay
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.experience = describeWorkDay.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
 
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
 
     data.timezone = await TimeHelper.getCurrentTimezone();
@@ -770,8 +571,7 @@ class Exercise {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -783,55 +583,36 @@ class Exercise {
     painLevel = eventData.intensityScale;
 
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
 
     _updateExerciseType(eventData.exerciseType, 'Cardio', cardio);
-    _updateExerciseType(
-        eventData.exerciseType, 'Strength Training', strengthTraining);
-    _updateExerciseType(
-        eventData.exerciseType, 'Flexibility & Balance', flexibilityAndBalance);
+    _updateExerciseType(eventData.exerciseType, 'Strength Training', strengthTraining);
+    _updateExerciseType(eventData.exerciseType, 'Flexibility & Balance', flexibilityAndBalance);
     _updateExerciseType(eventData.exerciseType, 'Sports', sports);
     _updateExerciseType(eventData.exerciseType, 'Others', others);
   }
 
-  void _updateExerciseType(List<ExerciseType>? exerciseTypes, String typeName,
-      List<OptionModel> options) {
+  void _updateExerciseType(List<ExerciseType>? exerciseTypes, String typeName, List<OptionModel> options) {
     if (exerciseTypes == null) return;
-    var exerciseType =
-        exerciseTypes.firstWhereOrNull((et) => et.name == typeName);
+    var exerciseType = exerciseTypes.firstWhereOrNull((et) => et.name == typeName);
     if (exerciseType != null) {
       for (var option in options) {
         option.isSelected = exerciseType.types!.contains(option.text);
@@ -839,38 +620,22 @@ class Exercise {
     }
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Exercise";
     // data.experience = conditions.where((option) => option.isSelected).map((option) => option.text).toList();
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
 
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
     data.exerciseType = _getSelectedExerciseTypes();
     data.timezone = await TimeHelper.getCurrentTimezone();
@@ -881,22 +646,16 @@ class Exercise {
     List<ExerciseType> exerciseTypes = [];
 
     _addSelectedExerciseType('Cardio', cardio, exerciseTypes);
-    _addSelectedExerciseType(
-        'Strength Training', strengthTraining, exerciseTypes);
-    _addSelectedExerciseType(
-        'Flexibility & Balance', flexibilityAndBalance, exerciseTypes);
+    _addSelectedExerciseType('Strength Training', strengthTraining, exerciseTypes);
+    _addSelectedExerciseType('Flexibility & Balance', flexibilityAndBalance, exerciseTypes);
     _addSelectedExerciseType('Sports', sports, exerciseTypes);
     _addSelectedExerciseType('Others', others, exerciseTypes);
 
     return exerciseTypes;
   }
 
-  void _addSelectedExerciseType(String name, List<OptionModel> options,
-      List<ExerciseType> exerciseTypes) {
-    List<String> selectedTypes = options
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+  void _addSelectedExerciseType(String name, List<OptionModel> options, List<ExerciseType> exerciseTypes) {
+    List<String> selectedTypes = options.where((option) => option.isSelected).map((option) => option.text).toList();
     if (selectedTypes.isNotEmpty) {
       exerciseTypes.add(ExerciseType(name: name, types: selectedTypes));
     }
@@ -921,8 +680,7 @@ class Sleep {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -933,83 +691,47 @@ class Sleep {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in conditions) {
-      bool isSelected = eventData.experience != null
-          ? eventData.experience!.contains(option.text)
-          : false;
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Sleep";
-    data.experience = conditions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.experience = conditions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
 
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
     data.timezone = await TimeHelper.getCurrentTimezone();
     return data;
@@ -1042,8 +764,7 @@ class Sex {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -1054,125 +775,69 @@ class Sex {
   void updateFrom(EventData eventData) {
     painLevel = eventData.intensityScale;
     for (var option in experience) {
-      bool isSelected = eventData.experience != null
-          ? eventData.experience!.contains(option.text)
-          : false;
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
 
     for (var option in activity) {
-      bool isSelected = eventData.intimacyActivity != null
-          ? eventData.intimacyActivity!.contains(option.text)
-          : false;
+      bool isSelected = eventData.intimacyActivity != null ? eventData.intimacyActivity!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in intimacyType) {
-      bool isSelected = eventData.intimacyType != null
-          ? eventData.intimacyType!.contains(option.text)
-          : false;
+      bool isSelected = eventData.intimacyType != null ? eventData.intimacyType!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in toolType) {
-      bool isSelected = eventData.toolType != null
-          ? eventData.toolType!.contains(option.text)
-          : false;
+      bool isSelected = eventData.toolType != null ? eventData.toolType!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in climaxType) {
-      bool isSelected = eventData.climaxType != null
-          ? eventData.climaxType!.contains(option.text)
-          : false;
+      bool isSelected = eventData.climaxType != null ? eventData.climaxType!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in feelsLikeOptions) {
-      bool isSelected = eventData.feeling != null
-          ? eventData.feeling!.contains(option.text)
-          : false;
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in painTimeOptions) {
-      bool isSelected = eventData.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text
-          : false;
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
 
     impactGrid = eventData.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(eventData
-                .partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
   }
 
-  Future<DailyTrackerEvent> convertTo(
-      List<BodyPart> bodyParts, String date) async {
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
     DailyTrackerEvent data = DailyTrackerEvent();
-    data.name = bodyParts
-        .map((bodyPart) => bodyPart.name!.replaceAll(" ", "-"))
-        .toList();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-        .firstWhereOrNull((element) => element.isSelected == true)!
-        .text
-        .replaceAll(" ", "");
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
     data.activity = "Intimacy";
-    data.experience = experience
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.intimacyActivity = activity
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.feeling = feelsLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.experience = experience.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intimacyActivity = activity.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
     data.intensityScale = painLevel != null ? painLevel! : 0;
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
     data.timezone = await TimeHelper.getCurrentTimezone();
-    data.intimacyType = intimacyType
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.intimacyTool = toolType
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.intimacyOrgasm = climaxType
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
+    data.intimacyType = intimacyType.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intimacyTool = toolType.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intimacyOrgasm = climaxType.where((option) => option.isSelected).map((option) => option.text).toList();
     return data;
   }
 }
@@ -1205,8 +870,7 @@ class Headache {
   });
 
   void validate() {
-    OptionModel? time =
-        painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
     } else if (painLevel == 0) {
@@ -1217,24 +881,19 @@ class Headache {
   void updateFrom(HeadacheResponseModel data) {
     painLevel = data.intensityScale;
     for (var option in painTimeOptions) {
-      bool isSelected = data.timeOfDay != null
-          ? HelperFunctions.formatTimeOfDay(data.timeOfDay) == option.text
-          : false;
+      bool isSelected = data.timeOfDay != null ? HelperFunctions.formatTimeOfDay(data.timeOfDay) == option.text : false;
       option.isSelected = isSelected;
     }
     for (var option in feltLikeOptions) {
-      bool isSelected =
-          data.feltLike != null ? data.feltLike!.contains(option.text) : false;
+      bool isSelected = data.feltLike != null ? data.feltLike!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in locationOptions) {
-      bool isSelected =
-          data.location != null ? data.location!.contains(option.text) : false;
+      bool isSelected = data.location != null ? data.location!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in typeOptions) {
-      bool isSelected =
-          data.type != null ? data.type!.contains(option.text) : false;
+      bool isSelected = data.type != null ? data.type!.contains(option.text) : false;
       option.isSelected = isSelected;
     }
     for (var option in onsetOptions) {
@@ -1243,73 +902,35 @@ class Headache {
     }
 
     impactGrid = data.partOfLifeEffect == null
-        ? ImpactGrid(
-            qualityOfLifeValue: 0,
-            sleepValue: 0,
-            socialLifeValue: 0,
-            workValue: 0)
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
         : ImpactGrid(
-            qualityOfLifeValue: columns.indexOf(data
-                .partOfLifeEffect![data.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[3])]
-                .impactLevel!),
-            sleepValue: columns.indexOf(data
-                .partOfLifeEffect![data.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[2])]
-                .impactLevel!),
-            socialLifeValue: columns.indexOf(data
-                .partOfLifeEffect![data.partOfLifeEffect!
-                    .indexWhere((element) => element.type == rows[1])]
-                .impactLevel!),
-            workValue: columns.indexOf(data
-                .partOfLifeEffect![data.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])]
-                .impactLevel!));
+            qualityOfLifeValue:
+                columns.indexOf(data.partOfLifeEffect![data.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns.indexOf(data.partOfLifeEffect![data.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue:
+                columns.indexOf(data.partOfLifeEffect![data.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns.indexOf(data.partOfLifeEffect![data.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
 
-    durationTime = data.durationInMinutes != null
-        ? DateTime(0, 1, 1, 0, data.durationInMinutes!)
-        : DateTime(0, 1, 1, 0, 0);
+    durationTime = data.durationInMinutes != null ? DateTime(0, 1, 1, 0, data.durationInMinutes!) : DateTime(0, 1, 1, 0, 0);
     headacheNotes = data.note ?? "";
   }
 
   Future<HeadacheRequestModel> convertTo(String date) async {
     HeadacheRequestModel data = HeadacheRequestModel();
-    data.userId =
-        await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     data.date = date;
-    data.timeOfDay = painTimeOptions
-            .firstWhereOrNull((element) => element.isSelected == true)
-            ?.text
-            .replaceAll(" ", "") ??
-        "Morning";
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)?.text.replaceAll(" ", "") ?? "Morning";
     data.intensityScale = painLevel ?? 0;
-    data.feltLike = feltLikeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.location = locationOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.type = typeOptions
-        .where((option) => option.isSelected)
-        .map((option) => option.text)
-        .toList();
-    data.onset = onsetOptions
-            .firstWhereOrNull((element) => element.isSelected == true)
-            ?.text ??
-        "";
+    data.feltLike = feltLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.location = locationOptions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.type = typeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.onset = onsetOptions.firstWhereOrNull((element) => element.isSelected == true)?.text ?? "";
     data.durationInMinutes = durationTime.hour * 60 + durationTime.minute;
     data.partOfLifeEffect = [
-      PartOfLifeEffect(
-          type: "Work", impactLevel: columns[impactGrid.workValue]),
-      PartOfLifeEffect(
-          type: "Social life",
-          impactLevel: columns[impactGrid.socialLifeValue]),
-      PartOfLifeEffect(
-          type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
-      PartOfLifeEffect(
-          type: "Quality of life",
-          impactLevel: columns[impactGrid.qualityOfLifeValue]),
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
     ];
     data.note = headacheNotes;
     return data;
@@ -1322,11 +943,7 @@ class CategoriesData {
   Color bgColor;
   CategoryDataType dataType;
 
-  CategoriesData(
-      {required this.title,
-      required this.bgColor,
-      this.icon,
-      required this.dataType});
+  CategoriesData({required this.title, required this.bgColor, this.icon, required this.dataType});
 }
 
 class CycleData {
@@ -1342,9 +959,5 @@ class ImpactGrid {
   int sleepValue;
   int qualityOfLifeValue;
 
-  ImpactGrid(
-      {required this.workValue,
-      required this.socialLifeValue,
-      required this.sleepValue,
-      required this.qualityOfLifeValue});
+  ImpactGrid({required this.workValue, required this.socialLifeValue, required this.sleepValue, required this.qualityOfLifeValue});
 }

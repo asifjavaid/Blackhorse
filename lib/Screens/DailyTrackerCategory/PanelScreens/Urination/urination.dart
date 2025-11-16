@@ -15,6 +15,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../Models/DailyTracker/options_model.dart';
+import '../../../../Providers/DailyTracker/Urination/urination_provider.dart';
+import '../../../../Utils/constants/app_enums.dart';
+import '../../../../Widgets/CustomWidgets/grid_radio_selection.dart';
+
 class UrinationScreen extends StatefulWidget {
   const UrinationScreen({super.key});
 
@@ -26,14 +31,16 @@ class _UrinationScreenState extends State<UrinationScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<BowelMovementProvider>(context, listen: false).fetchBowelMovFeedbackStatus();
+      Provider.of<UrinationProvider>(context, listen: false).fetchBowelMovFeedbackStatus();
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BowelMovementProvider>(builder: (context, provider, child) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return Consumer<UrinationProvider>(builder: (context, provider, child) {
       return Column(
         children: [
           FeatureFeedback(
@@ -43,7 +50,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
           GridOptions(
               title: "When did it happen?",
               elevated: true,
-              options: provider.bowelMovementData.bowelMovementTime,
+              options: provider.urinationUrgencyData.urinationUrgencyTime,
               width: 100.w,
               height: 100.h,
               backgroundColor: AppColors.whiteColor,
@@ -52,9 +59,9 @@ class _UrinationScreenState extends State<UrinationScreen> {
             height: 16,
           ),
           PainLevelSelector(
-            title: "How was the consistency?",
-            selectedPainLevel: provider.bowelMovementData.bowelMovementLevel,
-            levels: AppStrings.bowelMovLevels,
+            title: "How was the urgency?",
+            selectedPainLevel: provider.urinationUrgencyData.bowelMovementLevel,
+            levels: AppStrings.urinationLevels,
             activeTrackColorList: provider.activeTrackColors,
             onChanged: provider.handleBowelMovLevelSelection,
             enableHelp: false,
@@ -64,7 +71,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
           ),
           FrequencyDropdown(
             title: 'Frequency',
-            selectedFrequencyLevel: provider.bowelMovementData.frequencyLevel,
+            selectedFrequencyLevel: provider.urinationUrgencyData.frequencyLevel,
             onChanged: (value) {
               provider.handleFrequencyLevelSelection(value!);
             },
@@ -73,9 +80,9 @@ class _UrinationScreenState extends State<UrinationScreen> {
             height: 16,
           ),
           ListGridOptions(
-            title: "Bristol Stool Scale",
+            title: "Sensations",
             elevated: true,
-            options: provider.bowelMovementData.bristolStoolScaleOptions,
+            options: provider.urinationUrgencyData.sensationOptions,
             width: 100.w,
             height: 100.h,
             enableHelp: true,
@@ -83,12 +90,12 @@ class _UrinationScreenState extends State<UrinationScreen> {
               HelperFunctions.openCustomBottomSheet(context, content: const BristolStoolScaleWidget(), height: 700);
             },
             backgroundColor: AppColors.whiteColor,
-            callback: provider.handleBowelMovOptionsSelection,
+            callback: provider.handleUrinationUrgencyOptionsSelection,
             subCategoryOptions: [
               GridOptions(
-                title: "Colour",
+                title: "Complications",
                 elevated: false,
-                options: provider.bowelMovementData.colorOptions,
+                options: provider.urinationUrgencyData.complications,
                 width: 100.w,
                 height: 100.h,
                 enableHelp: true,
@@ -101,60 +108,64 @@ class _UrinationScreenState extends State<UrinationScreen> {
                 margin: EdgeInsets.zero,
               ),
               GridOptions(
-                title: "Size",
+                title: "Diagnoses",
                 elevated: false,
-                options: provider.bowelMovementData.sizeOptions,
+                options: provider.urinationUrgencyData.diagnoses,
                 width: 100.w,
                 height: 100.h,
                 backgroundColor: AppColors.whiteColor,
-                callback: provider.handleBowelMovSizeSelection,
+                callback: provider.handleDiagnosesSelection,
                 padding: const EdgeInsets.only(top: 16),
                 margin: EdgeInsets.zero,
               ),
               GridOptions(
-                title: "Effort",
+                title: "Colour",
                 elevated: false,
-                options: provider.bowelMovementData.effortOptions,
+                options: provider.urinationUrgencyData.colorOptions,
                 width: 100.w,
                 height: 100.h,
+                enableHelp: true,
+                enableHelpCallback: () {
+                  HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
+                },
                 backgroundColor: AppColors.whiteColor,
-                callback: provider.handleBowelMovEffortsSelection,
+                callback: provider.handleBowelMovColorSelection,
                 padding: const EdgeInsets.only(top: 16),
                 margin: EdgeInsets.zero,
               ),
               GridOptions(
-                title: "Unusual components",
+                title: "Smell",
                 elevated: false,
-                options: provider.bowelMovementData.unusualComponentsOptions,
+                options: provider.urinationUrgencyData.smellOptions,
                 width: 100.w,
                 height: 100.h,
                 backgroundColor: AppColors.whiteColor,
-                callback: provider.handleBowelMovUnusualComponentSelection,
+                callback: provider.handleSmellOptionsSelection,
                 padding: const EdgeInsets.only(top: 16),
                 margin: EdgeInsets.zero,
               ),
-              GridOptions(
-                title: "Duration",
-                elevated: false,
-                options: provider.bowelMovementData.durationOptions,
-                width: 100.w,
-                height: 100.h,
-                backgroundColor: AppColors.whiteColor,
-                callback: provider.handleBowelMovDurationSelection,
-                padding: const EdgeInsets.only(top: 16),
-                margin: EdgeInsets.zero,
-              )
             ],
           ),
           const SizedBox(
             height: 16,
           ),
-          Notes(notesText: provider.bowelMovementData.bowelMovementNotes, placeholderText: provider.bowelMovementData.notesPlaceholder, callback: provider.handleBowelMovNotes),
+          GridRadioSelection(
+              title: "How is the pain affecting your life right now?",
+              width: width,
+              impactGrid: provider.urinationUrgencyData.bodyPain.headache.impactGrid,
+              callback: (OptionModel option, int impactLevel) {
+                provider.handleEventOptionSelection(PainEventsCategory.Intimacy, option, 8, impactLevel);
+              }),
+          Notes(
+              notesText: provider.urinationUrgencyData.urineUrgencyNotes,
+              placeholderText: provider.urinationUrgencyData.notesPlaceholder,
+              callback: provider.handleBowelMovNotes),
           const SizedBox(
             height: 48,
           ),
+
           CustomButton(
-            title: "Track bowel movement",
+            title: "Track urination",
             onPressed: () => provider.patchBowelMovRequest(context),
           ),
           const SizedBox(

@@ -18,6 +18,8 @@ import 'package:ekvi/Models/DailyTracker/symptom_categories_model.dart';
 import 'package:ekvi/Utils/constants/app_enums.dart';
 import 'package:ekvi/Utils/helpers/shared_preferences.dart';
 
+import '../Urination/urination_urgency_model.dart';
+
 class DailyTrackerAccessedEvent extends BaseEvent {
   final String accessMethod;
   final DateTime dateAccessed;
@@ -377,6 +379,36 @@ class AmplitudeBowelMovementDetails extends BaseEvent {
         "stoolDuration": data.stoolDuration,
         "stoolNotes": data.stoolNotes
       };
+}
+
+class AmplitudeUrinationUrgencyDetails extends BaseEvent {
+  final UrinationUrgencyResponseModel data;
+  final String userId;
+
+  AmplitudeUrinationUrgencyDetails({required this.data, required this.userId});
+
+  @override
+  String get eventName => 'BowelMovementDetails';
+
+  @override
+  String get description =>
+      'User attempted to save Bowel Movement details in daily tracker';
+
+  @override
+  Future<Map<String, dynamic>> get properties async => {
+    'description': description,
+    'symptomCategory': "Bowel Movement",
+    'timeOfday': data.timeOfDay,
+    'userId': userId,
+    "stoolConsistency": data.stoolConsistency,
+    "stoolFrequency": data.stoolFrequency,
+    "stoolColour": data.stoolColour,
+    "stoolSize": data.stoolSize,
+    "stoolEffort": data.stoolEffort,
+    "stoolComponents": data.stoolComponents,
+    "stoolDuration": data.stoolDuration,
+    "stoolNotes": data.stoolNotes
+  };
 }
 
 class AmplitudeBloatingDetails extends BaseEvent {
