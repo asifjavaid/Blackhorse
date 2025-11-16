@@ -8,7 +8,7 @@ import '../DailyTracker/symptom_categories_model.dart';
 
 class CategoryUrinationUrgency {
   List<OptionModel> urinationUrgencyTime;
-  int bowelMovementLevel;
+  int urinationUrgencyLevel;
   int frequencyLevel;
   CategoryBodyPartPain bodyPain;
   List<OptionModel> sensationOptions;
@@ -24,7 +24,7 @@ class CategoryUrinationUrgency {
 
   CategoryUrinationUrgency(
       {required this.urinationUrgencyTime,
-      required this.bowelMovementLevel,
+      required this.urinationUrgencyLevel,
       required this.frequencyLevel,
         required this.bodyPain,
       required this.sensationOptions,
@@ -83,7 +83,7 @@ class CategoryUrinationUrgency {
 
 
     frequencyLevel = data.stoolFrequency ?? 1;
-    bowelMovementLevel = data.stoolConsistency ?? 0;
+    urinationUrgencyLevel = data.stoolConsistency ?? 0;
     urineUrgencyNotes = data.stoolNotes ?? "";
   }
 
@@ -91,7 +91,7 @@ class CategoryUrinationUrgency {
     OptionModel? time = urinationUrgencyTime.firstWhereOrNull((option) => option.isSelected);
     if (time == null) {
       throw "Please select time";
-    } else if (bowelMovementLevel == 0) {
+    } else if (urinationUrgencyLevel == 0) {
       throw "Please choose bowelMovement level on scale";
     }
   }
@@ -109,7 +109,7 @@ class CategoryUrinationUrgency {
       date: date,
       timeOfDay: time!.text.replaceAll(" ", ""),
       bristolScale: bristolStool != null ? sensationOptions.firstWhere((option) => option.isSelected).text : '',
-      stoolConsistency: bowelMovementLevel,
+      stoolConsistency: urinationUrgencyLevel,
       stoolFrequency: frequencyLevel,
       stoolColour: colors != null ? colorOptions.where((option) => option.isSelected).map((option) => option.text).toList() : [],
       stoolSize: size != null ? smellOptions.firstWhere((option) => option.isSelected).text : '',

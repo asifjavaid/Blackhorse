@@ -15,6 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../../Components/UrinationUrgencyLevel/urination_urgency_color_panel.dart';
+import '../../../../Components/UrinationUrgencyLevel/urination_urgency_level_help_text_widget.dart';
+import '../../../../Components/UrinationUrgencyLevel/urination_urgency_smell_help_panel.dart';
+import '../../../../Components/UrinationUrgencyLevel/urination_urgency_volume_help_panel.dart';
 import '../../../../Models/DailyTracker/options_model.dart';
 import '../../../../Providers/DailyTracker/Urination/urination_provider.dart';
 import '../../../../Utils/constants/app_enums.dart';
@@ -60,11 +64,12 @@ class _UrinationScreenState extends State<UrinationScreen> {
           ),
           PainLevelSelector(
             title: "How was the urgency?",
-            selectedPainLevel: provider.urinationUrgencyData.bowelMovementLevel,
+            selectedPainLevel: provider.urinationUrgencyData.urinationUrgencyLevel,
             levels: AppStrings.urinationLevels,
             activeTrackColorList: provider.activeTrackColors,
-            onChanged: provider.handleBowelMovLevelSelection,
-            enableHelp: false,
+            onChanged: provider.handleUrinationUrgencyLevelSelection,
+            enableHelp: true,
+            helpWidget: UrinationUrgencyLevelHelpWidget(),
           ),
           const SizedBox(
             height: 16,
@@ -85,7 +90,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
             options: provider.urinationUrgencyData.sensationOptions,
             width: 100.w,
             height: 100.h,
-            enableHelp: true,
+            enableHelp: false,
             enableHelpCallback: () {
               HelperFunctions.openCustomBottomSheet(context, content: const BristolStoolScaleWidget(), height: 700);
             },
@@ -98,7 +103,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
                 options: provider.urinationUrgencyData.complications,
                 width: 100.w,
                 height: 100.h,
-                enableHelp: true,
+                enableHelp: false,
                 enableHelpCallback: () {
                   HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
                 },
@@ -126,7 +131,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
                 height: 100.h,
                 enableHelp: true,
                 enableHelpCallback: () {
-                  HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
+                  HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyColorHelpWidget(), height: 700);
                 },
                 backgroundColor: AppColors.whiteColor,
                 callback: provider.handleBowelMovColorSelection,
@@ -143,6 +148,25 @@ class _UrinationScreenState extends State<UrinationScreen> {
                 callback: provider.handleSmellOptionsSelection,
                 padding: const EdgeInsets.only(top: 16),
                 margin: EdgeInsets.zero,
+                enableHelp: true,
+                enableHelpCallback: () {
+                  HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencySmellHelpWidget(), height: 700);
+                },
+              ),
+              GridOptions(
+                title: "Volume",
+                elevated: false,
+                options: provider.urinationUrgencyData.volumeOptions,
+                width: 100.w,
+                height: 100.h,
+                backgroundColor: AppColors.whiteColor,
+                callback: provider.handleVolumeOptionsSelection,
+                padding: const EdgeInsets.only(top: 16),
+                margin: EdgeInsets.zero,
+                enableHelp: true,
+                enableHelpCallback: () {
+                  HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyVolumeHelpWidget(), height: 700);
+                },
               ),
             ],
           ),

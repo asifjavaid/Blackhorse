@@ -75,8 +75,8 @@ class UrinationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handleBowelMovLevelSelection(int level) {
-    _urinationUrgencyData.bowelMovementLevel = level;
+  void handleUrinationUrgencyLevelSelection(int level) {
+    _urinationUrgencyData.urinationUrgencyLevel = level;
     notifyListeners();
   }
 
@@ -170,6 +170,18 @@ class UrinationProvider extends ChangeNotifier {
   void handleSmellOptionsSelection(int index) {
     OptionModel selectedOption = _urinationUrgencyData.smellOptions[index];
     for (var option in _urinationUrgencyData.smellOptions) {
+      if (option.text == selectedOption.text) {
+        option.isSelected = true;
+      } else {
+        option.isSelected = false;
+      }
+    }
+    notifyListeners();
+  }
+
+  void handleVolumeOptionsSelection(int index) {
+    OptionModel selectedOption = _urinationUrgencyData.volumeOptions[index];
+    for (var option in _urinationUrgencyData.volumeOptions) {
       if (option.text == selectedOption.text) {
         option.isSelected = true;
       } else {

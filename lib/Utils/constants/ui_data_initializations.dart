@@ -1199,7 +1199,7 @@ class DataInitializations {
           OptionModel(text: "Night"),
           OptionModel(text: "All Day"),
         ],
-        bowelMovementLevel: 0,
+        urinationUrgencyLevel: 0,
         frequencyLevel: 1,
         sensationOptions: [
           OptionModel(text: "Painful urination"),
