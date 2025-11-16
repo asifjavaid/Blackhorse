@@ -18,9 +18,9 @@ class CustomButton extends StatefulWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
 
-  final Icon? tralingIcon;
-  final Icon? icon;
-  final Icon? leadingIcon;
+  final Widget? tralingIcon;
+  final Widget? icon;
+  final Widget? leadingIcon;
 
   final VoidCallback? onPressed;
   final RoundedRectangleBorder? shapeBorder;

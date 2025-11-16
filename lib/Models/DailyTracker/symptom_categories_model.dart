@@ -939,7 +939,7 @@ class Headache {
 
 class CategoriesData {
   String title;
-  Icon? icon;
+  Widget? icon;
   Color bgColor;
   CategoryDataType dataType;
 

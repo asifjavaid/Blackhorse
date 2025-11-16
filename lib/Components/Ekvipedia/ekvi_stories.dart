@@ -8,7 +8,10 @@ import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:ekvi/Widgets/CustomWidgets/premium_icon_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../generated/assets.dart';
 
 class EkviStories extends StatelessWidget {
   final EkvipediaContentEntries ekviStories;
@@ -102,9 +105,10 @@ class EkviStories extends StatelessWidget {
                             const SizedBox(height: 8),
                             Row(
                               children: [
-                                const Icon(
-                                  AppCustomIcons.time,
-                                  size: 16.0,
+                                SvgPicture.asset(
+                                  Assets.customiconsTime,
+                                  height: 16.0,
+                                  width: 16.0,
                                   color: AppColors.neutralColor500,
                                 ),
                                 const SizedBox(width: 6.0),

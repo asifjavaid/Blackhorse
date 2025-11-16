@@ -9,7 +9,10 @@ import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../generated/assets.dart';
 
 class SelfcarePracticesScreen extends StatefulWidget {
   const SelfcarePracticesScreen({super.key});
@@ -195,7 +198,7 @@ class PracticeTile extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             IconButton(
-              icon: const Icon(AppCustomIcons.arrow_right, color: AppColors.actionColor600, size: 18),
+              icon: SvgPicture.asset(Assets.customiconsArrowRight, color: AppColors.actionColor600, height: 18, width: 18,),
               onPressed: () => AppNavigation.navigateTo(AppRoutes.updateSelfCarePracticesScreen, arguments: ScreenArguments(selfcarePractice: practice)),
             ),
           ],

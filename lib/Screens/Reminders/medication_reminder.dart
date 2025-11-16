@@ -12,11 +12,14 @@ import 'package:ekvi/Widgets/Buttons/custom_field_dropdown.dart';
 import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:ekvi/Widgets/CustomWidgets/notes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
+
+import '../../generated/assets.dart';
 
 class MedicationReminderScreen extends StatefulWidget {
   final ScreenArguments? args;
@@ -144,10 +147,11 @@ class _MedicationReminderScreenState extends State<MedicationReminderScreen> {
                                     .format(value.selectedTime),
                                 color: AppColors.primaryColor400,
                                 fontColor: AppColors.blackColor,
-                                tralingIcon: const Icon(
-                                  AppCustomIcons.arrow_down,
+                                tralingIcon: SvgPicture.asset(
+                                  Assets.customiconsArrowDown,
                                   color: AppColors.actionColor600,
-                                  size: 16,
+                                  height: 16,
+                                  width: 16,
                                 ),
                                 leadingIcon: const Icon(
                                   Icons.watch_later_sharp,

@@ -2,6 +2,9 @@ import 'package:ekvi/Models/FAQs/faq_model.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../generated/assets.dart';
 
 class FAQWidget extends StatefulWidget {
   final FAQ faq;
@@ -50,7 +53,14 @@ class FAQWidgetState extends State<FAQWidget> with SingleTickerProviderStateMixi
               widget.faq.question,
               style: textTheme.titleSmall!.copyWith(color: AppColors.blackColor, fontWeight: FontWeight.w600),
             ),
-            trailing: Icon(_isExpanded ? AppCustomIcons.arrow_up : AppCustomIcons.arrow_down, size: 16.0, color: AppColors.blackColor),
+            trailing: SvgPicture.asset(
+                _isExpanded ?
+                Assets.customiconsArrowUp :
+                Assets.customiconsArrowDown,
+                height: 16.0,
+                width: 16.0,
+                color: AppColors.blackColor
+            ),
           ),
           SizeTransition(
             sizeFactor: _sizeFactor,

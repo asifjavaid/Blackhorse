@@ -11,7 +11,10 @@ import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:ekvi/Widgets/CustomWidgets/veritcal_wheel_number_picker.dart';
 import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../generated/assets.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -61,9 +64,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                                             InkWell(
                                                               borderRadius: BorderRadius.circular(100),
                                                               onTap: () => value.goBackToPreviousAnswer(),
-                                                              child: const Icon(
-                                                                AppCustomIcons.arrow_left__property_2_ic,
-                                                                size: 18,
+                                                              child: SvgPicture.asset(
+                                                                Assets.customiconsArrowLeft,
+                                                                height: 18,
+                                                                width: 18,
                                                               ),
                                                             ),
                                                             const SizedBox(

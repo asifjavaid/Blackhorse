@@ -156,6 +156,9 @@ class _UrinationScreenState extends State<UrinationScreen> {
               callback: (OptionModel option, int impactLevel) {
                 provider.handleEventOptionSelection(PainEventsCategory.Intimacy, option, 8, impactLevel);
               }),
+          const SizedBox(
+            height: 16,
+          ),
           Notes(
               notesText: provider.urinationUrgencyData.urineUrgencyNotes,
               placeholderText: provider.urinationUrgencyData.notesPlaceholder,

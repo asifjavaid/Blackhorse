@@ -13,10 +13,13 @@ import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../generated/assets.dart';
 
 
 class CycleTracking extends StatefulWidget {
@@ -99,10 +102,11 @@ class _CycleTrackingState extends State<CycleTracking> {
                                             value.selectedCycleStartDate),
                                         color: AppColors.primaryColor400,
                                         fontColor: AppColors.blackColor,
-                                        tralingIcon: const Icon(
-                                          AppCustomIcons.arrow_down,
-                                          color: AppColors.actionColor600,
-                                          size: 16,
+                                        tralingIcon: SvgPicture.asset(
+                                            Assets.customiconsArrowDown,
+                                            height: 16,
+                                            width: 16,
+                                            color: AppColors.actionColor600
                                         ),
                                         onPressed: () =>
                                             HelperFunctions.showSheet(context,

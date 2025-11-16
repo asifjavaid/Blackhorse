@@ -5,6 +5,8 @@ import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../generated/assets.dart';
+
 class SubscribeFreeTrialStepper extends StatelessWidget {
   const SubscribeFreeTrialStepper({super.key});
 
@@ -24,21 +26,21 @@ class SubscribeFreeTrialStepper extends StatelessWidget {
             isFill: true,
           ),
           const ProgressStep(
-            icon: AppCustomIcons.locked,
+            icon: Assets.customiconsLocked,
             stepTitle: 'Today: Unlock Ekvi Empower',
             stepDescription: 'Access your personalized insights and articles in Ekvipedia.',
             completed: true,
             isFill: true,
           ),
           const ProgressStep(
-            icon: AppCustomIcons.notification,
+            icon: Assets.customiconsNotification,
             stepTitle: 'Day 5: We’ll send you a reminder',
             stepDescription: 'We’ll send you an email/notification. Cancel anytime in just 15 seconds.',
             completed: true,
             isFill: false,
           ),
           const ProgressStep(
-            icon: AppCustomIcons.heart,
+            icon: Assets.customiconsHeart,
             stepTitle: 'Day 7: Trial Ends',
             stepDescription: 'Your free trial will end after 7 days, your subscription starts the day after.',
             completed: false,
@@ -51,7 +53,7 @@ class SubscribeFreeTrialStepper extends StatelessWidget {
 }
 
 class ProgressStep extends StatelessWidget {
-  final IconData? icon;
+  final String? icon;
   final Widget? iconSvg;
   final String stepTitle;
   final String stepDescription;
@@ -75,10 +77,11 @@ class ProgressStep extends StatelessWidget {
                 HelperFunctions.giveBackgroundToIcon(
                     width: 36,
                     height: 36,
-                    Icon(
-                      icon,
+                    SvgPicture.asset(
+                      icon ?? "",
                       color: isFill ? AppColors.whiteColor : AppColors.primaryColor600,
-                      size: 18,
+                      height: 18,
+                      width: 18,
                     ),
                     bgColor: isFill ? AppColors.primaryColor600 : AppColors.whiteColor),
             if (completed) Container(width: 1, margin: const EdgeInsets.symmetric(vertical: 5), height: 30, color: AppColors.primaryColor600),

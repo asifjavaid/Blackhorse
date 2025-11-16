@@ -15,6 +15,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/assets.dart';
+
 class SubscriptionWelcome extends StatefulWidget {
   final VoidCallback? navigationCallback;
   const SubscriptionWelcome({super.key, this.navigationCallback});
@@ -72,10 +74,7 @@ class _SubscriptionWelcomeState extends State<SubscriptionWelcome> {
                   callback: () {
                     AppNavigation.goBack();
                   },
-                  startIcon: const Icon(
-                    AppCustomIcons.arrow_left__property_2_ic,
-                    size: 16,
-                  ),
+                  startIcon: Assets.customiconsArrowLeft,
                 ),
                 SvgPicture.asset(
                   "${AppConstant.assetImages}welcome_tribe.svg",

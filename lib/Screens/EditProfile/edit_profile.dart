@@ -22,6 +22,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/assets.dart';
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
 
@@ -130,7 +132,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             CustomTextFormField(
                               controller: value.firstNameController,
-                              prefixWidget: iconBuilder(const Icon(AppCustomIcons.profile), Colors.transparent),
+                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsProfile),  Colors.transparent),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your first name';
@@ -147,7 +149,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             CustomTextFormField(
                               controller: value.lastNameController,
-                              prefixWidget: iconBuilder(const Icon(AppCustomIcons.profile), Colors.transparent),
+                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsProfile),  Colors.transparent),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your last name';
@@ -165,7 +167,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             CustomTextFormField(
                               controller: value.emailController,
                               inputType: TextInputType.text,
-                              prefixWidget: iconBuilder(const Icon(AppCustomIcons.email), Colors.transparent),
+                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsEmail),  Colors.transparent),
                               validator: HelperFunctions.emailValidator,
                               isEnable: false,
                             ),
@@ -180,7 +182,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               controller: value.phoneController,
                               inputAction: TextInputAction.done,
                               inputType: TextInputType.text,
-                              prefixWidget: iconBuilder(const Icon(AppCustomIcons.support), Colors.transparent),
+                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsSupport),  Colors.transparent),
                               validator: HelperFunctions.phoneValidator,
                               maxLength: 16,
                               inputFormatters: [NorwegianPhoneFormatter()],
@@ -197,11 +199,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               title: DateFormat("dd/MM/yy").format(value.userDateOfBirth),
                               color: AppColors.primaryColor400,
                               fontColor: AppColors.blackColor,
-                              tralingIcon: const Icon(
-                                AppCustomIcons.arrow_down,
+                              tralingIcon: SvgPicture.asset(
+                                Assets.customiconsArrowDown,
                                 color: AppColors.actionColor600,
-                                size: 16,
+                                height: 16,
+                                width: 16,
                               ),
+
                               elevation: 0,
                               onPressed: () => HelperFunctions.showSheet(context,
                                   child: HelperFunctions.buildDatePicker(value.userDateOfBirth, value.setDateOfBirth),

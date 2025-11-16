@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
 
+import '../../generated/assets.dart';
+
 class LoginWithBankId extends StatefulWidget {
   const LoginWithBankId({super.key});
 
@@ -99,9 +101,10 @@ class _LoginWithBankIdState extends State<LoginWithBankId> {
                                         inputType: TextInputType.text,
                                         controller: value.emailController,
                                         prefixWidget: iconBuilder(
-                                            const Icon(
-                                              AppCustomIcons.email,
-                                              size: 16,
+                                            SvgPicture.asset(
+                                              Assets.customiconsEmail,
+                                              height: 16,
+                                              width: 16,
                                             ),
                                             Colors.transparent),
                                         obscureText: false,

@@ -4,7 +4,10 @@ import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../../generated/assets.dart';
 
 class MultiSymptomsSelection extends StatelessWidget {
   const MultiSymptomsSelection({super.key});
@@ -28,10 +31,12 @@ class MultiSymptomsSelection extends StatelessWidget {
                       children: [
                         GestureDetector(
                             onTap: () => AppNavigation.goBack(),
-                            child: const Icon(
-                              AppCustomIcons.arrow_left__property_2_ic,
-                              size: 16,
-                            )),
+                            child: SvgPicture.asset(
+                              Assets.customiconsArrowLeft,
+                              height: 16,
+                              width: 16,
+                            ),
+                        ),
                         const Spacer(),
                         Text("Please select up to 3 symptoms to compare with ${value.currentSymptom}"),
                         const Spacer(),
@@ -62,9 +67,10 @@ class MultiSymptomsSelection extends StatelessWidget {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Icon(
-                                        symptom.icon,
-                                        size: 16,
+                                      SvgPicture.asset(
+                                        symptom.icon ?? "",
+                                        height: 16,
+                                        width: 16,
                                         color: value.isSelected(symptom) ? AppColors.whiteColor : AppColors.neutralColor600,
                                       ),
                                       const SizedBox(width: 8),

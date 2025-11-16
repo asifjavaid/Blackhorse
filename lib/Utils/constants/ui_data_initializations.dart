@@ -26,6 +26,9 @@ import 'package:ekvi/Utils/constants/app_constant.dart';
 import 'package:ekvi/Utils/constants/app_enums.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../generated/assets.dart';
 
 class DataInitializations {
   // Bottom Navigation Bar Data
@@ -42,55 +45,61 @@ class DataInitializations {
     CategoriesData(
         title: "Body Pain",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.bolt,
+        icon: SvgPicture.asset(
+          Assets.customiconsBolt,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Bleeding",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.drip,
+        icon: SvgPicture.asset(
+          Assets.customiconsDrip,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Headache",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.headache,
+        icon: SvgPicture.asset(
+          Assets.customiconsHeadache,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Mood",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.emotions,
+        icon: SvgPicture.asset(
+          Assets.customiconsEmotions,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Stress",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.stress,
+        icon: SvgPicture.asset(
+          Assets.customiconsStress,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Energy",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.energy,
+        icon: SvgPicture.asset(
+          Assets.customiconsEnergy,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category)
   ];
@@ -99,37 +108,41 @@ class DataInitializations {
     CategoriesData(
         title: "Nausea",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.nausea,
+        icon: SvgPicture.asset(
+          Assets.customiconsNausea,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Fatigue",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.fatigue,
+        icon: SvgPicture.asset(
+          Assets.customiconsFatigue,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Bloating",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.bloating,
+        icon: SvgPicture.asset(
+          Assets.customiconsBloating,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Brain fog",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.brainfog,
+        icon: SvgPicture.asset(
+          Assets.customiconsBrainfog,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
   ];
@@ -137,28 +150,31 @@ class DataInitializations {
     CategoriesData(
         title: "Painkillers",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.pill_1,
+        icon: SvgPicture.asset(
+          Assets.customiconsPill1,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Hormones",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.hormones,
+        icon: SvgPicture.asset(
+          Assets.customiconsHormones,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Alcohol",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(
-          AppCustomIcons.alcohol,
+        icon: SvgPicture.asset(
+          Assets.customiconsAlcohol,
+          height: 24,
+          width: 24,
           color: AppColors.actionColor600,
-          size: 24,
         ),
         dataType: CategoryDataType.Category),
   ];
@@ -167,12 +183,22 @@ class DataInitializations {
     CategoriesData(
         title: "Bowel movement",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.bowel_movent, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsBowelMovent,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Urination",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.bowel_movent, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsUrination,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
   ];
 
@@ -180,34 +206,64 @@ class DataInitializations {
     CategoriesData(
         title: "Movement",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.training, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsTraining,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Self-care",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.follicular, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsFollicular,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Pain relief",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.pain_relief, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsPainRelief,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
   ];
   static final List<CategoriesData> fertilityAndPregnancy = [
     CategoriesData(
         title: "Intimacy",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.heart, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsHeart,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Ovulation test",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.ovulation_test, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsOvulationTest,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
     CategoriesData(
         title: "Pregnancy test",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.pregnancy_test, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsPregnancyTest,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Category),
   ];
 
@@ -215,7 +271,13 @@ class DataInitializations {
     CategoriesData(
         title: "Dr Visit",
         bgColor: AppColors.accentColorFour400,
-        icon: const Icon(AppCustomIcons.pregnancy_test, color: AppColors.accentColorThree500, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsPregnancyTest,
+          height: 24,
+          width: 24,
+          color: AppColors.accentColorThree500,
+        ),
+
         dataType: CategoryDataType.Category),
   ];
 
@@ -223,12 +285,22 @@ class DataInitializations {
     CategoriesData(
         title: "I’m just existing",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.existing, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsExisting,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Event),
     CategoriesData(
         title: "Eating",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.eating, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsEating,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Event),
     CategoriesData(
         title: "Toilet",
@@ -238,22 +310,42 @@ class DataInitializations {
     CategoriesData(
         title: "Travel",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.travel, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsTravel,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Event),
     CategoriesData(
         title: "Exercise",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.training, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsTraining,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Event),
     CategoriesData(
         title: "Sleep",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.sleep, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsSleep,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Event),
     CategoriesData(
         title: "Intimacy",
         bgColor: AppColors.whiteColor,
-        icon: const Icon(AppCustomIcons.heart, color: AppColors.actionColor600, size: 24),
+        icon: SvgPicture.asset(
+          Assets.customiconsHeart,
+          height: 24,
+          width: 24,
+          color: AppColors.actionColor600,
+        ),
         dataType: CategoryDataType.Event),
     CategoriesData(
         title: "Work",
@@ -1145,23 +1237,21 @@ class DataInitializations {
         ],
         smellOptions: [
           OptionModel(text: "No Smell"),
-          OptionModel(text: "Mild"),
-          OptionModel(text: "Yellow"),
-          OptionModel(text: "Orange"),
-          OptionModel(text: "Black"),
-          OptionModel(text: "Red"),
-          OptionModel(text: "Pale"),
-          OptionModel(text: "Clay"),
+          OptionModel(text: "Strong"),
+          OptionModel(text: "Ammonia"),
+          OptionModel(text: "Foul"),
+          OptionModel(text: "Sweet/Fruity"),
+          OptionModel(text: "Fishy"),
+          OptionModel(text: "Burnt/Sulfur"),
+          OptionModel(text: "Chemical"),
         ],
         volumeOptions: [
-          OptionModel(text: "No Smell"),
-          OptionModel(text: "Mild"),
-          OptionModel(text: "Yellow"),
-          OptionModel(text: "Orange"),
-          OptionModel(text: "Black"),
-          OptionModel(text: "Red"),
-          OptionModel(text: "Pale"),
-          OptionModel(text: "Clay"),
+          OptionModel(text: "None"),
+          OptionModel(text: "Drops"),
+          OptionModel(text: "Small"),
+          OptionModel(text: "Moderate"),
+          OptionModel(text: "Large"),
+          OptionModel(text: "Very large"),
         ],
         urineUrgencyNotes: "",
         notesPlaceholder: "Leave your notes here. It will only be visible to you.",

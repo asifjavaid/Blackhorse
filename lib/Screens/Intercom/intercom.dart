@@ -8,9 +8,12 @@ import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:ekvi/Widgets/Bars/custom_back_navigation_bar.dart';
 import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intercom_flutter/intercom_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
+
+import '../../generated/assets.dart';
 
 class IntercomScreen extends StatefulWidget {
   final ScreenArguments? arguments;
@@ -34,10 +37,11 @@ class _IntercomScreenState extends State<IntercomScreen> {
               _buildCard(
                 title: localizations.support,
                 subtitle: localizations.messageOurExperts,
-                trailingIcon: const Icon(
-                  AppCustomIcons.question,
-                  size: 16,
+                trailingIcon: SvgPicture.asset(
+                  Assets.customiconsQuestion,
                   color: AppColors.actionColor600,
+                  height: 16,
+                  width: 16,
                 ),
                 onTap: () async {
                   await Intercom.instance.displayMessenger();
@@ -49,10 +53,11 @@ class _IntercomScreenState extends State<IntercomScreen> {
               _buildCard(
                   title: localizations.helpCenter,
                   subtitle: localizations.faqGuidesLegal,
-                  trailingIcon: const Icon(
-                    AppCustomIcons.info,
-                    size: 16,
+                  trailingIcon: SvgPicture.asset(
+                    Assets.customiconsInfo,
                     color: AppColors.actionColor600,
+                    height: 16,
+                    width: 16,
                   ),
                   onTap: () => AppNavigation.navigateTo(AppRoutes.faqs)),
             ],
@@ -85,7 +90,7 @@ class _IntercomScreenState extends State<IntercomScreen> {
   Widget _buildCard({
     required String title,
     required String subtitle,
-    required Icon trailingIcon,
+    required Widget trailingIcon,
     required void Function() onTap,
   }) {
     return Padding(

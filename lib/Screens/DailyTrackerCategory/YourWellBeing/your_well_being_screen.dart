@@ -1,5 +1,6 @@
 import 'package:ekvi/Providers/DailyTracker/YourWellBeing/your_well_being_provider.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/Pain-Relief/pain_relief_practices_screen.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ekvi/Routes/app_navigation.dart';
@@ -9,6 +10,8 @@ import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Widgets/Bars/custom_back_navigation_bar.dart';
 import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
+
+import '../../../generated/assets.dart';
 
 class YourWellBeingScreen extends StatelessWidget {
   const YourWellBeingScreen({super.key});
@@ -34,21 +37,21 @@ class YourWellBeingScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         _TabButton(
-                          icon: AppCustomIcons.training,
+                          icon: Assets.customiconsTraining,
                           label: "Movement",
                           selected: wb.selectedTab == WellbeingTab.movement,
                           onTap: () => wb.selectTab(WellbeingTab.movement),
                         ),
                         const SizedBox(width: 24),
                         _TabButton(
-                          icon: AppCustomIcons.follicular,
+                          icon: Assets.customiconsFollicular,
                           label: "Self-care",
                           selected: wb.selectedTab == WellbeingTab.selfcare,
                           onTap: () => wb.selectTab(WellbeingTab.selfcare),
                         ),
                         const SizedBox(width: 24),
                         _TabButton(
-                          icon: AppCustomIcons.pain_relief,
+                          icon: Assets.customiconsPainRelief,
                           label: "Pain relief",
                           selected: wb.selectedTab == WellbeingTab.painRelief,
                           onTap: () => wb.selectTab(WellbeingTab.painRelief),
@@ -72,7 +75,7 @@ class YourWellBeingScreen extends StatelessWidget {
 }
 
 class _TabButton extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final String label;
   final bool selected;
   final VoidCallback onTap;
@@ -93,7 +96,7 @@ class _TabButton extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColors.actionColor600, size: 24),
+          SvgPicture.asset(icon, color: AppColors.actionColor600, height: 24, width: 24,),
           const SizedBox(height: 8),
           Text(label, style: textTheme.labelSmall),
           const SizedBox(height: 8),

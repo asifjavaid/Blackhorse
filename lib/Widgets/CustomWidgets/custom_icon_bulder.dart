@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget iconBuilder(Icon icon, Color backgroundColor) {
+Widget iconBuilder(Widget icon, Color backgroundColor) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(60),

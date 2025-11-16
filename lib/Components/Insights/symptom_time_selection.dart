@@ -4,7 +4,10 @@ import 'package:ekvi/Providers/Insights/insights_symptom_time_selection_provider
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../generated/assets.dart';
 
 class SymptomTimeSelection extends StatefulWidget {
   const SymptomTimeSelection({super.key});
@@ -96,19 +99,21 @@ class _SymptomTimeSelectionState extends State<SymptomTimeSelection> with Single
                         children: [
                           Row(
                             children: [
-                              Icon(
-                                provider.symptoms.firstWhere((element) => element.name == provider.selectedSymptom).icon,
+                              SvgPicture.asset(
+                                provider.symptoms.firstWhere((element) => element.name == provider.selectedSymptom).icon ?? "",
+                                height: 16,
+                                width: 16,
                                 color: AppColors.actionColor600,
-                                size: 16,
                               ),
                               const SizedBox(width: 10),
                               Text(provider.selectedSymptom, style: textTheme.titleSmall!.copyWith(fontSize: 12)),
                             ],
                           ),
-                          Icon(
-                            _isSymptomSelectionVisible ? AppCustomIcons.arrow_up : AppCustomIcons.arrow_down,
-                            size: 14,
-                          )
+                          SvgPicture.asset(
+                            _isSymptomSelectionVisible ? Assets.customiconsArrowUp : Assets.customiconsArrowDown,
+                            height: 14,
+                            width: 14,
+                          ),
                         ],
                       ),
                     ),
@@ -138,10 +143,11 @@ class _SymptomTimeSelectionState extends State<SymptomTimeSelection> with Single
                         children: [
                           Row(
                             children: [
-                              const Icon(
-                                AppCustomIcons.calendar,
+                              SvgPicture.asset(
+                                Assets.customiconsCalendar,
+                                height: 16,
+                                width: 16,
                                 color: AppColors.actionColor600,
-                                size: 16,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -149,10 +155,11 @@ class _SymptomTimeSelectionState extends State<SymptomTimeSelection> with Single
                               Text(provider.selectedMonthString, style: textTheme.titleSmall!.copyWith(fontSize: 12)),
                             ],
                           ),
-                          Icon(
-                            _isYearMonthSelectionVisible ? AppCustomIcons.arrow_up : AppCustomIcons.arrow_down,
-                            size: 14,
-                          )
+                          SvgPicture.asset(
+                            _isYearMonthSelectionVisible ? Assets.customiconsArrowUp : Assets.customiconsArrowDown,
+                            height: 14,
+                            width: 14,
+                          ),
                         ],
                       ),
                     ),
@@ -206,9 +213,10 @@ class _SymptomTimeSelectionState extends State<SymptomTimeSelection> with Single
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
-                                symptom.icon,
-                                size: 16,
+                              SvgPicture.asset(
+                                symptom.icon ?? "",
+                                height: 16,
+                                width: 16,
                                 color: provider.selectedSymptom == symptom.name ? AppColors.whiteColor : AppColors.neutralColor600,
                               ),
                               const SizedBox(width: 8),
@@ -248,19 +256,21 @@ class _SymptomTimeSelectionState extends State<SymptomTimeSelection> with Single
                       children: [
                         Row(
                           children: [
-                            const Icon(
-                              AppCustomIcons.pill_1,
+                            SvgPicture.asset(
+                              Assets.customiconsPill1,
+                              height: 16,
+                              width: 16,
                               color: AppColors.actionColor600,
-                              size: 16,
                             ),
                             const SizedBox(width: 10),
                             Text(provider.selectedActiveIngredient, style: textTheme.titleSmall!.copyWith(fontSize: 12)),
                           ],
                         ),
-                        Icon(
-                          _isPainKillerSelectionVisible ? AppCustomIcons.arrow_up : AppCustomIcons.arrow_down,
-                          size: 14,
-                        )
+                        SvgPicture.asset(
+                          _isPainKillerSelectionVisible ? Assets.customiconsArrowUp : Assets.customiconsArrowDown,
+                          height: 14,
+                          width: 14,
+                        ),
                       ],
                     ),
                   ),
@@ -301,10 +311,11 @@ class _SymptomTimeSelectionState extends State<SymptomTimeSelection> with Single
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              AppCustomIcons.pill_1,
+                            SvgPicture.asset(
+                              Assets.customiconsPill1,
                               color: provider.selectedActiveIngredient == symptom ? AppColors.whiteColor : AppColors.neutralColor600,
-                              size: 16,
+                              height: 16,
+                              width: 16,
                             ),
                             const SizedBox(width: 8),
                             Text(

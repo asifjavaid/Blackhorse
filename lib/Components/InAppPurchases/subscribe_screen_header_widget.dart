@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/assets.dart';
+
 class SubscribeScreenHeader extends StatelessWidget {
   const SubscribeScreenHeader({super.key});
 
@@ -19,10 +21,7 @@ class SubscribeScreenHeader extends StatelessWidget {
       callback: () {
         AppNavigation.goBack();
       },
-      startIcon: const Icon(
-        AppCustomIcons.delete,
-        size: 16,
-      ),
+      startIcon: Assets.customiconsDelete,
       endIcon: GestureDetector(
         onTap: () {
           freeUserProvider.updateInfoValue(true);

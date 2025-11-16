@@ -6,6 +6,8 @@ import 'package:ekvi/Widgets/CustomWidgets/premium_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../generated/assets.dart';
+
 class NewsCard extends StatelessWidget {
   final String? imagePath;
   final String? date;
@@ -89,7 +91,12 @@ class NewsCard extends StatelessWidget {
                             date != null
                                 ? Row(
                                     children: [
-                                      const Icon(AppCustomIcons.calendar, size: 16.0, color: AppColors.neutralColor500),
+                                      SvgPicture.asset(
+                                          Assets.customiconsCalendar,
+                                          height: 16.0,
+                                          width: 16.0,
+                                          color: AppColors.neutralColor500
+                                      ),
                                       const SizedBox(width: 6.0),
                                       Text(
                                         date!,
@@ -102,7 +109,12 @@ class NewsCard extends StatelessWidget {
                             readTime != null
                                 ? Row(
                                     children: [
-                                      const Icon(AppCustomIcons.time, size: 16.0, color: AppColors.neutralColor500),
+                                      SvgPicture.asset(
+                                          Assets.customiconsTime,
+                                          height: 16.0,
+                                          width: 16.0,
+                                          color: AppColors.neutralColor500
+                                      ),
                                       const SizedBox(width: 6.0),
                                       Text(
                                         readTime!,
