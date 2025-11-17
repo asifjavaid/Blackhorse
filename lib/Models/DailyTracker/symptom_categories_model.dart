@@ -738,6 +738,110 @@ class Sleep {
   }
 }
 
+class Urination {
+  List<OptionModel> painTimeOptions;
+  int? painLevel;
+  List<OptionModel> experience;
+  List<OptionModel> activity;
+  List<OptionModel> intimacyType;
+  List<OptionModel> toolType;
+  List<OptionModel> climaxType;
+  List<OptionModel> feelsLikeOptions;
+  ImpactGrid impactGrid;
+  List<String> columns = ["None", "Mild", "Mod", "Severe"];
+  List<String> rows = ["Work", "Social life", "Sleep", "Quality of life"];
+
+  Urination({
+    required this.experience,
+    required this.activity,
+    required this.feelsLikeOptions,
+    required this.painTimeOptions,
+    required this.impactGrid,
+    required this.painLevel,
+    required this.intimacyType,
+    required this.toolType,
+    required this.climaxType,
+  });
+
+  void validate() {
+    OptionModel? time = painTimeOptions.firstWhereOrNull((option) => option.isSelected);
+    if (time == null) {
+      throw "Please select time";
+    } else if (painLevel == 0) {
+      throw "Please choose pain level on scale";
+    }
+  }
+
+  void updateFrom(EventData eventData) {
+    painLevel = eventData.intensityScale;
+    for (var option in experience) {
+      bool isSelected = eventData.experience != null ? eventData.experience!.contains(option.text) : false;
+      option.isSelected = isSelected;
+    }
+
+    for (var option in activity) {
+      bool isSelected = eventData.intimacyActivity != null ? eventData.intimacyActivity!.contains(option.text) : false;
+      option.isSelected = isSelected;
+    }
+    for (var option in intimacyType) {
+      bool isSelected = eventData.intimacyType != null ? eventData.intimacyType!.contains(option.text) : false;
+      option.isSelected = isSelected;
+    }
+    for (var option in toolType) {
+      bool isSelected = eventData.toolType != null ? eventData.toolType!.contains(option.text) : false;
+      option.isSelected = isSelected;
+    }
+    for (var option in climaxType) {
+      bool isSelected = eventData.climaxType != null ? eventData.climaxType!.contains(option.text) : false;
+      option.isSelected = isSelected;
+    }
+    for (var option in feelsLikeOptions) {
+      bool isSelected = eventData.feeling != null ? eventData.feeling!.contains(option.text) : false;
+      option.isSelected = isSelected;
+    }
+    for (var option in painTimeOptions) {
+      bool isSelected = eventData.timeOfDay != null ? HelperFunctions.formatTimeOfDay(eventData.timeOfDay) == option.text : false;
+      option.isSelected = isSelected;
+    }
+
+    impactGrid = eventData.partOfLifeEffect == null
+        ? ImpactGrid(qualityOfLifeValue: 0, sleepValue: 0, socialLifeValue: 0, workValue: 0)
+        : ImpactGrid(
+            qualityOfLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[3])].impactLevel!),
+            sleepValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[2])].impactLevel!),
+            socialLifeValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[1])].impactLevel!),
+            workValue: columns
+                .indexOf(eventData.partOfLifeEffect![eventData.partOfLifeEffect!.indexWhere((element) => element.type == rows[0])].impactLevel!));
+  }
+
+  Future<DailyTrackerEvent> convertTo(List<BodyPart> bodyParts, String date) async {
+    DailyTrackerEvent data = DailyTrackerEvent();
+    data.name = bodyParts.map((bodyPart) => bodyPart.name!.replaceAll(" ", "-")).toList();
+    data.userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    data.date = date;
+    data.timeOfDay = painTimeOptions.firstWhereOrNull((element) => element.isSelected == true)!.text.replaceAll(" ", "");
+    data.activity = "Intimacy";
+    data.experience = experience.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intimacyActivity = activity.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.feeling = feelsLikeOptions.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intensityScale = painLevel != null ? painLevel! : 0;
+    data.partOfLifeEffect = [
+      PartOfLifeEffect(type: "Work", impactLevel: columns[impactGrid.workValue]),
+      PartOfLifeEffect(type: "Social life", impactLevel: columns[impactGrid.socialLifeValue]),
+      PartOfLifeEffect(type: "Sleep", impactLevel: columns[impactGrid.sleepValue]),
+      PartOfLifeEffect(type: "Quality of life", impactLevel: columns[impactGrid.qualityOfLifeValue]),
+    ];
+    data.timezone = await TimeHelper.getCurrentTimezone();
+    data.intimacyType = intimacyType.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intimacyTool = toolType.where((option) => option.isSelected).map((option) => option.text).toList();
+    data.intimacyOrgasm = climaxType.where((option) => option.isSelected).map((option) => option.text).toList();
+    return data;
+  }
+}
+
 class Sex {
   List<OptionModel> painTimeOptions;
   int? painLevel;

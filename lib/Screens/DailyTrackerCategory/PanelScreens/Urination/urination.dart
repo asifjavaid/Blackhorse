@@ -91,9 +91,6 @@ class _UrinationScreenState extends State<UrinationScreen> {
             width: 100.w,
             height: 100.h,
             enableHelp: false,
-            enableHelpCallback: () {
-              HelperFunctions.openCustomBottomSheet(context, content: const BristolStoolScaleWidget(), height: 700);
-            },
             backgroundColor: AppColors.whiteColor,
             callback: provider.handleUrinationUrgencyOptionsSelection,
             subCategoryOptions: [
@@ -108,7 +105,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
                   HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
                 },
                 backgroundColor: AppColors.whiteColor,
-                callback: provider.handleBowelMovColorSelection,
+                callback: provider.handleUrinationComplicationSelection,
                 padding: const EdgeInsets.only(top: 16),
                 margin: EdgeInsets.zero,
               ),
@@ -178,7 +175,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
               width: width,
               impactGrid: provider.urinationUrgencyData.bodyPain.headache.impactGrid,
               callback: (OptionModel option, int impactLevel) {
-                provider.handleEventOptionSelection(PainEventsCategory.Intimacy, option, 8, impactLevel);
+                provider.handleEventOptionSelection(PainEventsCategory.Intimacy, option, 6, impactLevel);
               }),
           const SizedBox(
             height: 16,

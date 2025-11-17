@@ -89,77 +89,27 @@ class UrinationProvider extends ChangeNotifier {
     OptionModel selectedOption = _urinationUrgencyData.sensationOptions[index];
     for (var option in _urinationUrgencyData.sensationOptions) {
       if (option.text == selectedOption.text) {
-        option.isSelected = true;
-      } else {
-        option.isSelected = false;
+        option.isSelected = !option.isSelected;
       }
     }
     notifyListeners();
   }
 
-  void handleEventOptionSelection(
-      PainEventsCategory category, OptionModel option, int index,
-      [int? impactLevel]) {
+  void handleEventOptionSelection(PainEventsCategory category, OptionModel option, int index, [int? impactLevel]) {
     switch (index) {
-      case 0: // When did it happen?
-        for (var opt in _urinationUrgencyData.bodyPain.headache.painTimeOptions) {
-          if (opt.text == option.text) {
-            opt.isSelected = true;
-          } else {
-            opt.isSelected = false;
-          }
-        }
-        break;
-      case 1: // How painful was it?
-        _urinationUrgencyData.bodyPain.headache.painLevel = int.parse(option.text);
-        break;
-      case 2: // Felt like
-        for (var opt in _urinationUrgencyData.bodyPain.headache.feltLikeOptions) {
-          if (opt.text == option.text) {
-            opt.isSelected = !opt.isSelected;
-          }
-        }
-        break;
-      case 3: // Location
-        for (var opt in _urinationUrgencyData.bodyPain.headache.locationOptions) {
-          if (opt.text == option.text) {
-            opt.isSelected = !opt.isSelected;
-          }
-        }
-        break;
-      case 4: // Type
-        for (var opt in _urinationUrgencyData.bodyPain.headache.typeOptions) {
-          if (opt.text == option.text) {
-            opt.isSelected = !opt.isSelected;
-          }
-        }
-        break;
-      case 5: // Onset
-        for (var opt in _urinationUrgencyData.bodyPain.headache.onsetOptions) {
-          if (opt.text == option.text) {
-            opt.isSelected = true;
-          } else {
-            opt.isSelected = false;
-          }
-        }
-        break;
       case 6: // Impact on life
         switch (option.text) {
           case "Work":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.workValue =
-            impactLevel!;
+            _urinationUrgencyData.bodyPain.headache.impactGrid.workValue = impactLevel!;
             break;
           case "Social life":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.socialLifeValue =
-            impactLevel!;
+            _urinationUrgencyData.bodyPain.headache.impactGrid.socialLifeValue = impactLevel!;
             break;
           case "Sleep":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.sleepValue =
-            impactLevel!;
+            _urinationUrgencyData.bodyPain.headache.impactGrid.sleepValue = impactLevel!;
             break;
           case "Quality of life":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.qualityOfLifeValue =
-            impactLevel!;
+            _urinationUrgencyData.bodyPain.headache.impactGrid.qualityOfLifeValue = impactLevel!;
             break;
         }
         break;
@@ -195,6 +145,18 @@ class UrinationProvider extends ChangeNotifier {
     OptionModel selectedOption = _urinationUrgencyData.colorOptions[index];
     for (var option in _urinationUrgencyData.colorOptions) {
       if (option.text == selectedOption.text) {
+        option.isSelected = true;
+      } else {
+        option.isSelected = false;
+      }
+    }
+    notifyListeners();
+  }
+
+  void handleUrinationComplicationSelection(int index) {
+    OptionModel selectedOption = _urinationUrgencyData.complications[index];
+    for (var option in _urinationUrgencyData.complications) {
+      if (option.text == selectedOption.text) {
         option.isSelected = !option.isSelected;
       }
     }
@@ -205,9 +167,7 @@ class UrinationProvider extends ChangeNotifier {
     OptionModel selectedOption = _urinationUrgencyData.diagnoses[index];
     for (var option in _urinationUrgencyData.diagnoses) {
       if (option.text == selectedOption.text) {
-        option.isSelected = true;
-      } else {
-        option.isSelected = false;
+        option.isSelected = !option.isSelected;
       }
     }
     notifyListeners();
@@ -256,7 +216,8 @@ class UrinationProvider extends ChangeNotifier {
     if (!validateBMData(context)) return;
     CustomLoading.showLoadingIndicator();
     try {
-      var result = await UrinationUrgencyService.patchUrinationUrgencyRequest(await _urinationUrgencyData.convertTo(provider.selectedDateOfUserForTracking.date));
+      var result = await UrinationUrgencyService.patchUrinationUrgencyRequest(
+          await _urinationUrgencyData.convertTo(provider.selectedDateOfUserForTracking.date));
       result.fold(
         (l) {
           HelperFunctions.showNotification(AppNavigation.currentContext!, l);
@@ -304,7 +265,8 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<InsightsGraphModel> fetchInsightsAverageBowelMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear, {bool loading = true, bool notify = true}) async {
+  Future<InsightsGraphModel> fetchInsightsAverageBowelMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
+      {bool loading = true, bool notify = true}) async {
     _insightsAverageBMChartData.isDataLoaded = false;
     if (notify) notifyListeners();
     if (loading) CustomLoading.showLoadingIndicator();
@@ -325,7 +287,8 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<InsightsTimeOfDayGraphModel> fetchInsightsTimeOfDayMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear, {bool notify = true}) async {
+  Future<InsightsTimeOfDayGraphModel> fetchInsightsTimeOfDayMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
+      {bool notify = true}) async {
     _insightsTimeOfDayChartData.isDataLoaded = false;
     if (notify) notifyListeners();
 
@@ -343,7 +306,8 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<InsightsBowelMovementCircleModel> fetchInsightsCircleMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear, {bool notify = true}) async {
+  Future<InsightsBowelMovementCircleModel> fetchInsightsCircleMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
+      {bool notify = true}) async {
     _insightsCircleChartData.isDataLoaded = false;
     if (notify) notifyListeners();
     var result = await BowelMovementService.fetchInsightsBowelMovCircleGraphFromApi(tenure, selectedMonths, selectedYear);
