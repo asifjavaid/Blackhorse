@@ -23,15 +23,15 @@ class UrinationUrgencyLevelHelpWidget extends StatelessWidget {
           Text.rich(
             TextSpan(
               children: [
-                _TitleText('Mild: ', textTheme),
+                _TitleText('Mild - ', textTheme),
                 _SubtitleText("Slight sense of needing to urinate, easy to ignore or delay.\n\n", textTheme),
-                _TitleText('Moderate: ', textTheme),
+                _TitleText('Moderate - ', textTheme),
                 _SubtitleText("Noticeable urge to urinate, manageable but might require planning.\n\n", textTheme),
-                _TitleText('Strong: ', textTheme),
+                _TitleText('Strong - ', textTheme),
                 _SubtitleText("Strong urge to urinate, difficult to delay, requires attention.\n\n", textTheme),
-                _TitleText('Severe: ', textTheme),
+                _TitleText('Severe - ', textTheme),
                 _SubtitleText("Very strong urge to urinate, challenging to delay, can be distressing.\n\n", textTheme),
-                _TitleText('Intense: ', textTheme),
+                _TitleText('Intense - ', textTheme),
                 _SubtitleText("Overwhelming urge to urinate, almost impossible to delay, very distressing.\n\n", textTheme),
               ],
             ),

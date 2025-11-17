@@ -69,7 +69,7 @@ class RegisterLandingScreen extends StatelessWidget {
                         children: [
                           AuthenticationButton(
                             title: "Apple",
-                            icon: "${AppConstant.assetIcons}apple.svg",
+                            icon: Assets.iconsApple,
                             onClick: () => AppNavigation.navigateTo(AppRoutes.registerWithApple),
                           ),
                           SizedBox(

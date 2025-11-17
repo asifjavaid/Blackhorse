@@ -101,7 +101,7 @@ class Assets {
   static const String fontsZitterExtrabold = 'assets/fonts/Zitter-Extrabold.ttf';
   static const String fontsZitterRegular = 'assets/fonts/Zitter-Regular.ttf';
   static const String iconsAnnouncement = 'assets/icons/announcement.svg';
-  static const String iconsApple = 'assets/icons/Apple.svg';
+  static const String iconsApple = 'assets/icons/apple.svg';
   static const String iconsArrowDropDown = 'assets/icons/arrow_drop_down.png';
   static const String iconsArticleIcon = 'assets/icons/articleIcon.svg';
   static const String iconsBackIcon = 'assets/icons/backIcon.svg';
@@ -133,7 +133,7 @@ class Assets {
   static const String iconsFeedbackIcon = 'assets/icons/feedback_icon.png';
   static const String iconsForward = 'assets/icons/forward.svg';
   static const String iconsFrame1912 = 'assets/icons/Frame1912.png';
-  static const String iconsGoogle = 'assets/icons/Google.svg';
+  static const String iconsGoogle = 'assets/icons/google.svg';
   static const String iconsHeavyBleeding = 'assets/icons/heavy_bleeding.svg';
   static const String iconsHelp = 'assets/icons/help.svg';
   static const String iconsHomeIcon = 'assets/icons/home_icon.png';

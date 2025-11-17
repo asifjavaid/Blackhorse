@@ -23,7 +23,7 @@ class UrinationUrgencyVolumeHelpWidget extends StatelessWidget {
           Text.rich(TextSpan(
             children: [
               _SubtitleText(
-                  'Choose the option that best describes how full your bladder felt and how much urine came out.:\n\n',
+                  'Choose the option that best describes how full your bladder felt and how much urine came out.:\n',
                   textTheme),
             ],
           )),
