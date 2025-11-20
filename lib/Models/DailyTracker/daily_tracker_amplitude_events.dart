@@ -388,26 +388,27 @@ class AmplitudeUrinationUrgencyDetails extends BaseEvent {
   AmplitudeUrinationUrgencyDetails({required this.data, required this.userId});
 
   @override
-  String get eventName => 'BowelMovementDetails';
+  String get eventName => 'UrinationUrgencyDetails';
 
   @override
   String get description =>
-      'User attempted to save Bowel Movement details in daily tracker';
+      'User attempted to save Urination details in daily tracker';
 
   @override
   Future<Map<String, dynamic>> get properties async => {
     'description': description,
-    'symptomCategory': "Bowel Movement",
+    'symptomCategory': "Urination",
     'timeOfday': data.timeOfDay,
     'userId': userId,
-    "stoolConsistency": data.stoolConsistency,
-    "stoolFrequency": data.stoolFrequency,
-    "stoolColour": data.stoolColour,
-    "stoolSize": data.stoolSize,
-    "stoolEffort": data.stoolEffort,
-    "stoolComponents": data.stoolComponents,
-    "stoolDuration": data.stoolDuration,
-    "stoolNotes": data.stoolNotes
+    "sensation": data.sensation,
+    "frequencyScale": data.frequencyScale,
+    "urgencyScale": data.urgencyScale,
+    "color": data.color,
+    "smell": data.smell,
+    "volume": data.volume,
+    "complication" : data.complication,
+    "diagnosis" : data.diagnosis,
+    "note": data.note
   };
 }
 

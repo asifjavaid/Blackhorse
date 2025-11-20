@@ -35,7 +35,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<UrinationProvider>(context, listen: false).fetchBowelMovFeedbackStatus();
+      Provider.of<UrinationProvider>(context, listen: false).fetchUrinationFeedbackStatus();
     });
     super.initState();
   }
@@ -190,7 +190,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
 
           CustomButton(
             title: "Track urination",
-            onPressed: () => provider.patchBowelMovRequest(context),
+            onPressed: () => provider.patchUrinationUrgencyRequest(context),
           ),
           const SizedBox(
             height: 32,

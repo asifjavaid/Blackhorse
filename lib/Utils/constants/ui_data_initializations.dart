@@ -1199,6 +1199,7 @@ class DataInitializations {
           OptionModel(text: "Night"),
           OptionModel(text: "All Day"),
         ],
+        impactGrid: ImpactGrid(workValue: 0, socialLifeValue: 0, sleepValue: 0, qualityOfLifeValue: 0),
         urinationUrgencyLevel: 0,
         frequencyLevel: 1,
         sensationOptions: [

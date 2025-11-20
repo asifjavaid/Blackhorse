@@ -96,6 +96,7 @@ class ApiLinks {
   static const String saveNausea = "/nausea";
   static const String saveFatigue = "/fatigue";
   static const String saveBowelMovement = "/bowel-movement";
+  static const String saveUrination = "/urination";
   static const String saveBloating = "/bloating";
   static const String saveBrainFog = "/brain-fog";
   static const String deleteAlcohol = "/alcohol";
@@ -106,6 +107,7 @@ class ApiLinks {
   static const String deleteNausea = "/nausea";
   static const String deleteFatigue = "/fatigue";
   static const String deleteBowelMovement = "/bowel-movement";
+  static const String deleteUrination = "/urination";
   static const String deleteBloating = "/bloating";
   static const String deleteBleeding = "/bleeding";
   static const String deleteBrainFog = "/brain-fog";

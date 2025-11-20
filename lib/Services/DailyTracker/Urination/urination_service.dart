@@ -20,10 +20,10 @@ import '../../../Models/Urination/urination_urgency_model.dart';
 class UrinationUrgencyService {
   static UserManager userManager = UserManager();
 
-  static Future<Either<dynamic, SymptomFeedback>> getBowelMovFeedbackStatus() async {
+  static Future<Either<dynamic, SymptomFeedback>> getUrinationFeedbackStatus() async {
     return await ApiManager.safeApiCall(() async {
       var response = await ApiBaseHelper.httpGetRequest(
-        ApiLinks.getSymptomFeedback(userManager.userId!, "bowelmovement"),
+        ApiLinks.getSymptomFeedback(userManager.userId!, "urination"),
       );
       SymptomFeedback responseModel = SymptomFeedback.fromJson(response);
       return responseModel;
@@ -42,7 +42,7 @@ class UrinationUrgencyService {
     UrinationUrgencyResponseModel data,
   ) async {
     return await ApiManager.safeApiCall(() async {
-      await ApiBaseHelper.httpPostRequest(ApiLinks.saveBowelMovement, jsonEncode([data.toJson()]));
+      await ApiBaseHelper.httpPostRequest(ApiLinks.saveUrination, jsonEncode(data.toJson()));
       AmplitudeUrinationUrgencyDetails(data: data, userId: userManager.userId!).log();
     }, showLoader: false);
   }
@@ -66,7 +66,7 @@ class UrinationUrgencyService {
       } else {
         queryParams['year'] = selectedYear.toString();
       }
-      var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/${userManager.userId}/symptoms/bowelmovement/tenure/$tenure", queryParams: queryParams);
+      var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/${userManager.userId}/symptoms/urination/tenure/$tenure", queryParams: queryParams);
       final BowelMovTagList responseModel = BowelMovTagList.fromJson(response);
       return responseModel;
     }, showLoader: false);
@@ -88,7 +88,7 @@ class UrinationUrgencyService {
       }
 
       final response = await ApiBaseHelper.httpGetRequest(
-        "${ApiLinks.getInsights}/$userId/symptoms/bowelmovement/graphs/average-max/tenure/$tenure/average",
+        "${ApiLinks.getInsights}/$userId/symptoms/urination/graphs/average-max/tenure/$tenure/average",
         queryParams: queryParams,
       );
 
@@ -106,7 +106,7 @@ class UrinationUrgencyService {
       } else {
         queryParams['year'] = selectedYear.toString();
       }
-      var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/$userId/symptoms/bowel-movement/graphs/time-of-day/tenure/$tenure", queryParams: queryParams);
+      var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/$userId/symptoms/urination/graphs/time-of-day/tenure/$tenure", queryParams: queryParams);
       final InsightsTimeOfDayGraphModel responseModel = InsightsTimeOfDayGraphModel.fromJson(response, selectedMonths, selectedYear);
       return responseModel;
     }, showLoader: false);
@@ -122,7 +122,7 @@ class UrinationUrgencyService {
       } else {
         queryParams['year'] = selectedYear.toString();
       }
-      queryParams['symptoms'] = 'bowelmovement';
+      queryParams['symptoms'] = 'urination';
       /*Map<String, String> queryParams = {
         'year': selectedYear.toString(),
         if (selectedMonths.isNotEmpty) 'months': selectedMonths.map((date) => DateFormat('MMMM').format(date)).join(','),
@@ -136,7 +136,7 @@ class UrinationUrgencyService {
 
   static Future<Either<dynamic, dynamic>> deleteBowelMovData(List<String?> ids) async {
     return await ApiManager.safeApiCall(() async {
-      await ApiBaseHelper.httpDeleteRequest(ApiLinks.deleteBowelMovement, jsonEncode(ids));
+      await ApiBaseHelper.httpDeleteRequest(ApiLinks.deleteUrination, jsonEncode(ids));
       return "";
     }, showLoader: false);
   }

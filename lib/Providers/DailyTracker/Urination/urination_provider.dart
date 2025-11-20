@@ -210,7 +210,7 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  void patchBowelMovRequest(BuildContext context) async {
+  void patchUrinationUrgencyRequest(BuildContext context) async {
     var provider = Provider.of<DailyTrackerProvider>(context, listen: false);
 
     if (!validateBMData(context)) return;
@@ -236,8 +236,8 @@ class UrinationProvider extends ChangeNotifier {
     }
   }
 
-  void fetchBowelMovFeedbackStatus() async {
-    var result = await BowelMovementService.getBowelMovFeedbackStatus();
+  void fetchUrinationFeedbackStatus() async {
+    var result = await UrinationUrgencyService.getUrinationFeedbackStatus();
     result.fold(
       (l) {
         HelperFunctions.showNotification(AppNavigation.currentContext!, l.toString());
@@ -251,7 +251,7 @@ class UrinationProvider extends ChangeNotifier {
 
   void updateBowelMovFeedbackStatus(bool answer) async {
     AmpltudeSymptomFeedback(symptomCategory: "Bowel Movements", feedback: answer).log();
-    var result = await BowelMovementService.patchFeedbackRequest(_symptomFeedback.id!, answer);
+    var result = await UrinationUrgencyService.patchFeedbackRequest(_symptomFeedback.id!, answer);
     result.fold(
       (l) {
         HelperFunctions.showNotification(AppNavigation.currentContext!, l);
@@ -271,7 +271,7 @@ class UrinationProvider extends ChangeNotifier {
     if (notify) notifyListeners();
     if (loading) CustomLoading.showLoadingIndicator();
 
-    var result = await BowelMovementService.fetchInsightsBowelMovAverageGraphFromApi(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.fetchInsightsBowelMovAverageGraphFromApi(tenure, selectedMonths, selectedYear);
     return result.fold(
       (l) {
         if (loading) CustomLoading.hideLoadingIndicator();
@@ -292,7 +292,7 @@ class UrinationProvider extends ChangeNotifier {
     _insightsTimeOfDayChartData.isDataLoaded = false;
     if (notify) notifyListeners();
 
-    var result = await BowelMovementService.fetchInsightsBowelMovTimeOfDayGraphFromApi(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.fetchInsightsBowelMovTimeOfDayGraphFromApi(tenure, selectedMonths, selectedYear);
     return result.fold(
       (l) {
         if (notify) notifyListeners();
@@ -310,7 +310,7 @@ class UrinationProvider extends ChangeNotifier {
       {bool notify = true}) async {
     _insightsCircleChartData.isDataLoaded = false;
     if (notify) notifyListeners();
-    var result = await BowelMovementService.fetchInsightsBowelMovCircleGraphFromApi(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.fetchInsightsBowelMovCircleGraphFromApi(tenure, selectedMonths, selectedYear);
     return result.fold(
       (l) {
         if (notify) notifyListeners();
@@ -328,7 +328,7 @@ class UrinationProvider extends ChangeNotifier {
     _bowelMovTagList.isDataLoaded = false;
     notifyListeners();
 
-    var result = await BowelMovementService.getBowelMovTags(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.getBowelMovTags(tenure, selectedMonths, selectedYear);
     result.fold(
       (l) {
         notifyListeners();
