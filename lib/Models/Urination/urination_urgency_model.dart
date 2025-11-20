@@ -146,6 +146,7 @@ class PartOfLifeEffectUrinationUrgency {
 }
 
 class UrinationUrgencyResponseModel {
+  String? id;
   String? userId;
   String? date;
   String? timeOfDay;
@@ -161,6 +162,7 @@ class UrinationUrgencyResponseModel {
   String? note;
 
   UrinationUrgencyResponseModel({
+    this.id,
     this.userId,
     this.date,
     this.timeOfDay,
@@ -177,6 +179,7 @@ class UrinationUrgencyResponseModel {
   });
 
   UrinationUrgencyResponseModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     userId = json['userId'];
     date = json['date'];
     timeOfDay = json['timeOfDay'];
@@ -204,6 +207,7 @@ class UrinationUrgencyResponseModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['userId'] = userId;
     data['date'] = date;
     data['timeOfDay'] = timeOfDay;

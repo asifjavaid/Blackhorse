@@ -47,10 +47,10 @@ class UrinationUrgencyService {
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, UrinationUrgencyResponseModel>> getBowelMovRequest(String date, String timeOfDay) async {
+  static Future<Either<dynamic, UrinationUrgencyResponseModel>> getUrinationRequest(String date, String timeOfDay) async {
     return await ApiManager.safeApiCall(() async {
       var response = await ApiBaseHelper.httpGetRequest(
-        ApiLinks.getBowelMoveData(userManager.userId!, date, timeOfDay),
+        ApiLinks.getUrinationData(userManager.userId!, date, timeOfDay),
       );
       UrinationUrgencyResponseModel movResponseModel = UrinationUrgencyResponseModel.fromJson(response[0]);
       return movResponseModel;
@@ -134,7 +134,7 @@ class UrinationUrgencyService {
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, dynamic>> deleteBowelMovData(List<String?> ids) async {
+  static Future<Either<dynamic, dynamic>> deleteUrinationData(List<String?> ids) async {
     return await ApiManager.safeApiCall(() async {
       await ApiBaseHelper.httpDeleteRequest(ApiLinks.deleteUrination, jsonEncode(ids));
       return "";

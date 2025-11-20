@@ -5,6 +5,7 @@ import 'package:ekvi/Models/DailyTracker/daily_tracker_amplitude_events.dart';
 import 'package:ekvi/Models/DailyTracker/daily_tracker_models.dart';
 import 'package:ekvi/Models/DailyTracker/options_model.dart';
 import 'package:ekvi/Models/DailyTracker/BowelMovement/insight_bowel_movement_circle_chart_model.dart';
+import 'package:ekvi/Models/DailyTracker/symptom_categories_model.dart';
 import 'package:ekvi/Models/Insights/insights_graph_model.dart';
 import 'package:ekvi/Models/Insights/insights_time_of_day_graph_model.dart';
 import 'package:ekvi/Providers/DailyTracker/daily_tracker_provider.dart';
@@ -50,7 +51,7 @@ class UrinationProvider extends ChangeNotifier {
   InsightsBowelMovementCircleModel get insightsBMCircleChartData => _insightsCircleChartData;
   BowelMovTagList get bowelMovTaglist => _bowelMovTagList;
 
-  void resetBowelMovSeletion() {
+  void resetUrinationSeletion() {
     _urinationUrgencyData = DataInitializations.categoriesData().urinationUrgency;
     notifyListeners();
   }
@@ -193,10 +194,10 @@ class UrinationProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchBowelMovData(String date, String timeOfDay) async {
+  Future<void> fetchUrinationData(String date, String timeOfDay) async {
     CustomLoading.showLoadingIndicator();
 
-    var result = await UrinationUrgencyService.getBowelMovRequest(date, timeOfDay);
+    var result = await UrinationUrgencyService.getUrinationRequest(date, timeOfDay);
     result.fold(
       (l) {
         CustomLoading.hideLoadingIndicator();
@@ -340,7 +341,7 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  List<BathroomHabit> sortAnswersByTimeOfDay(List<BathroomHabit> data) {
+  List<UrinationUrgencyResponseModel> sortAnswersByTimeOfDay(List<UrinationUrgencyResponseModel> data) {
     List<String> order = [
       'Morning',
       'Afternoon',
