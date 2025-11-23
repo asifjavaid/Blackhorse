@@ -31,14 +31,14 @@ class UrinationProvider extends ChangeNotifier {
   InsightsBowelMovementCircleModel _insightsCircleChartData = InsightsBowelMovementCircleModel();
   BowelMovTagList _bowelMovTagList = BowelMovTagList();
   final List<Color> activeTrackColors = [
-    AppColors.errorColor500,
-    AppColors.errorColor500,
-    AppColors.accentColorTwo500,
-    AppColors.accentColorTwo500,
+    AppColors.successColor500,
     AppColors.successColor500,
     AppColors.successColor500,
     AppColors.accentColorTwo500,
     AppColors.accentColorTwo500,
+    AppColors.accentColorTwo500,
+    AppColors.accentColorTwo500,
+    AppColors.errorColor500,
     AppColors.errorColor500,
     AppColors.errorColor500,
   ];
@@ -122,9 +122,7 @@ class UrinationProvider extends ChangeNotifier {
     OptionModel selectedOption = _urinationUrgencyData.smellOptions[index];
     for (var option in _urinationUrgencyData.smellOptions) {
       if (option.text == selectedOption.text) {
-        option.isSelected = true;
-      } else {
-        option.isSelected = false;
+        option.isSelected = !option.isSelected;
       }
     }
     notifyListeners();
@@ -142,7 +140,7 @@ class UrinationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handleBowelMovColorSelection(int index) {
+  void handleUrinationColorSelection(int index) {
     OptionModel selectedOption = _urinationUrgencyData.colorOptions[index];
     for (var option in _urinationUrgencyData.colorOptions) {
       if (option.text == selectedOption.text) {

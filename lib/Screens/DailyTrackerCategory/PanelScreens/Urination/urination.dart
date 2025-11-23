@@ -66,7 +66,6 @@ class _UrinationScreenState extends State<UrinationScreen> {
             title: "How was the urgency?",
             selectedPainLevel: provider.urinationUrgencyData.urinationUrgencyLevel,
             levels: AppStrings.urinationLevels,
-            activeTrackColorList: provider.activeTrackColors,
             onChanged: provider.handleUrinationUrgencyLevelSelection,
             enableHelp: true,
             helpWidget: UrinationUrgencyLevelHelpWidget(),
@@ -131,7 +130,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
                   HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyColorHelpWidget(), height: 700);
                 },
                 backgroundColor: AppColors.whiteColor,
-                callback: provider.handleBowelMovColorSelection,
+                callback: provider.handleUrinationColorSelection,
                 padding: const EdgeInsets.only(top: 16),
                 margin: EdgeInsets.zero,
               ),
@@ -171,7 +170,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
             height: 16,
           ),
           GridRadioSelection(
-              title: "How is the pain affecting your life right now?",
+              title: "How did it affect your quality of life?",
               width: width,
               impactGrid: provider.urinationUrgencyData.bodyPain.headache.impactGrid,
               callback: (OptionModel option, int impactLevel) {
