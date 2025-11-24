@@ -37,6 +37,7 @@ class InsightsSymptomTimeSelectionProvider with ChangeNotifier {
     InisghtsSymptom(name: 'Bloating', icon: Assets.customiconsBloating),
     InisghtsSymptom(name: 'Brain fog', icon: Assets.customiconsBrainfog),
     InisghtsSymptom(name: 'Bowel movement', icon: Assets.customiconsBowelMovent),
+    InisghtsSymptom(name: 'Urination', icon: Assets.customiconsUrination),
     InisghtsSymptom(name: 'Painkillers', icon: Assets.customiconsPill1),
     InisghtsSymptom(name: 'Movement', icon: Assets.customiconsTraining),
     InisghtsSymptom(name: 'Self-care', icon: Assets.customiconsFollicular),

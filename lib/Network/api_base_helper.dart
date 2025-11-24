@@ -13,6 +13,10 @@ class ApiBaseHelper {
       {Map<String, String>? queryParams}) async {
     http.Response response;
     try {
+
+      print("endpoint: ${AppConstant.appBaseURL}$endPoint}");
+      print("request: ${queryParams}");
+
       response = await http.get(
           Uri.parse('${AppConstant.appBaseURL}$endPoint')
               .replace(queryParameters: queryParams),

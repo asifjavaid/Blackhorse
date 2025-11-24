@@ -20,6 +20,7 @@ import 'package:ekvi/Widgets/Dialogs/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Models/DailyTracker/Urination/urination_tag_list.dart';
 import '../../../Models/Urination/urination_urgency_model.dart';
 import '../../../Utils/constants/app_enums.dart';
 
@@ -29,7 +30,7 @@ class UrinationProvider extends ChangeNotifier {
   InsightsGraphModel _insightsAverageBMChartData = InsightsGraphModel();
   InsightsTimeOfDayGraphModel _insightsTimeOfDayChartData = InsightsTimeOfDayGraphModel();
   InsightsBowelMovementCircleModel _insightsCircleChartData = InsightsBowelMovementCircleModel();
-  BowelMovTagList _bowelMovTagList = BowelMovTagList();
+  UrinaitonTagList _urinationTagList = UrinaitonTagList();
   final List<Color> activeTrackColors = [
     AppColors.successColor500,
     AppColors.successColor500,
@@ -49,7 +50,7 @@ class UrinationProvider extends ChangeNotifier {
   InsightsGraphModel get insightsAverageBMChartData => _insightsAverageBMChartData;
   InsightsTimeOfDayGraphModel get insightsTimeDayBMChartData => _insightsTimeOfDayChartData;
   InsightsBowelMovementCircleModel get insightsBMCircleChartData => _insightsCircleChartData;
-  BowelMovTagList get bowelMovTaglist => _bowelMovTagList;
+  UrinaitonTagList get urinationTaglist => _urinationTagList;
 
   void resetUrinationSeletion() {
     _urinationUrgencyData = DataInitializations.categoriesData().urinationUrgency;
@@ -264,13 +265,13 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<InsightsGraphModel> fetchInsightsAverageBowelMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
+  Future<InsightsGraphModel> fetchInsightsAverageUrinationChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
       {bool loading = true, bool notify = true}) async {
     _insightsAverageBMChartData.isDataLoaded = false;
     if (notify) notifyListeners();
     if (loading) CustomLoading.showLoadingIndicator();
 
-    var result = await UrinationUrgencyService.fetchInsightsBowelMovAverageGraphFromApi(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.fetchInsightsUrinationAverageGraphFromApi(tenure, selectedMonths, selectedYear);
     return result.fold(
       (l) {
         if (loading) CustomLoading.hideLoadingIndicator();
@@ -286,12 +287,12 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<InsightsTimeOfDayGraphModel> fetchInsightsTimeOfDayMovementChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
+  Future<InsightsTimeOfDayGraphModel> fetchInsightsTimeOfDayUrinationChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
       {bool notify = true}) async {
     _insightsTimeOfDayChartData.isDataLoaded = false;
     if (notify) notifyListeners();
 
-    var result = await UrinationUrgencyService.fetchInsightsBowelMovTimeOfDayGraphFromApi(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.fetchInsightsUrinationTimeOfDayGraphFromApi(tenure, selectedMonths, selectedYear);
     return result.fold(
       (l) {
         if (notify) notifyListeners();
@@ -309,7 +310,7 @@ class UrinationProvider extends ChangeNotifier {
       {bool notify = true}) async {
     _insightsCircleChartData.isDataLoaded = false;
     if (notify) notifyListeners();
-    var result = await UrinationUrgencyService.fetchInsightsBowelMovCircleGraphFromApi(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.fetchInsightsUrinationCircleGraphFromApi(tenure, selectedMonths, selectedYear);
     return result.fold(
       (l) {
         if (notify) notifyListeners();
@@ -323,17 +324,17 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<void> fetchBowelMovTagsCount(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
-    _bowelMovTagList.isDataLoaded = false;
+  Future<void> fetchUrinationTagsCount(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
+    _urinationTagList.isDataLoaded = false;
     notifyListeners();
 
-    var result = await UrinationUrgencyService.getBowelMovTags(tenure, selectedMonths, selectedYear);
+    var result = await UrinationUrgencyService.getUrinationTags(tenure, selectedMonths, selectedYear);
     result.fold(
       (l) {
         notifyListeners();
       },
       (r) {
-        _bowelMovTagList = r;
+        _urinationTagList = r;
         notifyListeners();
       },
     );

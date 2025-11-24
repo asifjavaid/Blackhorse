@@ -15,6 +15,7 @@ import 'package:ekvi/Utils/helpers/api_manager.dart';
 import 'package:ekvi/Utils/helpers/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
+import '../../../Models/DailyTracker/Urination/urination_tag_list.dart';
 import '../../../Models/Urination/urination_urgency_model.dart';
 
 class UrinationUrgencyService {
@@ -57,7 +58,7 @@ class UrinationUrgencyService {
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, BowelMovTagList>> getBowelMovTags(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
+  static Future<Either<dynamic, UrinaitonTagList>> getUrinationTags(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
     return await ApiManager.safeApiCall(() async {
       final queryParams = <String, String>{};
 
@@ -67,12 +68,13 @@ class UrinationUrgencyService {
         queryParams['year'] = selectedYear.toString();
       }
       var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/${userManager.userId}/symptoms/urination/tenure/$tenure", queryParams: queryParams);
-      final BowelMovTagList responseModel = BowelMovTagList.fromJson(response);
+      print("insights response tags: $response");
+      final UrinaitonTagList responseModel = UrinaitonTagList.fromJson(response);
       return responseModel;
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, InsightsGraphModel>> fetchInsightsBowelMovAverageGraphFromApi(
+  static Future<Either<dynamic, InsightsGraphModel>> fetchInsightsUrinationAverageGraphFromApi(
     String tenure,
     List<DateTime> selectedMonths,
     int selectedYear,
@@ -92,11 +94,13 @@ class UrinationUrgencyService {
         queryParams: queryParams,
       );
 
+      print("insights response avg: $response");
+
       return InsightsGraphModel.fromJson(response, selectedMonths, selectedYear);
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, InsightsTimeOfDayGraphModel>> fetchInsightsBowelMovTimeOfDayGraphFromApi(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
+  static Future<Either<dynamic, InsightsTimeOfDayGraphModel>> fetchInsightsUrinationTimeOfDayGraphFromApi(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
     return await ApiManager.safeApiCall(() async {
       String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
       final queryParams = <String, String>{};
@@ -107,12 +111,13 @@ class UrinationUrgencyService {
         queryParams['year'] = selectedYear.toString();
       }
       var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/$userId/symptoms/urination/graphs/time-of-day/tenure/$tenure", queryParams: queryParams);
+      print("insights response time of day: $response");
       final InsightsTimeOfDayGraphModel responseModel = InsightsTimeOfDayGraphModel.fromJson(response, selectedMonths, selectedYear);
       return responseModel;
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, InsightsBowelMovementCircleModel>> fetchInsightsBowelMovCircleGraphFromApi(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
+  static Future<Either<dynamic, InsightsBowelMovementCircleModel>> fetchInsightsUrinationCircleGraphFromApi(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
     return await ApiManager.safeApiCall(() async {
       String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
       final queryParams = <String, String>{};
