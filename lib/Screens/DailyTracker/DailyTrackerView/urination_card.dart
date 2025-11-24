@@ -71,7 +71,7 @@ class CircleCard extends StatelessWidget {
                         Assets.customiconsUrination,
                         height: 24,
                         width: 24,
-                        color: AppColors.actionColor600
+                        color: AppColors.primaryColor600
                     ),
                     bgColor: AppColors.primaryColor400),
                 const SizedBox(
