@@ -24,6 +24,7 @@ class UrinationCharts extends StatelessWidget {
               data: value.insightsAverageBMChartData,
             )
           },
+          const InsightsUrinationsTags(),
           if (value.insightsTimeDayBMChartData.isDataLoaded) ...{
             const SizedBox(
               height: 24,
@@ -33,15 +34,6 @@ class UrinationCharts extends StatelessWidget {
               enableHelpCallback: () {
                 HelperFunctions.openCustomBottomSheet(context, content: const TimeOfDayWidget(), height: 700);
               },
-            )
-          },
-          const InsightsUrinationsTags(),
-          if (value.insightsBMCircleChartData.isDataLoaded ?? false) ...{
-            const SizedBox(
-              height: 24,
-            ),
-            InsightsUrinationsCircles(
-              data: value.insightsBMCircleChartData,
             )
           },
           const SizedBox(

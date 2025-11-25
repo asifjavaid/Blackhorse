@@ -131,19 +131,16 @@ class InsightsProvider with ChangeNotifier {
       ]);
     } else if (provider.selectedSymptom == "Urination") {
       var urinationProvider = Provider.of<UrinationProvider>(AppNavigation.currentContext!, listen: false);
-      final fetchInsightBowelMovementConsistencyChartFuture = urinationProvider.fetchInsightsAverageUrinationChart(
+      final fetchInsightUrinationUrgencyChartFuture = urinationProvider.fetchInsightsAverageUrinationChart(
           getGraphTenure(provider.selectedMonths), provider.selectedMonths, provider.selectedYear);
-      final fetchInsightsBowelMovementTimeOfDayChartFuture = urinationProvider.fetchInsightsTimeOfDayUrinationChart(
+      final fetchInsightsUrinationTimeOfDayChartFuture = urinationProvider.fetchInsightsTimeOfDayUrinationChart(
           getGraphTenure(provider.selectedMonths), provider.selectedMonths, provider.selectedYear);
-      final fetchInsightsBowelMovementInCirclesChartFuture =
-          urinationProvider.fetchInsightsCircleMovementChart(getGraphTenure(provider.selectedMonths), provider.selectedMonths, provider.selectedYear);
-      final fetchInsightsBowelMovementTagsFuture =
+      final fetchInsightsUrinationTagsFuture =
           urinationProvider.fetchUrinationTagsCount(getGraphTenure(provider.selectedMonths), provider.selectedMonths, provider.selectedYear);
       await Future.wait([
-        fetchInsightBowelMovementConsistencyChartFuture,
-        fetchInsightsBowelMovementTimeOfDayChartFuture,
-        fetchInsightsBowelMovementInCirclesChartFuture,
-        fetchInsightsBowelMovementTagsFuture
+        fetchInsightUrinationUrgencyChartFuture,
+        fetchInsightsUrinationTimeOfDayChartFuture,
+        fetchInsightsUrinationTagsFuture
       ]);
     } else if (provider.selectedSymptom == "Bloating") {
       var bloatingProvider = Provider.of<BloatingProvider>(AppNavigation.currentContext!, listen: false);
