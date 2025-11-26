@@ -30,7 +30,7 @@ class _InsightsTimeOfDayUrinationsChartState
   final GlobalKey<SfCartesianChartState> chartKey =
       GlobalKey<SfCartesianChartState>();
 
-  String getHeadacheDurationLabel(TimeFrameSelection selectionType) {
+  String getUrinationFrequencyLabel(TimeFrameSelection selectionType) {
     switch (selectionType) {
       case TimeFrameSelection.oneMonth:
         return 'How many times you urinated per day';
@@ -38,6 +38,19 @@ class _InsightsTimeOfDayUrinationsChartState
         return 'How many times you urinated per week';
       case TimeFrameSelection.oneYear:
         return 'How many times you urinated per month';
+      default:
+        return 'How many times you urinated per week';
+    }
+  }
+
+  String getUrinationAverageLabel(TimeFrameSelection selectionType) {
+    switch (selectionType) {
+      case TimeFrameSelection.oneMonth:
+        return 'Average frequency over 1 month';
+      case TimeFrameSelection.threeMonths:
+        return 'Average frequency over 3 months';
+      case TimeFrameSelection.oneYear:
+        return 'Average frequency over 1 year';
       default:
         return 'How many times you urinated per week';
     }
@@ -62,7 +75,7 @@ class _InsightsTimeOfDayUrinationsChartState
           Text('Urination frequency', style: textTheme.headlineSmall),
           const SizedBox(height: 9),
           Text(
-            getHeadacheDurationLabel(provider.selectionType),
+            getUrinationFrequencyLabel(provider.selectionType),
             style: textTheme.bodySmall!.copyWith(
               color: AppColors.neutralColor500,
               fontWeight: FontWeight.w400,
@@ -77,7 +90,7 @@ class _InsightsTimeOfDayUrinationsChartState
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Average frequency over 1 month',
+              Text(getUrinationAverageLabel(provider.selectionType),
                   style: textTheme.labelSmall!
                       .copyWith(color: AppColors.neutralColor500)),
               const SizedBox(width: 5.07),
