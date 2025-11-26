@@ -1,5 +1,7 @@
 import 'package:ekvi/Components/DailyTracker/BowelMovement/bowl_movement_color_panel.dart';
 import 'package:ekvi/Components/DailyTracker/BowelMovement/bristol_stool_scale_widget.dart';
+import 'package:ekvi/Components/UrinationUrgencyLevel/urination_urgency_smell_help_panel.dart';
+import 'package:ekvi/Components/UrinationUrgencyLevel/urination_urgency_volume_help_panel.dart';
 import 'package:ekvi/Models/DailyTracker/options_model.dart';
 import 'package:ekvi/Providers/DailyTracker/BowelMovement/bowel_movement_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/Urination/urination_provider.dart';
@@ -43,7 +45,7 @@ class InsightsUrinationsTags extends StatelessWidget {
                       options: value.urinationTaglist.graphData?.sensation?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
                       width: 100.w,
                       height: 100.h,
-                      enableHelp: true,
+                      enableHelp: false,
                       enableHelpCallback: () {
                         HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
                       },
@@ -82,6 +84,10 @@ class InsightsUrinationsTags extends StatelessWidget {
                       height: 100.h,
                       backgroundColor: AppColors.whiteColor,
                       callback: () {},
+                      enableHelp: true,
+                      enableHelpCallback: () {
+                        HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
+                      },
                       padding: const EdgeInsets.only(top: 16),
                       margin: EdgeInsets.zero,
                     ),
@@ -93,6 +99,10 @@ class InsightsUrinationsTags extends StatelessWidget {
                       height: 100.h,
                       backgroundColor: AppColors.whiteColor,
                       callback: () {},
+                      enableHelp: true,
+                      enableHelpCallback: () {
+                        HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencySmellHelpWidget(), height: 700);
+                      },
                       padding: const EdgeInsets.only(top: 16),
                       margin: EdgeInsets.zero,
                     ),
@@ -104,6 +114,10 @@ class InsightsUrinationsTags extends StatelessWidget {
                       height: 100.h,
                       backgroundColor: AppColors.whiteColor,
                       callback: () {},
+                      enableHelp: true,
+                      enableHelpCallback: () {
+                        HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyVolumeHelpWidget(), height: 700);
+                      },
                       padding: const EdgeInsets.only(top: 16),
                       margin: EdgeInsets.zero,
                     )
