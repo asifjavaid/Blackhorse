@@ -7,8 +7,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
+import '../../../Models/Insights/insights_graph_model.dart';
+
 class InsightsTimeOfDayUrinationsChart extends StatefulWidget {
-  final InsightsTimeOfDayGraphModel data;
+  final InsightsGraphModel data;
   final VoidCallback enableHelpCallback;
 
   const InsightsTimeOfDayUrinationsChart(
@@ -44,7 +46,7 @@ class _InsightsTimeOfDayUrinationsChartState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Time of day', style: textTheme.headlineSmall),
+                    Text('Urination frequency', style: textTheme.headlineSmall),
                   ],
                 ),
               ),
@@ -60,7 +62,7 @@ class _InsightsTimeOfDayUrinationsChartState
           const SizedBox(
             height: 4,
           ),
-          Text('See when your bowel movement happened most throughout your day',
+          Text('How many times you urinated per day',
               style: textTheme.bodySmall!
                   .copyWith(color: AppColors.neutralColor500)),
           const SizedBox(height: 24),
@@ -74,7 +76,7 @@ class _InsightsTimeOfDayUrinationsChartState
 }
 
 class UrinationsChart extends StatefulWidget {
-  final InsightsTimeOfDayGraphModel data;
+  final InsightsGraphModel data;
 
   const UrinationsChart({super.key, required this.data});
 
@@ -127,7 +129,7 @@ class _UrinationsChartState extends State<UrinationsChart> {
               const MajorGridLines(width: 1, color: AppColors.neutralColor200),
           majorTickLines: const MajorTickLines(width: 0),
         ),
-        series: ChartHelper.getTimeOfDayBarSeries(widget.data),
+        series: ChartHelper.getMaximumHeadacheBarSeries(widget.data),
       ),
     );
   }

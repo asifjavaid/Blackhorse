@@ -100,7 +100,7 @@ class UrinationUrgencyService {
     }, showLoader: false);
   }
 
-  static Future<Either<dynamic, InsightsTimeOfDayGraphModel>> fetchInsightsUrinationTimeOfDayGraphFromApi(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
+  static Future<Either<dynamic, InsightsGraphModel>> fetchInsightsUrinationTimeOfDayGraphFromApi(String tenure, List<DateTime> selectedMonths, int selectedYear) async {
     return await ApiManager.safeApiCall(() async {
       String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
       final queryParams = <String, String>{};
@@ -110,9 +110,9 @@ class UrinationUrgencyService {
       } else {
         queryParams['year'] = selectedYear.toString();
       }
-      var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/$userId/symptoms/urination/graphs/time-of-day/tenure/$tenure", queryParams: queryParams);
+      var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getInsights}/$userId/symptoms/urination/graphs/average-max/tenure/$tenure/frequency", queryParams: queryParams);
       print("insights response time of day: $response");
-      final InsightsTimeOfDayGraphModel responseModel = InsightsTimeOfDayGraphModel.fromJson(response, selectedMonths, selectedYear);
+      final InsightsGraphModel responseModel = InsightsGraphModel.fromJson(response, selectedMonths, selectedYear);
       return responseModel;
     }, showLoader: false);
   }

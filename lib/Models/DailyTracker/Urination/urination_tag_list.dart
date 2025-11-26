@@ -49,6 +49,7 @@ class GraphData {
   List<AnswersJSON>? diagnosis;
   List<AnswersJSON>? complication;
   List<AnswersJSON>? smell;
+  List<AnswersJSON>? color;
   List<AnswersJSON>? volume;
   List<DurationJSON>? stoolDuration;
 
@@ -57,6 +58,7 @@ class GraphData {
     this.diagnosis,
     this.complication,
     this.smell,
+    this.color,
     this.volume,
     this.stoolDuration,
   });
@@ -84,6 +86,12 @@ class GraphData {
       smell = <AnswersJSON>[];
       json['smell'].forEach((v) {
         smell!.add(AnswersJSON.fromJson(v));
+      });
+    }
+    if (json['color'] != null) {
+      color = <AnswersJSON>[];
+      json['color'].forEach((v) {
+        color!.add(AnswersJSON.fromJson(v));
       });
     }
     if (json['volume'] != null) {

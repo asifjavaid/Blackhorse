@@ -75,6 +75,17 @@ class InsightsUrinationsTags extends StatelessWidget {
                       margin: EdgeInsets.zero,
                     ),
                     GridOptions(
+                      title: "Colour",
+                      elevated: false,
+                      options: value.urinationTaglist.graphData?.color?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
+                      width: 100.w,
+                      height: 100.h,
+                      backgroundColor: AppColors.whiteColor,
+                      callback: () {},
+                      padding: const EdgeInsets.only(top: 16),
+                      margin: EdgeInsets.zero,
+                    ),
+                    GridOptions(
                       title: "Smell",
                       elevated: false,
                       options: value.urinationTaglist.graphData?.smell?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],

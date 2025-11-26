@@ -28,7 +28,7 @@ class UrinationProvider extends ChangeNotifier {
   CategoryUrinationUrgency _urinationUrgencyData = DataInitializations.categoriesData().urinationUrgency;
   SymptomFeedback _symptomFeedback = SymptomFeedback();
   InsightsGraphModel _insightsAverageBMChartData = InsightsGraphModel();
-  InsightsTimeOfDayGraphModel _insightsTimeOfDayChartData = InsightsTimeOfDayGraphModel();
+  InsightsGraphModel _insightsTimeOfDayChartData = InsightsGraphModel();
   InsightsBowelMovementCircleModel _insightsCircleChartData = InsightsBowelMovementCircleModel();
   UrinaitonTagList _urinationTagList = UrinaitonTagList();
   final List<Color> activeTrackColors = [
@@ -48,7 +48,7 @@ class UrinationProvider extends ChangeNotifier {
   CategoryUrinationUrgency get urinationUrgencyData => _urinationUrgencyData;
   SymptomFeedback get symptomFeedback => _symptomFeedback;
   InsightsGraphModel get insightsAverageBMChartData => _insightsAverageBMChartData;
-  InsightsTimeOfDayGraphModel get insightsTimeDayBMChartData => _insightsTimeOfDayChartData;
+  InsightsGraphModel get insightsTimeDayBMChartData => _insightsTimeOfDayChartData;
   InsightsBowelMovementCircleModel get insightsBMCircleChartData => _insightsCircleChartData;
   UrinaitonTagList get urinationTaglist => _urinationTagList;
 
@@ -287,7 +287,7 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  Future<InsightsTimeOfDayGraphModel> fetchInsightsTimeOfDayUrinationChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
+  Future<InsightsGraphModel> fetchInsightsTimeOfDayUrinationChart(String tenure, List<DateTime> selectedMonths, int selectedYear,
       {bool notify = true}) async {
     _insightsTimeOfDayChartData.isDataLoaded = false;
     if (notify) notifyListeners();
