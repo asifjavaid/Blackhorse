@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../UrinationUrgencyLevel/urination_urgency_color_panel.dart';
+
 class InsightsUrinationsTags extends StatelessWidget {
   const InsightsUrinationsTags({super.key});
 
@@ -86,7 +88,7 @@ class InsightsUrinationsTags extends StatelessWidget {
                       callback: () {},
                       enableHelp: true,
                       enableHelpCallback: () {
-                        HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
+                        HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyColorHelpWidget(), height: 700);
                       },
                       padding: const EdgeInsets.only(top: 16),
                       margin: EdgeInsets.zero,
