@@ -151,6 +151,7 @@ class _ChartAreaState extends State<ChartArea> {
             placeLabelsNearAxisLine: false,
             axisLine: const AxisLine(width: 0),
             majorTickLines: const MajorTickLines(width: 0),
+
             interval: isDailyInterval ? 2 : 1,
             axisLabelFormatter: (axisLabelRenderArgs) =>
                 ChartHelper.axisLabelFormatter(
@@ -159,6 +160,7 @@ class _ChartAreaState extends State<ChartArea> {
             labelStyle: textTheme.labelSmall!
                 .copyWith(color: AppColors.neutralColor400, fontSize: 8)),
         primaryYAxis: NumericAxis(
+          // interval: 5,
           plotOffset: 0,
           axisLine: const AxisLine(width: 0),
           labelStyle: textTheme.labelSmall!.copyWith(

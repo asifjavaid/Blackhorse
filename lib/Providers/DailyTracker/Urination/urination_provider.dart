@@ -49,7 +49,7 @@ class UrinationProvider extends ChangeNotifier {
   SymptomFeedback get symptomFeedback => _symptomFeedback;
   InsightsGraphModel get insightsAverageBMChartData => _insightsAverageBMChartData;
   InsightsGraphModel get insightsTimeDayBMChartData => _insightsTimeOfDayChartData;
-  InsightsBowelMovementCircleModel get insightsBMCircleChartData => _insightsCircleChartData;
+  // InsightsBowelMovementCircleModel get insightsBMCircleChartData => _insightsCircleChartData;
   UrinaitonTagList get urinationTaglist => _urinationTagList;
 
   void resetUrinationSeletion() {

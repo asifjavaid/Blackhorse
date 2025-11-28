@@ -28,34 +28,34 @@ class InsightsUrinationsTags extends StatelessWidget {
                   height: 24,
                 ),
                 ListGridOptions(
-                  title: "Urination Scale",
+                  title: "Sensations",
                   elevated: true,
-                  options: value.urinationTaglist.graphData?.stoolDuration?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
+                  options: value.urinationTaglist.graphData?.sensation?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
                   width: 100.w,
                   height: 100.h,
                   enableHelp: false,
                   margin: EdgeInsets.zero,
                   enableHelpCallback: () {
-                    HelperFunctions.openCustomBottomSheet(context, content: const BristolStoolScaleWidget(), height: 750);
+                    // HelperFunctions.openCustomBottomSheet(context, content: const BristolStoolScaleWidget(), height: 750);
                   },
                   backgroundColor: AppColors.whiteColor,
                   callback: () {},
                   subCategoryOptions: [
-                    GridOptions(
-                      title: "Sensations",
-                      elevated: false,
-                      options: value.urinationTaglist.graphData?.sensation?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
-                      width: 100.w,
-                      height: 100.h,
-                      enableHelp: false,
-                      enableHelpCallback: () {
-                        HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
-                      },
-                      backgroundColor: AppColors.whiteColor,
-                      callback: () {},
-                      padding: const EdgeInsets.only(top: 16),
-                      margin: EdgeInsets.zero,
-                    ),
+                    // GridOptions(
+                    //   title: "Sensations",
+                    //   elevated: false,
+                    //   options: value.urinationTaglist.graphData?.sensation?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
+                    //   width: 100.w,
+                    //   height: 100.h,
+                    //   enableHelp: false,
+                    //   enableHelpCallback: () {
+                    //     HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
+                    //   },
+                    //   backgroundColor: AppColors.whiteColor,
+                    //   callback: () {},
+                    //   padding: const EdgeInsets.only(top: 16),
+                    //   margin: EdgeInsets.zero,
+                    // ),
                     GridOptions(
                       title: "Complications",
                       elevated: false,

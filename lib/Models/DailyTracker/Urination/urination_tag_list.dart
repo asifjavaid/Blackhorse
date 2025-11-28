@@ -1,3 +1,5 @@
+import '../BodyPain/body_pain_model.dart';
+
 class UrinaitonTagList {
   String? userId;
   String? symptomType;
@@ -11,17 +13,6 @@ class UrinaitonTagList {
     symptomType = json['symptomType'];
     graphData = json['graphData'] != null ? GraphData.fromJson(json['graphData']) : null;
     isDataLoaded = true;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['userId'] = userId;
-    data['symptomType'] = symptomType;
-
-    if (graphData != null) {
-      data['graphData'] = graphData!.toJson();
-    }
-    return data;
   }
 }
 
@@ -51,7 +42,7 @@ class GraphData {
   List<AnswersJSON>? smell;
   List<AnswersJSON>? color;
   List<AnswersJSON>? volume;
-  List<DurationJSON>? stoolDuration;
+  List<PartOfLifeEffect>? partOfLifeEffect;
 
   GraphData({
     this.sensation,
@@ -60,7 +51,7 @@ class GraphData {
     this.smell,
     this.color,
     this.volume,
-    this.stoolDuration,
+    this.partOfLifeEffect
   });
 
   GraphData.fromJson(Map<String, dynamic> json) {
@@ -100,36 +91,14 @@ class GraphData {
         volume!.add(AnswersJSON.fromJson(v));
       });
     }
-    if (json['StoolDuration'] != null) {
-      stoolDuration = <DurationJSON>[];
-      json['StoolDuration'].forEach((v) {
-        stoolDuration!.add(DurationJSON.fromJson(v));
+    if (json['partOfLifeEffect'] != null) {
+      partOfLifeEffect = <PartOfLifeEffect>[];
+      json['partOfLifeEffect'].forEach((v) {
+        partOfLifeEffect!.add(PartOfLifeEffect.fromJson(v));
       });
     }
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (sensation != null) {
-      data['BristolScale'] = sensation!.map((v) => v.toJson()).toList();
-    }
-    if (diagnosis != null) {
-      data['StoolColour'] = diagnosis!.map((v) => v.toJson()).toList();
-    }
-    if (complication != null) {
-      data['StoolSize'] = complication!.map((v) => v.toJson()).toList();
-    }
-    if (smell != null) {
-      data['StoolEffort'] = smell!.map((v) => v.toJson()).toList();
-    }
-    if (volume != null) {
-      data['StoolComponents'] = volume!.map((v) => v.toJson()).toList();
-    }
-    if (stoolDuration != null) {
-      data['StoolDuration'] = stoolDuration!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
 class AnswersJSON {

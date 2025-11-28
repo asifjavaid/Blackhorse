@@ -8,6 +8,9 @@ import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../HeadacheCharts/insights_headache_impact_grid.dart';
+import 'insights_urination_impact_grid.dart';
+
 class UrinationCharts extends StatelessWidget {
   const UrinationCharts({super.key});
 
@@ -36,6 +39,19 @@ class UrinationCharts extends StatelessWidget {
               },
             )
           },
+
+          if (value.urinationTaglist.isDataLoaded && value.urinationTaglist.graphData?.partOfLifeEffect != null && value.urinationTaglist.graphData!.partOfLifeEffect!.isNotEmpty) ... {
+            const SizedBox(
+              height: 24,
+            ),
+
+            InsightsUrinationImpactGrid(
+              data: value.urinationTaglist,
+            )
+
+
+          },
+
           const SizedBox(
             height: 24,
           ),
