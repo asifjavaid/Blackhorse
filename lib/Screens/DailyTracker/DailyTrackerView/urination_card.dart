@@ -152,7 +152,7 @@ class NumberCircle extends StatelessWidget {
                         child: Container(
                           decoration: ShapeDecoration(
                             shape: RoundedRectangleBorder(
-                              side: BorderSide(width: 2, color: DailyTrackerUIHelper.getBowelMovementColor(urinationUrgency.urgencyScale ?? 0)),
+                              side: BorderSide(width: 2, color: DailyTrackerUIHelper.getUrinationColor(urinationUrgency.urgencyScale ?? 0)),
                               borderRadius: BorderRadius.circular(50),
                             ),
                           ),

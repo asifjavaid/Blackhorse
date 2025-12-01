@@ -183,6 +183,14 @@ class UrinationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool validateUrinationData(BuildContext context, bool isShow) {
+    if (_urinationUrgencyData.urinationUrgencyLevel == -1) {
+      isShow ? HelperFunctions.showNotification(context, "Please provide all required details.") : null;
+      return false;
+    }
+    return true;
+  }
+
   bool validateBMData(BuildContext context) {
     try {
       _urinationUrgencyData.validate();
@@ -209,6 +217,8 @@ class UrinationProvider extends ChangeNotifier {
       },
     );
   }
+
+
 
   void patchUrinationUrgencyRequest(BuildContext context) async {
     var provider = Provider.of<DailyTrackerProvider>(context, listen: false);

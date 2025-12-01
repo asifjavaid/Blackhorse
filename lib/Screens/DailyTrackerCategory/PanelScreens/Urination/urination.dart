@@ -187,9 +187,32 @@ class _UrinationScreenState extends State<UrinationScreen> {
             height: 48,
           ),
 
-          CustomButton(
+/*          CustomButton(
             title: "Track urination",
             onPressed: () => provider.patchUrinationUrgencyRequest(context),
+          ),*/
+          Consumer<UrinationProvider>(
+            builder: (context, provider, child) {
+              bool isTimeSelected = provider
+                  .urinationUrgencyData.urinationUrgencyTime
+                  .any((option) => option.isSelected);
+              bool isUrgencyLevelSelected =
+                  provider.urinationUrgencyData.urinationUrgencyLevel != null &&
+                      provider.urinationUrgencyData.urinationUrgencyLevel! > 0;
+
+              bool isFrequencySelected =
+                  provider.urinationUrgencyData.frequencyLevel != null &&
+                      provider.urinationUrgencyData.frequencyLevel! > 0;
+
+              bool isFormValid = isTimeSelected && isUrgencyLevelSelected && isFrequencySelected;
+
+              return CustomButton(
+                title: "Track urination",
+                onPressed: isFormValid
+                    ? () => provider.patchUrinationUrgencyRequest(context)
+                    : null,
+              );
+            },
           ),
           const SizedBox(
             height: 32,
