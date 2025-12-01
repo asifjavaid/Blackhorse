@@ -41,21 +41,6 @@ class InsightsUrinationsTags extends StatelessWidget {
                   backgroundColor: AppColors.whiteColor,
                   callback: () {},
                   subCategoryOptions: [
-                    // GridOptions(
-                    //   title: "Sensations",
-                    //   elevated: false,
-                    //   options: value.urinationTaglist.graphData?.sensation?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
-                    //   width: 100.w,
-                    //   height: 100.h,
-                    //   enableHelp: false,
-                    //   enableHelpCallback: () {
-                    //     HelperFunctions.openCustomBottomSheet(context, content: const ColorWidget(), height: 700);
-                    //   },
-                    //   backgroundColor: AppColors.whiteColor,
-                    //   callback: () {},
-                    //   padding: const EdgeInsets.only(top: 16),
-                    //   margin: EdgeInsets.zero,
-                    // ),
                     GridOptions(
                       title: "Complications",
                       elevated: false,
@@ -78,21 +63,24 @@ class InsightsUrinationsTags extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 16),
                       margin: EdgeInsets.zero,
                     ),
-                    GridOptions(
-                      title: "Colour",
-                      elevated: false,
-                      options: value.urinationTaglist.graphData?.color?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
-                      width: 100.w,
-                      height: 100.h,
-                      backgroundColor: AppColors.whiteColor,
-                      callback: () {},
-                      enableHelp: true,
-                      enableHelpCallback: () {
-                        HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyColorHelpWidget(), height: 700);
-                      },
-                      padding: const EdgeInsets.only(top: 16),
-                      margin: EdgeInsets.zero,
-                    ),
+
+                    if (value.urinationTaglist.graphData != null && value.urinationTaglist.graphData!.color != null && value.urinationTaglist.graphData!.color!.isNotEmpty) ... [
+                      GridOptions(
+                        title: "Colour",
+                        elevated: false,
+                        options: value.urinationTaglist.graphData?.color?.map((data) => OptionModel(text: data.tag ?? "Unkown", value: data.count)).toList() ?? [],
+                        width: 100.w,
+                        height: 100.h,
+                        backgroundColor: AppColors.whiteColor,
+                        callback: () {},
+                        enableHelp: true,
+                        enableHelpCallback: () {
+                          HelperFunctions.openCustomBottomSheet(context, content: const UrinationUrgencyColorHelpWidget(), height: 700);
+                        },
+                        padding: const EdgeInsets.only(top: 16),
+                        margin: EdgeInsets.zero,
+                      ),
+                    ],
                     GridOptions(
                       title: "Smell",
                       elevated: false,
