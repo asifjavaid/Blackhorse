@@ -152,10 +152,6 @@ class MultiSymptomsChartProvider extends ChangeNotifier {
         color: Colors.red,
         name: "Headache",
       ),
-      urinationData: GraphSeriesConfig(
-          data: resultsMap["urinationData"]?.graphData,
-          color: Colors.red,
-          name: "Urination"),
     );
     series = data.getAllSeries(currentSymptom);
     compareSymptoms =
