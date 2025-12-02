@@ -100,13 +100,12 @@ class _LoginWithBankIdState extends State<LoginWithBankId> {
                                       CustomTextFormField(
                                         inputType: TextInputType.text,
                                         controller: value.emailController,
-                                        prefixWidget: iconBuilder(
-                                            SvgPicture.asset(
-                                              Assets.customiconsEmail,
-                                              height: 16,
-                                              width: 16,
-                                            ),
-                                            Colors.transparent),
+                                        prefixWidget: SizedBox(
+                                          child: SvgPicture.asset(
+                                            Assets.customiconsEmail,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
                                         obscureText: false,
                                       ),
                                       SizedBox(
