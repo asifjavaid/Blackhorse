@@ -132,7 +132,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             CustomTextFormField(
                               controller: value.firstNameController,
-                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsProfile),  Colors.transparent),
+                              prefixWidget: SizedBox(
+                                child: SvgPicture.asset(
+                                  Assets.customiconsProfile,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your first name';
@@ -149,7 +154,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ),
                             CustomTextFormField(
                               controller: value.lastNameController,
-                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsProfile),  Colors.transparent),
+                              prefixWidget: SizedBox(
+                                child: SvgPicture.asset(
+                                  Assets.customiconsProfile,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please enter your last name';
@@ -167,7 +177,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             CustomTextFormField(
                               controller: value.emailController,
                               inputType: TextInputType.text,
-                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsEmail),  Colors.transparent),
+                              prefixWidget: SizedBox(
+                                child: SvgPicture.asset(
+                                  Assets.customiconsEmail,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                               validator: HelperFunctions.emailValidator,
                               isEnable: false,
                             ),
@@ -182,7 +197,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               controller: value.phoneController,
                               inputAction: TextInputAction.done,
                               inputType: TextInputType.text,
-                              prefixWidget: iconBuilder(SvgPicture.asset(Assets.customiconsSupport),  Colors.transparent),
+                              prefixWidget: SizedBox(
+                                child: SvgPicture.asset(
+                                  Assets.customiconsSupport,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
                               validator: HelperFunctions.phoneValidator,
                               maxLength: 16,
                               inputFormatters: [NorwegianPhoneFormatter()],

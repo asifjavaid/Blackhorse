@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomTextFormField extends StatefulWidget {
-  final String? leadingIcon;
   final String hintText;
   final TextStyle? hintStyle;
   final bool isEnable;
@@ -33,7 +32,6 @@ class CustomTextFormField extends StatefulWidget {
 
   const CustomTextFormField({
     super.key,
-    this.leadingIcon = "",
     this.hintText = "",
     this.hintStyle,
     this.obscureText = false,
@@ -90,7 +88,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           enabled: widget.isEnable,
           errorStyle: inputDecorationTheme.errorStyle,
           suffixIcon: widget.suffixWidget == null ? null : Padding(padding: EdgeInsets.all(widget.suffixPadding!), child: widget.suffixWidget),
-          prefixIcon: widget.leadingIcon!.isNotEmpty ? Padding(padding: const EdgeInsets.all(15.0), child: SvgPicture.asset(widget.leadingIcon!, height: 2)) : widget.prefixWidget,
+          prefixIcon: widget.prefixWidget == null ? null : Padding(padding: const EdgeInsets.only(left: 20), child: widget.prefixWidget),
+          prefixIconConstraints: const BoxConstraints(
+            minWidth: 12,
+            minHeight: 12,
+            maxWidth: 38,
+            maxHeight: 38,
+          ),
           contentPadding: inputDecorationTheme.contentPadding,
           border: inputDecorationTheme.border,
           focusedBorder: inputDecorationTheme.focusedBorder,
@@ -98,7 +102,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           disabledBorder: inputDecorationTheme.disabledBorder,
           enabledBorder: inputDecorationTheme.enabledBorder,
           hintText: widget.hintText,
-          hintStyle: widget.hintStyle ?? textTheme.bodyMedium),
+          hintStyle: widget.hintStyle ?? textTheme.bodyMedium
+      ),
       enabled: widget.isEnable,
       validator: widget.validator,
       onChanged: widget.onChange,
