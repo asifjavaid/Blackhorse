@@ -136,6 +136,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: SvgPicture.asset(
                                   Assets.customiconsProfile,
                                   fit: BoxFit.contain,
+                                  color: AppColors.actionColor500,
+                                  height: 16,
+                                  width: 16,
                                 ),
                               ),
                               validator: (value) {
@@ -158,6 +161,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: SvgPicture.asset(
                                   Assets.customiconsProfile,
                                   fit: BoxFit.contain,
+                                  color: AppColors.actionColor500,
+                                  height: 16,
+                                  width: 16,
                                 ),
                               ),
                               validator: (value) {
@@ -181,6 +187,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: SvgPicture.asset(
                                   Assets.customiconsEmail,
                                   fit: BoxFit.contain,
+                                  // color: AppColors.actionColor500,
+                                  height: 16,
+                                  width: 16,
                                 ),
                               ),
                               validator: HelperFunctions.emailValidator,
@@ -201,6 +210,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: SvgPicture.asset(
                                   Assets.customiconsSupport,
                                   fit: BoxFit.contain,
+                                  color: AppColors.actionColor500,
+                                  height: 16,
+                                  width: 16,
                                 ),
                               ),
                               validator: HelperFunctions.phoneValidator,

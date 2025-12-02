@@ -104,6 +104,9 @@ class _LoginWithBankIdState extends State<LoginWithBankId> {
                                           child: SvgPicture.asset(
                                             Assets.customiconsEmail,
                                             fit: BoxFit.contain,
+                                            // color: AppColors.actionColor500,
+                                            height: 16,
+                                            width: 16,
                                           ),
                                         ),
                                         obscureText: false,
