@@ -126,7 +126,10 @@ class MultiSymptomsChartProvider extends ChangeNotifier {
           data: resultsMap["bowelMovementData"]?.graphData,
           color: Colors.red,
           name: "Bowel movement"),
-
+      urinationData: GraphSeriesConfig(
+          data: resultsMap["urinationData"]?.graphData,
+          color: Colors.red,
+          name: "Urination"),
       painKillerData: GraphSeriesConfig(
           data: resultsMap["painKillersData"]?.graphData,
           color: Colors.red,
