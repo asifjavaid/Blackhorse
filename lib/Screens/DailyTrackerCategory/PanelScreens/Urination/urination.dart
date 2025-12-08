@@ -172,7 +172,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
           GridRadioSelection(
               title: "How did it affect your quality of life?",
               width: width,
-              impactGrid: provider.urinationUrgencyData.bodyPain.headache.impactGrid,
+              impactGrid: provider.urinationUrgencyData.impactGrid,
               callback: (OptionModel option, int impactLevel) {
                 provider.handleEventOptionSelection(PainEventsCategory.Intimacy, option, 6, impactLevel);
               }),

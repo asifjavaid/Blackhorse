@@ -102,16 +102,16 @@ class UrinationProvider extends ChangeNotifier {
       case 6: // Impact on life
         switch (option.text) {
           case "Work":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.workValue = impactLevel!;
+            _urinationUrgencyData.impactGrid.workValue = impactLevel!;
             break;
           case "Social life":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.socialLifeValue = impactLevel!;
+            _urinationUrgencyData.impactGrid.socialLifeValue = impactLevel!;
             break;
           case "Sleep":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.sleepValue = impactLevel!;
+            _urinationUrgencyData.impactGrid.sleepValue = impactLevel!;
             break;
           case "Quality of life":
-            _urinationUrgencyData.bodyPain.headache.impactGrid.qualityOfLifeValue = impactLevel!;
+            _urinationUrgencyData.impactGrid.qualityOfLifeValue = impactLevel!;
             break;
         }
         break;
