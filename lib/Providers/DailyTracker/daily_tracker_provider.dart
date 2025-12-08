@@ -1134,7 +1134,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.justExisting.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.justExisting.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1142,7 +1142,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.justExisting.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.justExisting.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1191,7 +1191,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.toilet.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.toilet.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1199,7 +1199,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.toilet.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.toilet.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1247,7 +1247,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.travel.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.travel.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1255,7 +1255,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.travel.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.travel.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1339,7 +1339,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.exercise.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.exercise.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1347,7 +1347,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.exercise.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.exercise.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1395,7 +1395,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.sleep.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.sleep.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1403,7 +1403,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.sleep.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.sleep.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1485,7 +1485,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.sex.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.sex.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1493,7 +1493,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.sex.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.sex.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1539,7 +1539,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.eating.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.eating.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1547,7 +1547,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.eating.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.eating.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1594,7 +1594,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.work.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.work.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1602,7 +1602,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.work.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.work.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1666,7 +1666,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.headache.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Social Life":
+              case "Social life":
                 categoriesData.bodyPain.headache.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1674,7 +1674,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 categoriesData.bodyPain.headache.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
-              case "Quality of Life":
+              case "Quality of life":
                 categoriesData.bodyPain.headache.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
@@ -1714,19 +1714,19 @@ class DailyTrackerProvider extends ChangeNotifier {
           case 4:
             switch (selectedOption.text) {
               case "Work":
-                categoriesData.bodyPain.justExisting.impactGrid.workValue = impactLevel!;
+                categoriesData.bodyPain.urination.impactGrid.workValue = impactLevel!;
                 notifyListeners();
                 break;
               case "Social Life":
-                categoriesData.bodyPain.justExisting.impactGrid.socialLifeValue = impactLevel!;
+                categoriesData.bodyPain.urination.impactGrid.socialLifeValue = impactLevel!;
                 notifyListeners();
                 break;
               case "Sleep":
-                categoriesData.bodyPain.justExisting.impactGrid.sleepValue = impactLevel!;
+                categoriesData.bodyPain.urination.impactGrid.sleepValue = impactLevel!;
                 notifyListeners();
                 break;
               case "Quality of Life":
-                categoriesData.bodyPain.justExisting.impactGrid.qualityOfLifeValue = impactLevel!;
+                categoriesData.bodyPain.urination.impactGrid.qualityOfLifeValue = impactLevel!;
                 notifyListeners();
                 break;
             }

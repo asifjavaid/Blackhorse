@@ -140,6 +140,7 @@ class CategoryBodyPartPain {
   Sex sex;
   Work work;
   Headache headache;
+  Urination urination;
 
   CategoryBodyPartPain(
       {required this.selectedBodyParts,
@@ -152,6 +153,7 @@ class CategoryBodyPartPain {
       required this.sex,
       required this.work,
       required this.headache,
+        required this.urination,
       this.editingBodyPartsEnabled = true,
       this.isEditing = false});
 }
