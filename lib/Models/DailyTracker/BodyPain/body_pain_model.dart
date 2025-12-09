@@ -147,7 +147,7 @@ class PartOfLifeEffect {
     type = json['type'];
     none = json['None'];
     mild = json['Mild'];
-    mod = json['Mod'];
+    mod = json['Moderate'];
     severe = json['Severe'];
   }
 
