@@ -49,7 +49,7 @@ class _UrinationScreenState extends State<UrinationScreen> {
         children: [
           FeatureFeedback(
             feedback: provider.symptomFeedback,
-            callback: provider.updateBowelMovFeedbackStatus,
+            callback: provider.updateUrinationFeedbackStatus,
           ),
           GridOptions(
               title: "When did it happen?",
@@ -182,7 +182,9 @@ class _UrinationScreenState extends State<UrinationScreen> {
           Notes(
               notesText: provider.urinationUrgencyData.urineUrgencyNotes,
               placeholderText: provider.urinationUrgencyData.notesPlaceholder,
-              callback: provider.handleBowelMovNotes),
+              callback: provider.handleUrinationNotes
+          ),
+
           const SizedBox(
             height: 48,
           ),

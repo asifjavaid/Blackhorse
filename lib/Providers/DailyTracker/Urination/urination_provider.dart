@@ -57,7 +57,7 @@ class UrinationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void handleBowelMovNotes(String notes) {
+  void handleUrinationNotes(String notes) {
     _urinationUrgencyData.urineUrgencyNotes = notes;
     AppNavigation.goBack();
     notifyListeners();
@@ -259,8 +259,8 @@ class UrinationProvider extends ChangeNotifier {
     );
   }
 
-  void updateBowelMovFeedbackStatus(bool answer) async {
-    AmpltudeSymptomFeedback(symptomCategory: "Bowel Movements", feedback: answer).log();
+  void updateUrinationFeedbackStatus(bool answer) async {
+    AmpltudeSymptomFeedback(symptomCategory: "Urination", feedback: answer).log();
     var result = await UrinationUrgencyService.patchFeedbackRequest(_symptomFeedback.id!, answer);
     result.fold(
       (l) {
