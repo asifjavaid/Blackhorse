@@ -86,7 +86,7 @@ class _ContraceptiveImplantReminder
                                     Assets.customiconsArrowDown,
                                     height: 16,
                                     width: 16,
-                                    color: AppColors.actionColor600
+                                    color: AppColors.actionColor600,
                                 ),
                                 elevation: 0,
                                 onPressed: () => HelperFunctions.showSheet(
