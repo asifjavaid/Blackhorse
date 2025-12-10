@@ -66,6 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                                               onTap: () => value.goBackToPreviousAnswer(),
                                                               child: SvgPicture.asset(
                                                                 Assets.customiconsArrowLeft,
+                                                                color: AppColors.actionColor600,
                                                                 height: 18,
                                                                 width: 18,
                                                               ),

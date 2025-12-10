@@ -17,7 +17,7 @@ class CategoryUrinationUrgency {
   List<OptionModel> colorOptions;
   List<OptionModel> smellOptions;
   List<OptionModel> volumeOptions;
-  List<String> columns = ["None", "Mild", "Mod", "Severe"];
+  List<String> columns = ["None", "Mild", "Moderate", "Severe"];
   List<String> rows = ["Work", "Social life", "Sleep", "Quality of life"];
   String urineUrgencyNotes;
   String notesPlaceholder;

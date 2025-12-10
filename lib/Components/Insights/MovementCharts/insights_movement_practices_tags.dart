@@ -41,10 +41,12 @@ class InsightsMovementPracticesTags extends StatelessWidget {
                         Assets.customiconsArrowRight,
                         height: 16,
                         width: 16,
+                        color: AppColors.actionColor600,
                       ),
                       height: 36,
                       width: 36,
-                      bgColor: AppColors.actionColor400),
+                      bgColor: AppColors.actionColor400
+                  ),
                 ),
                 subCategoryOptions: GridOptions(
                   title: "Types",
