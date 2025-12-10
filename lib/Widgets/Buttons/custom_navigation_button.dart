@@ -1,3 +1,4 @@
+import 'package:ekvi/Utils/Constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,7 +20,7 @@ class NavigationButton extends StatelessWidget {
       onTap: callback,
       child: iconAddress != null
           ? Image.asset(iconAddress!)
-          : SvgPicture.asset (icon ?? "", height: 18, width: 18,),
+          : SvgPicture.asset (icon ?? "", height: 18, width: 18, color: AppColors.actionColor600,),
     );
   }
 }
