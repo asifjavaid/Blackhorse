@@ -4,9 +4,12 @@ import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
+
+import '../../generated/assets.dart';
 
 class CyclePredictionPanelContent extends StatefulWidget {
   const CyclePredictionPanelContent({super.key});
@@ -39,9 +42,9 @@ class _CyclePredictionPanelContentState
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
-                              AppCustomIcons.check_2,
-                              color: AppColors.primaryColor600,
+                            SvgPicture.asset(
+                              Assets.customiconsCheck2,
+                              semanticsLabel: 'Daily Tracker Info',
                             ),
                             SizedBox(width: 2.w),
                             Text(

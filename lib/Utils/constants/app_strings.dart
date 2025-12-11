@@ -2,7 +2,7 @@ import 'package:ekvi/Widgets/CustomWidgets/custom_info_table.dart';
 
 class AppStrings {
   static const List<String> bowelMovLevels = ["Watery", "Soft", "Normal", "Hard", "Very hard"];
-
+  static const List<String> urinationLevels = ["Mild", "Moderate", "Strong", "Severe", "Intense"];
   ///
   /// DAILY TRACKER PAIN FEATURE
   ///

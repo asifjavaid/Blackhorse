@@ -7,6 +7,8 @@ import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/assets.dart';
+
 enum TimeFrameSelection { oneMonth, threeMonths, oneYear }
 
 class InsightsSymptomTimeSelectionProvider with ChangeNotifier {
@@ -24,21 +26,22 @@ class InsightsSymptomTimeSelectionProvider with ChangeNotifier {
   ];
 
   List<InisghtsSymptom> symptoms = [
-    InisghtsSymptom(name: 'Pain', icon: AppCustomIcons.bolt),
-    InisghtsSymptom(name: 'Bleeding', icon: AppCustomIcons.drip),
-    InisghtsSymptom(name: 'Headache', icon: AppCustomIcons.headache),
-    InisghtsSymptom(name: 'Mood', icon: AppCustomIcons.emotions),
-    InisghtsSymptom(name: 'Stress', icon: AppCustomIcons.stress),
-    InisghtsSymptom(name: 'Energy', icon: AppCustomIcons.energy),
-    InisghtsSymptom(name: 'Nausea', icon: AppCustomIcons.nausea),
-    InisghtsSymptom(name: 'Fatigue', icon: AppCustomIcons.fatigue),
-    InisghtsSymptom(name: 'Bloating', icon: AppCustomIcons.bloating),
-    InisghtsSymptom(name: 'Brain fog', icon: AppCustomIcons.brainfog),
-    InisghtsSymptom(name: 'Bowel movement', icon: AppCustomIcons.bowel_movent),
-    InisghtsSymptom(name: 'Painkillers', icon: AppCustomIcons.pill_1),
-    InisghtsSymptom(name: 'Movement', icon: AppCustomIcons.training),
-    InisghtsSymptom(name: 'Self-care', icon: AppCustomIcons.follicular),
-    InisghtsSymptom(name: 'Pain relief', icon: AppCustomIcons.pain_relief),
+    InisghtsSymptom(name: 'Pain', icon: Assets.customiconsBolt),
+    InisghtsSymptom(name: 'Bleeding', icon: Assets.customiconsDrip),
+    InisghtsSymptom(name: 'Headache', icon: Assets.customiconsHeadache),
+    InisghtsSymptom(name: 'Mood', icon: Assets.customiconsEmotions),
+    InisghtsSymptom(name: 'Stress', icon: Assets.customiconsStress),
+    InisghtsSymptom(name: 'Energy', icon: Assets.customiconsEnergy),
+    InisghtsSymptom(name: 'Nausea', icon: Assets.customiconsNausea),
+    InisghtsSymptom(name: 'Fatigue', icon: Assets.customiconsFatigue),
+    InisghtsSymptom(name: 'Bloating', icon: Assets.customiconsBloating),
+    InisghtsSymptom(name: 'Brain fog', icon: Assets.customiconsBrainfog),
+    InisghtsSymptom(name: 'Bowel movement', icon: Assets.customiconsBowelMovent),
+    InisghtsSymptom(name: 'Urination', icon: Assets.customiconsUrination),
+    InisghtsSymptom(name: 'Painkillers', icon: Assets.customiconsPill1),
+    InisghtsSymptom(name: 'Movement', icon: Assets.customiconsTraining),
+    InisghtsSymptom(name: 'Self-care', icon: Assets.customiconsFollicular),
+    InisghtsSymptom(name: 'Pain relief', icon: Assets.customiconsPainRelief),
   ];
 
   final List<String> listPainKillerIngredients = <String>[
@@ -158,7 +161,7 @@ class InsightsSymptomTimeSelectionProvider with ChangeNotifier {
 
 class InisghtsSymptom {
   final String name;
-  final IconData? icon;
+  final String? icon;
   Color? color;
 
   InisghtsSymptom({required this.name, this.icon, this.color});

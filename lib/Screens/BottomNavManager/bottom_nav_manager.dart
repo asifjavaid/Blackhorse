@@ -24,15 +24,25 @@ import 'package:ekvi/Screens/Dashboard/dashboard.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 
+import '../../generated/assets.dart';
+
 List<PersistentTabConfig> _navBarsTabs(BuildContext context) {
   return [
     PersistentTabConfig(
       screen: const Dashboard(),
       item: ItemConfig(
-        icon: const Icon(AppCustomIcons.homefilled,
-            size: 16, color: AppColors.actionColor600),
-        inactiveIcon: const Icon(AppCustomIcons.home,
-            size: 18, color: AppColors.actionColor500),
+        icon: SvgPicture.asset(
+          Assets.customiconsHomeFilled,
+          color: AppColors.actionColor600,
+          height: 16,
+          width: 16,
+        ),
+        inactiveIcon: SvgPicture.asset(
+          Assets.customiconsHome,
+          color: AppColors.actionColor500,
+          height: 18,
+          width: 18,
+        ),
         title: AppLocalizations.of(context)!.home,
         textStyle:
             Theme.of(AppNavigation.currentContext!).textTheme.labelMedium!,
@@ -44,10 +54,18 @@ List<PersistentTabConfig> _navBarsTabs(BuildContext context) {
     PersistentTabConfig(
       screen: const CycleCalendarScreen(),
       item: ItemConfig(
-        icon: const Icon(AppCustomIcons.vector,
-            size: 16, color: AppColors.actionColor600),
-        inactiveIcon: const Icon(AppCustomIcons.my_day,
-            size: 16, color: AppColors.actionColor500),
+        icon: SvgPicture.asset(
+          Assets.customiconsVector,
+          color: AppColors.actionColor600,
+          height: 16,
+          width: 16,
+        ),
+        inactiveIcon: SvgPicture.asset(
+          Assets.customiconsMyDay,
+          color: AppColors.actionColor500,
+          height: 16,
+          width: 16,
+        ),
         title: AppLocalizations.of(context)!.cycle,
         textStyle:
             Theme.of(AppNavigation.currentContext!).textTheme.labelMedium!,
@@ -59,10 +77,18 @@ List<PersistentTabConfig> _navBarsTabs(BuildContext context) {
     PersistentTabConfig(
       screen: const DailyTracker(),
       item: ItemConfig(
-        icon: const Icon(AppCustomIcons.plus,
-            size: 16, color: AppColors.actionColor600),
-        inactiveIcon: const Icon(AppCustomIcons.plus,
-            size: 16, color: AppColors.actionColor500),
+        icon: SvgPicture.asset(
+          Assets.customiconsPlus,
+          color: AppColors.actionColor600,
+          height: 16,
+          width: 16,
+        ),
+        inactiveIcon: SvgPicture.asset(
+          Assets.customiconsPlus,
+          color: AppColors.actionColor500,
+          height: 16,
+          width: 16,
+        ),
         title: AppLocalizations.of(context)!.tracking,
         textStyle:
             Theme.of(AppNavigation.currentContext!).textTheme.labelMedium!,
@@ -76,10 +102,18 @@ List<PersistentTabConfig> _navBarsTabs(BuildContext context) {
         arguments: ScreenArguments(cycleHistoryOpenedFromBottomnav: true),
       ),
       item: ItemConfig(
-        icon: const Icon(AppCustomIcons.heartfilled,
-            size: 16, color: AppColors.actionColor600),
-        inactiveIcon: const Icon(AppCustomIcons.heart,
-            size: 16, color: AppColors.actionColor500),
+        icon: SvgPicture.asset(
+            Assets.customiconsHeartFilled,
+            height: 16,
+            width: 16,
+            color: AppColors.actionColor600
+        ),
+        inactiveIcon: SvgPicture.asset(
+            Assets.customiconsHeart,
+            height: 16,
+            width: 16,
+            color: AppColors.actionColor500
+        ),
         title: AppLocalizations.of(context)!.insights,
         textStyle:
             Theme.of(AppNavigation.currentContext!).textTheme.labelMedium!,
@@ -92,8 +126,12 @@ List<PersistentTabConfig> _navBarsTabs(BuildContext context) {
       screen: const EkvipediaScreen(),
       item: ItemConfig(
         icon: SvgPicture.asset("${AppConstant.assetIcons}ekvipedia.svg"),
-        inactiveIcon: const Icon(AppCustomIcons.ekvipedia,
-            size: 16, color: AppColors.actionColor500),
+        inactiveIcon: SvgPicture.asset(
+            Assets.customiconsEkvipedia,
+            height: 16,
+            width: 16,
+            color: AppColors.actionColor500
+        ),
         title: "Ekvipedia",
         textStyle: Theme.of(AppNavigation.currentContext!)
             .textTheme

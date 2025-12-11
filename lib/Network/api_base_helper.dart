@@ -13,6 +13,10 @@ class ApiBaseHelper {
       {Map<String, String>? queryParams}) async {
     http.Response response;
     try {
+
+      print("endpoint: ${AppConstant.appBaseURL}$endPoint}");
+      print("request: ${queryParams}");
+
       response = await http.get(
           Uri.parse('${AppConstant.appBaseURL}$endPoint')
               .replace(queryParameters: queryParams),
@@ -85,6 +89,8 @@ class ApiBaseHelper {
       {String? bearerToken}) async {
     http.Response response;
     try {
+      print("endpoint: ${AppConstant.appBaseURL}$endPoint}");
+      print("request: ${requestBody}");
       response = await http.post(
         Uri.parse('${AppConstant.appBaseURL}$endPoint'),
         headers: {
@@ -104,6 +110,8 @@ class ApiBaseHelper {
     } catch (e) {
       throw FetchDataException(AppConstant.exceptionMessage);
     }
+
+    print("respose: ${response.body}");
     return _returnResponse(response);
   }
 

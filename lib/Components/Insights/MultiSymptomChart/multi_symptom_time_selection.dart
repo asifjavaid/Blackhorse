@@ -3,7 +3,10 @@ import 'package:ekvi/Routes/app_navigation.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../../generated/assets.dart';
 
 class MultiSymptomTimeSelection extends StatelessWidget {
   const MultiSymptomTimeSelection({super.key});
@@ -20,11 +23,12 @@ class MultiSymptomTimeSelection extends StatelessWidget {
             onTap: () => AppNavigation.goBack(),
             child: Container(
               color: Colors.transparent,
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.only(right: 24),
-                child: Icon(
-                  AppCustomIcons.arrow_left__property_2_ic,
-                  size: 16,
+                child: SvgPicture.asset(
+                  Assets.customiconsArrowLeft,
+                  height: 16,
+                  width: 16,
                 ),
               ),
             )),
@@ -49,10 +53,11 @@ class MultiSymptomTimeSelection extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
-                              provider.symptoms.firstWhere((element) => element.name == provider.selectedSymptom).icon,
+                            SvgPicture.asset(
+                              provider.symptoms.firstWhere((element) => element.name == provider.selectedSymptom).icon ?? "",
+                              height: 16,
+                              width: 16,
                               color: AppColors.actionColor600,
-                              size: 16,
                             ),
                             const SizedBox(width: 10),
                             Expanded(
@@ -88,10 +93,11 @@ class MultiSymptomTimeSelection extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                const Icon(
-                                  AppCustomIcons.calendar,
+                                SvgPicture.asset(
+                                  Assets.customiconsCalendar,
                                   color: AppColors.actionColor600,
-                                  size: 16,
+                                  height: 16,
+                                  width: 16,
                                 ),
                                 const SizedBox(
                                   width: 10,

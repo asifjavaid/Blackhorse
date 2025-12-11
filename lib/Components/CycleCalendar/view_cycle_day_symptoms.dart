@@ -7,9 +7,12 @@ import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ekvi/Providers/CycleCalendar/cycle_calendar_provider.dart';
+
+import '../../generated/assets.dart';
 
 class ViewCycleDaySymptoms extends StatelessWidget {
   const ViewCycleDaySymptoms({super.key});
@@ -47,17 +50,18 @@ class ViewCycleDaySymptoms extends StatelessWidget {
                     children: symptoms!.map((symptom) {
                       String intensity = capitalize(symptom.intensity ?? '');
                       String type = capitalize(symptom.type ?? '');
-                      IconData assetName = getAssetNameForSymptomType(symptom.type ?? "");
+                      String assetName = getAssetNameForSymptomType(symptom.type ?? "");
 
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12.0),
                         child: Row(
                           children: [
                             HelperFunctions.giveBackgroundToIcon(
-                                Icon(
+                                SvgPicture.asset(
                                   assetName,
+                                  height: 16,
+                                  width: 16,
                                   color: AppColors.whiteColor,
-                                  size: 16,
                                 ),
                                 height: 32,
                                 width: 32,
@@ -105,14 +109,14 @@ class ViewCycleDaySymptoms extends StatelessWidget {
     return text[0].toUpperCase() + text.substring(1).toLowerCase();
   }
 
-  IconData getAssetNameForSymptomType(String type) {
+  String getAssetNameForSymptomType(String type) {
     switch (type) {
       case 'Bleeding':
-        return AppCustomIcons.drip;
+        return Assets.customiconsDrip;
       case 'Pain':
-        return AppCustomIcons.bolt;
+        return Assets.customiconsBolt;
       default:
-        return AppCustomIcons.bolt;
+        return Assets.customiconsBolt;
     }
   }
 }

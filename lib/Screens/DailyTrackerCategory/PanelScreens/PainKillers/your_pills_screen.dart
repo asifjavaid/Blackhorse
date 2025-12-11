@@ -12,7 +12,10 @@ import 'package:ekvi/Widgets/Bars/custom_back_navigation_bar.dart';
 import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../generated/assets.dart';
 
 class YourPillsScreen extends StatefulWidget {
   const YourPillsScreen({super.key});
@@ -56,10 +59,7 @@ class YourPillsScreenState extends State<YourPillsScreen> {
                           child: Column(
                             children: [
                               const SizedBox(height: 18),
-                              const Icon(
-                                AppCustomIcons.pill_1,
-                                color: AppColors.actionColor600,
-                              ),
+                              SvgPicture.asset(Assets.customiconsPill1, color: AppColors.actionColor600, height: 18, width: 18,),
                               const SizedBox(height: 4),
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -182,11 +182,7 @@ class PillListItem extends StatelessWidget {
       leading: HelperFunctions.giveBackgroundToIcon(
         width: 36,
         height: 36,
-        const Icon(
-          AppCustomIcons.pill_1,
-          color: AppColors.actionColor600,
-          size: 18,
-        ),
+        SvgPicture.asset(Assets.customiconsPill1, color: AppColors.actionColor600, height: 18, width: 18,),
         bgColor: AppColors.actionColor400,
       ),
       title: Text(
@@ -220,11 +216,7 @@ class PillListItem extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           IconButton(
-              icon: const Icon(
-                AppCustomIcons.arrow_right,
-                color: AppColors.actionColor600,
-                size: 18,
-              ),
+              icon: SvgPicture.asset(Assets.customiconsArrowRight, color: AppColors.actionColor600, height: 18, width: 18,),
               onPressed: () => AppNavigation.navigateTo(AppRoutes.painKillerEditScreen, arguments: ScreenArguments(painkiller: pill))),
         ],
       ),

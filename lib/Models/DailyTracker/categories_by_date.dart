@@ -3,6 +3,8 @@ import 'package:ekvi/Models/DailyTracker/BowelMovement/bathroom_habbits.dart';
 import 'package:ekvi/Models/DailyTracker/daily_tracker_models.dart';
 import 'package:ekvi/Models/DailyTracker/daily_tracker_notes.dart';
 
+import '../Urination/urination_urgency_model.dart';
+
 class CompletedCategoriesByDate {
   Data? thingsExperience;
   Data? symptoms;
@@ -13,34 +15,16 @@ class CompletedCategoriesByDate {
   DailyTrackerNotes? notes;
 
   CompletedCategoriesByDate(
-      {this.thingsExperience,
-      this.symptoms,
-      this.thingsPutInBody,
-      this.intimacyAndFertility,
-      this.bathroomHabits,
-      this.wellbeing,
-      this.notes});
+      {this.thingsExperience, this.symptoms, this.thingsPutInBody, this.intimacyAndFertility, this.bathroomHabits, this.wellbeing, this.notes});
 
   CompletedCategoriesByDate.fromJson(Map<String, dynamic> json) {
-    thingsExperience = json['Feelings'] != null
-        ? Data.fromJson(json['Feelings'] as List)
-        : null;
-    symptoms = json['Symptoms'] != null
-        ? Data.fromJson(json['Symptoms'] as List)
-        : null;
-    intimacyAndFertility = json['Fertility & Intimacy'] != null
-        ? Data.fromJson(json['Fertility & Intimacy'] as List)
-        : null;
-    thingsPutInBody =
-        json['Intake'] != null ? Data.fromJson(json['Intake'] as List) : null;
-    bathroomHabits = json['Bathroom Habits'] != null
-        ? Data.fromJson(json['Bathroom Habits'] as List)
-        : null;
-    wellbeing = json['Wellbeing'] != null
-        ? Data.fromJson(json['Wellbeing'] as List)
-        : null;
-    notes =
-        json['note'] != null ? DailyTrackerNotes.fromJson(json['note']) : null;
+    thingsExperience = json['Feelings'] != null ? Data.fromJson(json['Feelings'] as List) : null;
+    symptoms = json['Symptoms'] != null ? Data.fromJson(json['Symptoms'] as List) : null;
+    intimacyAndFertility = json['Fertility & Intimacy'] != null ? Data.fromJson(json['Fertility & Intimacy'] as List) : null;
+    thingsPutInBody = json['Intake'] != null ? Data.fromJson(json['Intake'] as List) : null;
+    bathroomHabits = json['Bathroom Habits'] != null ? Data.fromJson(json['Bathroom Habits'] as List) : null;
+    wellbeing = json['Wellbeing'] != null ? Data.fromJson(json['Wellbeing'] as List) : null;
+    notes = json['note'] != null ? DailyTrackerNotes.fromJson(json['note']) : null;
   }
 }
 
@@ -65,6 +49,7 @@ class Data {
   List<Answers>? movement;
   List<Answers>? selfCare;
   List<Answers>? painRelief;
+  List<UrinationUrgencyResponseModel>? urination;
   List<BathroomHabit>? bowelMovement;
 
   Data(
@@ -83,6 +68,7 @@ class Data {
       this.fatigue,
       this.bloating,
       this.brainFog,
+      this.urination,
       this.painKillers});
 
   Data.fromJson(List<dynamic> jsonList) {
@@ -174,6 +160,10 @@ class Data {
           painRelief = painRelief ?? <Answers>[];
           painRelief!.add(Answers.fromJson(json));
           break;
+        case 'Urination':
+          urination = urination ?? <UrinationUrgencyResponseModel>[];
+          urination!.add(UrinationUrgencyResponseModel.fromJson(json));
+          break;
         default:
           break;
       }
@@ -222,18 +212,11 @@ class EventData {
   EventData.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     activity = json['activity'];
-    intimacyType =
-        json['intimacyType'] != null ? json['intimacyType'].cast<String>() : [];
-    toolType =
-        json['intimacyTool'] != null ? json['intimacyTool'].cast<String>() : [];
-    climaxType = json['intimacyOrgasm'] != null
-        ? json['intimacyOrgasm'].cast<String>()
-        : [];
-    experience =
-        json['experience'] != null ? json['experience'].cast<String>() : [];
-    intimacyActivity = json['intimacyActivity'] != null
-        ? json['intimacyActivity'].cast<String>()
-        : [];
+    intimacyType = json['intimacyType'] != null ? json['intimacyType'].cast<String>() : [];
+    toolType = json['intimacyTool'] != null ? json['intimacyTool'].cast<String>() : [];
+    climaxType = json['intimacyOrgasm'] != null ? json['intimacyOrgasm'].cast<String>() : [];
+    experience = json['experience'] != null ? json['experience'].cast<String>() : [];
+    intimacyActivity = json['intimacyActivity'] != null ? json['intimacyActivity'].cast<String>() : [];
     if (json['bodyPartName'] != null) {
       bodyPartName = <BodyPartName>[];
       json['bodyPartName'].forEach((v) {
@@ -280,8 +263,7 @@ class EventData {
     data['timeOfDay'] = timeOfDay;
     data['date'] = date;
     if (partOfLifeEffect != null) {
-      data['partOfLifeEffect'] =
-          partOfLifeEffect!.map((v) => v.toJson()).toList();
+      data['partOfLifeEffect'] = partOfLifeEffect!.map((v) => v.toJson()).toList();
     }
     data['userId'] = userId;
     data['intensityScale'] = intensityScale;

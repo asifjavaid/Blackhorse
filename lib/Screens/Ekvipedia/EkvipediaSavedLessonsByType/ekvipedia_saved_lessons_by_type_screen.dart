@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/assets.dart';
+
 class EkvipediaSavedLessonsByTypeScreen extends StatefulWidget {
   const EkvipediaSavedLessonsByTypeScreen({super.key});
 
@@ -176,11 +178,11 @@ class _EkvipediaSavedLessonsByTypeScreenState
                                             crossAxisAlignment:
                                                 WrapCrossAlignment.center,
                                             children: [
-                                              const Icon(
-                                                AppCustomIcons.info,
-                                                size: 14,
-                                                color:
-                                                    AppColors.neutralColor500,
+                                              SvgPicture.asset(
+                                                Assets.customiconsInfo,
+                                                color: AppColors.neutralColor500,
+                                                height: 14,
+                                                width: 14,
                                               ),
                                               Text(
                                                 _formatLessonType(

@@ -17,6 +17,7 @@ class MultiSymptomGraphModel {
   GraphSeriesConfig? bloatingData;
   GraphSeriesConfig? brainfogData;
   GraphSeriesConfig? bowelMovementData;
+  GraphSeriesConfig? urinationData;
   GraphSeriesConfig? painKillerData;
   GraphSeriesConfig? movementData;
   GraphSeriesConfig? selfCareData;
@@ -38,6 +39,7 @@ class MultiSymptomGraphModel {
       this.nauseaData,
       this.stressData,
       this.bowelMovementData,
+        this.urinationData,
       this.painKillerData,
       this.movementData,
       this.selfCareData,
@@ -82,6 +84,7 @@ class MultiSymptomGraphModel {
     addNonCurrentSeries(bloatingData);
     addNonCurrentSeries(brainfogData);
     addNonCurrentSeries(bowelMovementData);
+    addNonCurrentSeries(urinationData);
     addNonCurrentSeries(movementData);
     addNonCurrentSeries(selfCareData);
     addNonCurrentSeries(painReliefData);
@@ -123,6 +126,7 @@ class MultiSymptomGraphModel {
       bloatingData,
       brainfogData,
       bowelMovementData,
+      urinationData,
       painKillerData,
       movementData,
       selfCareData,

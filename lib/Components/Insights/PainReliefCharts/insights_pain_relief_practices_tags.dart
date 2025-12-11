@@ -8,8 +8,11 @@ import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:ekvi/Widgets/CustomWidgets/custom_grid_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../generated/assets.dart';
 
 class InsightsPainReliefPracticesTags extends StatelessWidget {
   const InsightsPainReliefPracticesTags({super.key});
@@ -34,7 +37,11 @@ class InsightsPainReliefPracticesTags extends StatelessWidget {
                   AppNavigation.navigateTo(AppRoutes.yourWellBeingScreen);
                 },
                 child: HelperFunctions.giveBackgroundToIcon(
-                  const Icon(AppCustomIcons.arrow_right, size: 16),
+                  SvgPicture.asset(
+                    Assets.customiconsArrowRight,
+                    height: 16,
+                    width: 16,
+                  ),
                   height: 36,
                   width: 36,
                   bgColor: AppColors.actionColor400,

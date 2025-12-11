@@ -70,7 +70,7 @@ class ListGridOptionsState extends State<ListGridOptions> {
                       widget.title!,
                       style: textTheme.headlineSmall,
                     ),
-                    widget.enableHelp != null /* && widget.enableHelp!*/
+                    widget.enableHelp != null && widget.enableHelp!
                         ? GestureDetector(
                             onTap: widget.enableHelpCallback,
                             child: SvgPicture.asset(

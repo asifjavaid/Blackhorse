@@ -10,10 +10,13 @@ import 'package:ekvi/Widgets/Buttons/custom_field_dropdown.dart';
 import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:ekvi/Widgets/CustomWidgets/notes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
+
+import '../../generated/assets.dart';
 
 class ContraceptiveImplantReminder extends StatefulWidget {
   const ContraceptiveImplantReminder({super.key});
@@ -79,10 +82,11 @@ class _ContraceptiveImplantReminder
                                     value.contraceptiveImplantReminderTime),
                                 color: AppColors.primaryColor400,
                                 fontColor: AppColors.blackColor,
-                                tralingIcon: const Icon(
-                                  AppCustomIcons.arrow_down,
-                                  color: AppColors.actionColor600,
-                                  size: 16,
+                                tralingIcon: SvgPicture.asset(
+                                    Assets.customiconsArrowDown,
+                                    height: 16,
+                                    width: 16,
+                                    color: AppColors.actionColor600,
                                 ),
                                 elevation: 0,
                                 onPressed: () => HelperFunctions.showSheet(
@@ -133,10 +137,11 @@ class _ContraceptiveImplantReminder
                                     value.contraceptiveImplantReminderDate),
                                 color: AppColors.primaryColor400,
                                 fontColor: AppColors.blackColor,
-                                tralingIcon: const Icon(
-                                  AppCustomIcons.arrow_down,
-                                  color: AppColors.actionColor600,
-                                  size: 16,
+                                tralingIcon: SvgPicture.asset(
+                                    Assets.customiconsArrowDown,
+                                    height: 16,
+                                    width: 16,
+                                    color: AppColors.actionColor600
                                 ),
                                 elevation: 0,
                                 onPressed: () => HelperFunctions.showSheet(

@@ -35,7 +35,8 @@ enum PainEventsCategory {
   Sleep,
   Intimacy,
   Work,
-  Headache
+  Headache,
+  Urination
 }
 
 enum BodySide { Front, Back }

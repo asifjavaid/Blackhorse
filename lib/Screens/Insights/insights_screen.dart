@@ -29,6 +29,8 @@ import 'package:ekvi/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../Components/Insights/UrinationCharts/urination_charts.dart';
+
 class InsightsScreen extends StatefulWidget {
   final ScreenArguments? arguments;
 
@@ -153,6 +155,8 @@ class _InsightsScreenState extends State<InsightsScreen> {
         return const BrainFogCharts();
       case "Bowel movement":
         return const BowelMovementsCharts();
+      case "Urination":
+        return const UrinationCharts();
       case "Headache":
         return const HeadacheCharts();
       case "Painkillers":

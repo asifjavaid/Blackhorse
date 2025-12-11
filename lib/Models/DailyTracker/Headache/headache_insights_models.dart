@@ -65,12 +65,13 @@ class HeadacheGraphData {
   List<HeadacheTag>? onset;
   List<PartOfLifeEffect>? partOfLifeEffect;
 
-  HeadacheGraphData(
-      {this.feltLike,
-      this.location,
-      this.type,
-      this.onset,
-      this.partOfLifeEffect});
+  HeadacheGraphData({
+    this.feltLike,
+    this.location,
+    this.type,
+    this.onset,
+    this.partOfLifeEffect
+  });
 
   HeadacheGraphData.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> graphDataJson = json;

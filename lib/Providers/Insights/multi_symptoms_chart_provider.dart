@@ -14,6 +14,7 @@ import 'package:ekvi/Providers/DailyTracker/PainKillers/pain_killers_provider.da
 import 'package:ekvi/Providers/DailyTracker/PainRelief/pain_relief_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/SelfCare/selfcare_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/Stress/stress_provider.dart';
+import 'package:ekvi/Providers/DailyTracker/Urination/urination_provider.dart';
 import 'package:ekvi/Providers/Insights/insights_provider.dart';
 import 'package:ekvi/Providers/Insights/insights_symptom_time_selection_provider.dart';
 import 'package:ekvi/Routes/app_navigation.dart';
@@ -125,6 +126,10 @@ class MultiSymptomsChartProvider extends ChangeNotifier {
           data: resultsMap["bowelMovementData"]?.graphData,
           color: Colors.red,
           name: "Bowel movement"),
+      urinationData: GraphSeriesConfig(
+          data: resultsMap["urinationData"]?.graphData,
+          color: Colors.red,
+          name: "Urination"),
       painKillerData: GraphSeriesConfig(
           data: resultsMap["painKillersData"]?.graphData,
           color: Colors.red,
@@ -257,6 +262,19 @@ class MultiSymptomsChartProvider extends ChangeNotifier {
           if (chartType == MultiSymptomChartType.average) {
             updateFutures['bowelMovementData'] =
                 provider.fetchInsightsAverageBowelMovementChart(
+                    getGraphTenure(selectedMonths),
+                    selectedMonths,
+                    selectedYear,
+                    loading: false,
+                    notify: false);
+          }
+        case "Urination":
+          var provider = Provider.of<UrinationProvider>(
+              AppNavigation.currentContext!,
+              listen: false);
+          if (chartType == MultiSymptomChartType.average) {
+            updateFutures['urinationData'] =
+                provider.fetchInsightsAverageUrinationChart(
                     getGraphTenure(selectedMonths),
                     selectedMonths,
                     selectedYear,

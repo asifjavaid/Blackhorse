@@ -2,6 +2,9 @@ import 'package:ekvi/Core/themes/app_themes.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../generated/assets.dart';
 
 class EkvipediaNewsEkviCard extends StatelessWidget {
   final String? imagePath;
@@ -67,7 +70,12 @@ class EkvipediaNewsEkviCard extends StatelessWidget {
                             Row(
                               children: [
                                 if (date != null) ...{
-                                  const Icon(AppCustomIcons.calendar, size: 16.0, color: AppColors.neutralColor500),
+                                  SvgPicture.asset(
+                                    Assets.customiconsCalendar,
+                                    color: AppColors.neutralColor500,
+                                    height: 16,
+                                    width: 16,
+                                  ),
                                   const SizedBox(
                                     width: 6,
                                   ),
@@ -80,7 +88,12 @@ class EkvipediaNewsEkviCard extends StatelessWidget {
                                 readTime != null
                                     ? Row(
                                         children: [
-                                          const Icon(AppCustomIcons.time, size: 16.0, color: AppColors.neutralColor500),
+                                          SvgPicture.asset(
+                                            Assets.customiconsTime,
+                                            color: AppColors.neutralColor500,
+                                            height: 16,
+                                            width: 16,
+                                          ),
                                           const SizedBox(width: 6.0),
                                           Text(
                                             readTime!,

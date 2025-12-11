@@ -16,6 +16,8 @@ class AuthenticationButton extends StatelessWidget {
         children: [
           SvgPicture.asset(
             icon,
+            width: 30,
+            height: 30,
           ),
           const SizedBox(
             width: 16,

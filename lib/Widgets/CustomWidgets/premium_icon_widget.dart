@@ -3,6 +3,9 @@ import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:ekvi/Core/di/user_singleton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../generated/assets.dart';
 
 class PremiumIconWidget extends StatelessWidget {
   final double? circleWidth;
@@ -25,11 +28,13 @@ class PremiumIconWidget extends StatelessWidget {
             child: HelperFunctions.giveBackgroundToIcon(
               width: circleWidth ?? 36,
               height: circleHeight ?? 36,
-              Icon(
-                AppCustomIcons.locked,
+              SvgPicture.asset(
+                Assets.customiconsLocked,
+                height: iconSize ?? 17,
+                width: iconSize ?? 17,
                 color: AppColors.whiteColor,
-                size: iconSize ?? 17,
               ),
+
               bgColor: AppColors.actionColor600,
             ),
           );

@@ -13,9 +13,12 @@ import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:ekvi/Core/di/user_singleton.dart';
 import 'package:flutter/material.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import '../../generated/assets.dart';
 
 class MenuPage extends StatelessWidget {
   final MenuItemModel currentItem;
@@ -53,10 +56,7 @@ class MenuPage extends StatelessWidget {
                     callback: () {
                       onSelectedItem(MenuItems(context).bottomNavManager);
                     },
-                    startIcon: const Icon(
-                      AppCustomIcons.delete,
-                      size: 16,
-                    ),
+                    startIcon: Assets.customiconsDelete
                   ),
                   const SizedBox(
                     height: 20,

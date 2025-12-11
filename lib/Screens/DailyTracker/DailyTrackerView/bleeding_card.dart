@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/assets.dart';
+
 class DailyTrackerViewBleedingCard extends StatelessWidget {
   final List<Answers> data;
   const DailyTrackerViewBleedingCard({super.key, required this.data});
@@ -61,10 +63,11 @@ class CircleCard extends StatelessWidget {
             Row(
               children: [
                 HelperFunctions.giveBackgroundToIcon(
-                    const Icon(
-                      AppCustomIcons.drip,
-                      color: AppColors.primaryColor600,
-                      size: 24,
+                    SvgPicture.asset(
+                        Assets.customiconsDrip,
+                        height: 24,
+                        width: 24,
+                        color: AppColors.primaryColor600
                     ),
                     bgColor: AppColors.primaryColor400),
                 const SizedBox(
@@ -189,11 +192,12 @@ class PlusCircle extends StatelessWidget {
                       color: Color(0xFFFEF5FF),
                       shape: OvalBorder(),
                     ),
-                    child: const Center(
-                      child: Icon(
-                        AppCustomIcons.plus,
-                        color: AppColors.actionColor600,
-                        size: 24,
+                    child: Center(
+                      child: SvgPicture.asset(
+                          Assets.customiconsPlus,
+                          height: 24,
+                          width: 24,
+                          color: AppColors.actionColor600
                       ),
                     ),
                   ),
@@ -221,11 +225,12 @@ class SelectedState extends StatelessWidget {
             side: BorderSide(width: 2, color: AppColors.secondaryColor500),
           ),
         ),
-        child: const Center(
-          child: Icon(
-            AppCustomIcons.check_2,
-            color: AppColors.secondaryColor600,
-            size: 24,
+        child: Center(
+          child: SvgPicture.asset(
+              Assets.customiconsCheck2,
+              height: 24,
+              width: 24,
+              color: AppColors.secondaryColor600
           ),
         ),
       ),
