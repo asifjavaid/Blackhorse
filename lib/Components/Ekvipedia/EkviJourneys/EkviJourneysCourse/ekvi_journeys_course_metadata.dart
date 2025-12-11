@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../generated/assets.dart';
+
 class EkviJourneysCourseMetadata extends StatefulWidget {
   const EkviJourneysCourseMetadata({super.key});
 
@@ -144,8 +146,12 @@ class _EkviJourneysCourseMetadataState extends State<EkviJourneysCourseMetadata>
                   ),
                 ),
                 const SizedBox(width: 8),
-                const Icon(AppCustomIcons.arrow_right,
-                    size: 16, color: AppColors.actionColor600),
+                SvgPicture.asset(
+                    Assets.customiconsArrowRight,
+                    height: 16,
+                    width: 16,
+                    color: AppColors.actionColor600
+                ),
               ],
             ),
           ),

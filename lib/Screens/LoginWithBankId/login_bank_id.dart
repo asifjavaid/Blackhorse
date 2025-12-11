@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
 
+import '../../generated/assets.dart';
+
 class LoginWithBankId extends StatefulWidget {
   const LoginWithBankId({super.key});
 
@@ -98,12 +100,15 @@ class _LoginWithBankIdState extends State<LoginWithBankId> {
                                       CustomTextFormField(
                                         inputType: TextInputType.text,
                                         controller: value.emailController,
-                                        prefixWidget: iconBuilder(
-                                            const Icon(
-                                              AppCustomIcons.email,
-                                              size: 16,
-                                            ),
-                                            Colors.transparent),
+                                        prefixWidget: SizedBox(
+                                          child: SvgPicture.asset(
+                                            Assets.customiconsEmail,
+                                            fit: BoxFit.contain,
+                                            // color: AppColors.actionColor500,
+                                            height: 16,
+                                            width: 16,
+                                          ),
+                                        ),
                                         obscureText: false,
                                       ),
                                       SizedBox(

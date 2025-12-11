@@ -1,6 +1,9 @@
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../generated/assets.dart';
 
 class ArticleMetaData extends StatelessWidget {
   final String? title;
@@ -24,7 +27,12 @@ class ArticleMetaData extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(AppCustomIcons.calendar, size: 16.0, color: AppColors.neutralColor500),
+                SvgPicture.asset(
+                  Assets.customiconsCalendar,
+                  color: AppColors.neutralColor500,
+                  height: 16,
+                  width: 16,
+                ),
                 const SizedBox(width: 6.0),
                 date != null
                     ? Text(
@@ -33,7 +41,12 @@ class ArticleMetaData extends StatelessWidget {
                       )
                     : const SizedBox.shrink(),
                 const SizedBox(width: 8.0),
-                const Icon(AppCustomIcons.time, size: 16.0, color: AppColors.neutralColor500),
+                SvgPicture.asset(
+                  Assets.customiconsTime,
+                  color: AppColors.neutralColor500,
+                  height: 16,
+                  width: 16,
+                ),
                 const SizedBox(width: 6.0),
                 readTime != null
                     ? Text(

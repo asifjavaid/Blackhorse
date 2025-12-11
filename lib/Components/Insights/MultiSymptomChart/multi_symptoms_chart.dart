@@ -7,9 +7,12 @@ import 'package:ekvi/Routes/app_routes.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'dart:ui' as ui;
+
+import '../../../generated/assets.dart';
 
 class MultiSymptomsChart extends StatefulWidget {
   const MultiSymptomsChart({
@@ -163,9 +166,10 @@ class CompareSymptomsButton extends StatelessWidget {
                   ),
                 ),
                 child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  const Icon(
-                    AppCustomIcons.filters,
-                    size: 16,
+                  SvgPicture.asset(
+                    Assets.customiconsFilters,
+                    height: 16,
+                    width: 16,
                   ),
                   const SizedBox(
                     width: 8,
@@ -179,9 +183,10 @@ class CompareSymptomsButton extends StatelessWidget {
                   const SizedBox(
                     width: 16,
                   ),
-                  const Icon(
-                    AppCustomIcons.arrow_down,
-                    size: 16,
+                  SvgPicture.asset(
+                    Assets.customiconsArrowDown,
+                    height: 16,
+                    width: 16,
                   ),
                 ]),
               ),
@@ -242,9 +247,10 @@ class ComparedSymptoms extends StatelessWidget {
                       const SizedBox(
                         width: 16,
                       ),
-                      const Icon(
-                        AppCustomIcons.pen,
-                        size: 16,
+                      SvgPicture.asset(
+                        Assets.customiconsPen,
+                        height: 16,
+                        width: 16,
                       ),
                     ]),
                   ),
@@ -263,9 +269,10 @@ class ComparedSymptoms extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.transparent, borderRadius: BorderRadius.circular(30), border: Border.all(width: 2, color: symptom.color ?? AppColors.actionColor600)),
                 child: Row(
                   children: [
-                    Icon(
-                      symptom.icon,
-                      size: 16,
+                    SvgPicture.asset(
+                      symptom.icon ?? "",
+                      height: 16,
+                      width: 16,
                       color: AppColors.neutralColor600,
                     ),
                     const SizedBox(width: 8),
@@ -279,9 +286,10 @@ class ComparedSymptoms extends StatelessWidget {
                     const SizedBox(width: 16),
                     GestureDetector(
                       onTap: () => onSymptomTap(symptom),
-                      child: Icon(
-                        AppCustomIcons.delete,
-                        size: 16,
+                      child: SvgPicture.asset(
+                        Assets.customiconsDelete,
+                        height: 16,
+                        width: 16,
                         color: symptom.color ?? AppColors.neutralColor600,
                       ),
                     )

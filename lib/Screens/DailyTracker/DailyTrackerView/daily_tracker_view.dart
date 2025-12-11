@@ -25,6 +25,7 @@ import 'package:ekvi/Screens/DailyTracker/DailyTrackerView/pain_relief_card.dart
 import 'package:ekvi/Screens/DailyTracker/DailyTrackerView/pregnancy_test_card.dart';
 import 'package:ekvi/Screens/DailyTracker/DailyTrackerView/selfcare_card.dart';
 import 'package:ekvi/Screens/DailyTracker/DailyTrackerView/stress_card.dart';
+import 'package:ekvi/Screens/DailyTracker/DailyTrackerView/urination_card.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/constants/app_enums.dart';
 import 'package:ekvi/Utils/helpers/helper_functions.dart';
@@ -44,9 +45,7 @@ class DailyTrackerView extends StatefulWidget {
 }
 
 class _DailyTrackerViewState extends State<DailyTrackerView> {
-  var provider = Provider.of<DailyTrackerProvider>(
-      AppNavigation.currentContext!,
-      listen: false);
+  var provider = Provider.of<DailyTrackerProvider>(AppNavigation.currentContext!, listen: false);
 
   @override
   void initState() {
@@ -69,8 +68,7 @@ class _DailyTrackerViewState extends State<DailyTrackerView> {
                   height: 16,
                 ),
                 Text(
-                  HelperFunctions.getFormattedDate(
-                      value.selectedDateOfUserForTracking),
+                  HelperFunctions.getFormattedDate(value.selectedDateOfUserForTracking),
                   textAlign: TextAlign.start,
                   style: textheme.displaySmall,
                 ),
@@ -95,10 +93,8 @@ class _DailyTrackerViewState extends State<DailyTrackerView> {
                     SymptomCategory.Bleeding: timeData.value?.bleeding,
                     SymptomCategory.Hormones: timeData.value?.harmones,
                     SymptomCategory.Alcohol: timeData.value?.alcohol,
-                    SymptomCategory.Ovulation_test:
-                        timeData.value?.ovulationTest,
-                    SymptomCategory.Pregnancy_test:
-                        timeData.value?.pregnancyTest,
+                    SymptomCategory.Ovulation_test: timeData.value?.ovulationTest,
+                    SymptomCategory.Pregnancy_test: timeData.value?.pregnancyTest,
                     SymptomCategory.Intimacy: timeData.value?.intimacy,
                     SymptomCategory.Mood: timeData.value?.mood,
                     SymptomCategory.Stress: timeData.value?.stress,
@@ -108,8 +104,8 @@ class _DailyTrackerViewState extends State<DailyTrackerView> {
                     SymptomCategory.Bloating: timeData.value?.bloating,
                     SymptomCategory.Brain_Fog: timeData.value?.brainFog,
                     SymptomCategory.Headache: timeData.value?.headache,
-                    SymptomCategory.Bowel_movement:
-                        timeData.value?.bowelMovement,
+                    SymptomCategory.Bowel_movement: timeData.value?.bowelMovement,
+                    //SymptomCategory.Urination: timeData.value?.U,
                     SymptomCategory.Body_Pain: timeData.value?.bodyPain,
                     SymptomCategory.Pain_Killers: timeData.value?.painKillers,
                     SymptomCategory.Movement: timeData.value?.movement,
@@ -117,8 +113,7 @@ class _DailyTrackerViewState extends State<DailyTrackerView> {
                     SymptomCategory.Pain_Relief: timeData.value?.painRelief,
                   };
 
-                  otherCategoriesOfTime
-                      .removeWhere((key, value) => value == null);
+                  otherCategoriesOfTime.removeWhere((key, value) => value == null);
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,40 +130,24 @@ class _DailyTrackerViewState extends State<DailyTrackerView> {
                       const SizedBox(
                         height: 16,
                       ),
-                      DailyTrackerViewPainCard(
-                          data: timeData.value?.bodyPain ?? []),
-                      DailyTrackerViewBleedingCard(
-                          data: timeData.value?.bleeding ?? []),
-                      DailyTrackerViewMoodCard(
-                          data: timeData.value?.mood ?? []),
-                      DailyTrackerViewStressCard(
-                          data: timeData.value?.stress ?? []),
-                      DailyTrackerViewEnergyCard(
-                          data: timeData.value?.energy ?? []),
-                      DailyTrackerViewNauseaCard(
-                          data: timeData.value?.nausea ?? []),
-                      DailyTrackerViewFatigueCard(
-                          data: timeData.value?.fatigue ?? []),
-                      DailyTrackerViewBloatingCard(
-                          data: timeData.value?.bloating ?? []),
-                      DailyTrackerViewBrainFogCard(
-                          data: timeData.value?.brainFog ?? []),
-                      DailyTrackerViewHeadacheCard(
-                          data: timeData.value?.headache ?? []),
-                      DailyTrackerViewBowlMovementCard(
-                          data: timeData.value?.bowelMovement ?? []),
-                      DailyTrackerViewAlcoholCard(
-                          data: timeData.value?.alcohol ?? []),
-                      DailyTrackerViewHormonesCard(
-                          data: timeData.value?.harmones ?? []),
-                      DailyTrackerViewIntimacyCard(
-                          data: timeData.value?.intimacy ?? []),
-                      DailyTrackerViewOvulationTestCard(
-                          data: timeData.value?.ovulationTest ?? []),
-                      DailyTrackerViewPregnancyTestCard(
-                          data: timeData.value?.pregnancyTest ?? []),
-                      DailyTrackerViewPainKillersCard(
-                          data: timeData.value?.painKillers ?? []),
+                      DailyTrackerViewPainCard(data: timeData.value?.bodyPain ?? []),
+                      DailyTrackerViewBleedingCard(data: timeData.value?.bleeding ?? []),
+                      DailyTrackerViewMoodCard(data: timeData.value?.mood ?? []),
+                      DailyTrackerViewStressCard(data: timeData.value?.stress ?? []),
+                      DailyTrackerViewEnergyCard(data: timeData.value?.energy ?? []),
+                      DailyTrackerViewNauseaCard(data: timeData.value?.nausea ?? []),
+                      DailyTrackerViewFatigueCard(data: timeData.value?.fatigue ?? []),
+                      DailyTrackerViewBloatingCard(data: timeData.value?.bloating ?? []),
+                      DailyTrackerViewBrainFogCard(data: timeData.value?.brainFog ?? []),
+                      DailyTrackerViewHeadacheCard(data: timeData.value?.headache ?? []),
+                      DailyTrackerViewBowlMovementCard(data: timeData.value?.bowelMovement ?? []),
+                      DailyTrackerViewUrinationCard(data: timeData.value?.urination ?? []),
+                      DailyTrackerViewAlcoholCard(data: timeData.value?.alcohol ?? []),
+                      DailyTrackerViewHormonesCard(data: timeData.value?.harmones ?? []),
+                      DailyTrackerViewIntimacyCard(data: timeData.value?.intimacy ?? []),
+                      DailyTrackerViewOvulationTestCard(data: timeData.value?.ovulationTest ?? []),
+                      DailyTrackerViewPregnancyTestCard(data: timeData.value?.pregnancyTest ?? []),
+                      DailyTrackerViewPainKillersCard(data: timeData.value?.painKillers ?? []),
                       DailyTrackerViewMovementCard(
                         data: timeData.value?.movement ?? [],
                       ),

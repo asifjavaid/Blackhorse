@@ -14,6 +14,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/assets.dart';
+
 class LoginLandingScreen extends StatelessWidget {
   const LoginLandingScreen({super.key});
   @override
@@ -59,7 +61,7 @@ class LoginLandingScreen extends StatelessWidget {
                   const Spacer(flex: 3),
                   AuthenticationButton(
                     title: "Norwegian BankId",
-                    icon: "${AppConstant.assetIcons}bankid_logo.svg",
+                    icon: Assets.iconsBankidLogo,
                     onClick: () => AppNavigation.navigateTo(AppRoutes.loginWithBankId),
                   ),
                   SizedBox(
@@ -67,7 +69,7 @@ class LoginLandingScreen extends StatelessWidget {
                   ),
                   AuthenticationButton(
                     title: "Google",
-                    icon: "${AppConstant.assetIcons}google.svg",
+                    icon: Assets.iconsGoogle,
                     onClick: () => GoogleSignInHelper.continueWithGoogle(),
                   ),
                   SizedBox(
@@ -78,7 +80,7 @@ class LoginLandingScreen extends StatelessWidget {
                           children: [
                             AuthenticationButton(
                               title: "Apple",
-                              icon: "${AppConstant.assetIcons}apple.svg",
+                              icon: Assets.iconsApple,
                               onClick: () => AppleSignInHelper.continueWithApple(),
                             ),
                             SizedBox(

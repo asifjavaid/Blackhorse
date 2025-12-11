@@ -12,6 +12,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/assets.dart';
+
 class RegisterLandingScreen extends StatelessWidget {
   const RegisterLandingScreen({super.key});
   @override
@@ -56,7 +58,7 @@ class RegisterLandingScreen extends StatelessWidget {
                 ),
                 AuthenticationButton(
                   title: "Google",
-                  icon: "${AppConstant.assetIcons}google.svg",
+                  icon: Assets.iconsGoogle,
                   onClick: () => AppNavigation.navigateTo(AppRoutes.registerWithGoogle),
                 ),
                 const SizedBox(
@@ -67,7 +69,7 @@ class RegisterLandingScreen extends StatelessWidget {
                         children: [
                           AuthenticationButton(
                             title: "Apple",
-                            icon: "${AppConstant.assetIcons}apple.svg",
+                            icon: Assets.iconsApple,
                             onClick: () => AppNavigation.navigateTo(AppRoutes.registerWithApple),
                           ),
                           SizedBox(

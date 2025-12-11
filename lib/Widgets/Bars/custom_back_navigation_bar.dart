@@ -2,8 +2,10 @@ import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Widgets/Buttons/custom_navigation_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../generated/assets.dart';
+
 class BackNavigation extends StatelessWidget {
-  final Icon? startIcon;
+  final String? startIcon;
   final VoidCallback? callback;
   final String title;
   final bool? hideBackButton;
@@ -36,11 +38,7 @@ class BackNavigation extends StatelessWidget {
                     NavigationButton(
                       callback: callback,
                       // iconAddress: iconAddress,
-                      icon: startIcon ??
-                          const Icon(
-                            AppCustomIcons.arrow_left__property_2_ic,
-                            size: 18,
-                          ),
+                      icon: startIcon ?? Assets.customiconsArrowLeft
                     ),
                     Expanded(child: Text(title, textAlign: TextAlign.center, style: textTheme.displaySmall)),
                     if (endIcon != null) endIcon!

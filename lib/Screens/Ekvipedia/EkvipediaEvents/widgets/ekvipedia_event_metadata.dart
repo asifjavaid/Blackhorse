@@ -7,6 +7,8 @@ import 'package:ekvi/Utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../generated/assets.dart';
+
 class EventsMetaData extends StatelessWidget {
   final EventDetailsModel model;
   const EventsMetaData({super.key, required this.model});
@@ -45,7 +47,12 @@ class EventsMetaData extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(AppCustomIcons.calendar, size: 24.0, color: AppColors.neutralColor600),
+            SvgPicture.asset(
+              Assets.customiconsCalendar,
+              color: AppColors.neutralColor600,
+              height: 24,
+              width: 24,
+            ),
             const SizedBox(width: 16.0),
             HelperFunctions.formatDateTime(model.item?.fields["date"]) != null
                 ? Text(
@@ -62,7 +69,12 @@ class EventsMetaData extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(AppCustomIcons.time, size: 24.0, color: AppColors.neutralColor600),
+                    SvgPicture.asset(
+                      Assets.customiconsTime,
+                      color: AppColors.neutralColor600,
+                      height: 24,
+                      width: 24,
+                    ),
                     const SizedBox(width: 16.0),
                     Text(
                       model.timeData!,

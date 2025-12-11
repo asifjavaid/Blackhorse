@@ -10,9 +10,12 @@ import 'package:ekvi/Widgets/Gradient/gradient_background.dart';
 import 'package:ekvi/core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import '../../generated/assets.dart';
 
 class NotificationsPreferencesScreen extends StatefulWidget {
   const NotificationsPreferencesScreen({super.key});
@@ -66,9 +69,10 @@ class _NotificationsPreferencesScreenState
                       title: localizations.notifications,
                       endIcon: InkWell(
                         onTap: () => value.toggleBottomSheet(),
-                        child: const Icon(
-                          AppCustomIcons.question,
-                          size: 16,
+                        child: SvgPicture.asset(
+                          Assets.customiconsQuestion,
+                          height: 16,
+                          width: 16,
                           color: AppColors.actionColor600,
                         ),
                       ),

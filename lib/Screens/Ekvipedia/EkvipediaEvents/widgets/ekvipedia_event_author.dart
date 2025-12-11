@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../generated/assets.dart';
+
 class EventsAuthor extends StatelessWidget {
   final List<EntryItem> items;
   final Includes? assets;
@@ -117,10 +119,11 @@ class SpeakerItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16),
-            const Icon(
-              AppCustomIcons.arrow_right,
-              size: 16,
+            SvgPicture.asset(
+              Assets.customiconsArrowRight,
               color: AppColors.actionColor600,
+              height: 16,
+              width: 16,
             ),
           ],
         ),

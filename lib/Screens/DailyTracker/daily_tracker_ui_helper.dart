@@ -88,4 +88,11 @@ class DailyTrackerUIHelper {
     if (level > 8 && level <= 10) return AppColors.errorColor500;
     return AppColors.errorColor500;
   }
+
+  static Color getUrinationColor(int level) {
+    if (level >= 1 && level <= 3) return AppColors.successColor500;
+    if (level >= 4 && level <= 7) return AppColors.accentColorTwo500;
+    if (level >= 8 && level <= 10) return AppColors.errorColor500;
+    return AppColors.errorColor500;
+  }
 }

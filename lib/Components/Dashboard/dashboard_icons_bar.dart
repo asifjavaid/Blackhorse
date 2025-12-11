@@ -1,8 +1,11 @@
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../generated/assets.dart';
 
 class DashboardIconsBar extends StatelessWidget {
   const DashboardIconsBar({
@@ -21,9 +24,10 @@ class DashboardIconsBar extends StatelessWidget {
         children: [
           InkWell(
             onTap: () => ZoomDrawer.of(context)!.toggle(),
-            child: const Icon(
-              AppCustomIcons.menu,
-              size: 20,
+            child: SvgPicture.asset(
+              Assets.customiconsMenu,
+              height: 20,
+              width: 20,
               color: AppColors.actionColor600,
             ),
           ),

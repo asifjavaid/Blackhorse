@@ -2,6 +2,9 @@ import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../generated/assets.dart';
 
 class FlatNewsCard extends StatelessWidget {
   final String? imagePath;
@@ -66,7 +69,12 @@ class FlatNewsCard extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      const Icon(AppCustomIcons.calendar, size: 16.0, color: AppColors.neutralColor500),
+                                      SvgPicture.asset(
+                                          Assets.customiconsCalendar,
+                                          height: 16.0,
+                                          width: 16.0,
+                                          color: AppColors.neutralColor500
+                                      ),
                                       const SizedBox(
                                         width: 6,
                                       ),

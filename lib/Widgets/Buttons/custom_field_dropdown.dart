@@ -1,7 +1,10 @@
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../generated/assets.dart';
 
 class CustomFieldDropdown extends StatefulWidget {
   final List<String>? options;
@@ -33,10 +36,11 @@ class _CustomFieldDropdownState<T> extends State<CustomFieldDropdown> {
               value: widget.value,
               style: Theme.of(context).textTheme.titleSmall,
               icon: widget.onChanged != null
-                  ? const Icon(
-                      AppCustomIcons.arrow_down,
+                  ? SvgPicture.asset(
+                      Assets.customiconsArrowDown,
+                      height: 16,
+                      width: 16,
                       color: AppColors.actionColor600,
-                      size: 16,
                     )
                   : null,
               onChanged: widget.onChanged,

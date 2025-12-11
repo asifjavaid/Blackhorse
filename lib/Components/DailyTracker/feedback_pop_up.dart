@@ -2,6 +2,10 @@ import 'package:ekvi/Models/DailyTracker/daily_tracker_models.dart';
 import 'package:ekvi/Utils/constants/app_colors.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../Models/Ekvipedia/ekvipedia_entries_model.dart';
+import '../../generated/assets.dart';
 
 class FeatureFeedback extends StatefulWidget {
   final SymptomFeedback feedback;
@@ -138,17 +142,24 @@ class _FeatureFeedbackState extends State<FeatureFeedback> {
                         decoration: BoxDecoration(color: _isThumbUpPressed ? AppColors.secondaryColor600 : AppColors.whiteColor, borderRadius: BorderRadius.circular(50)),
                         child: IconButton(
                             onPressed: () => _handleFeedback(true),
-                            icon: Icon(
-                              AppCustomIcons.tumbs_up,
+                            icon: SvgPicture.asset(
+                              Assets.customiconsTumbsUp,  // your SVG path
                               color: _isThumbUpPressed ? AppColors.whiteColor : null,
-                            )),
+                            ),
+                        ),
                       ),
                       const SizedBox(width: 64),
                       Container(
                         width: 50,
                         height: 50,
                         decoration: BoxDecoration(color: _isThumbDownPressed ? AppColors.secondaryColor600 : AppColors.whiteColor, borderRadius: BorderRadius.circular(50)),
-                        child: IconButton(onPressed: () => _handleFeedback(false), icon: Icon(AppCustomIcons.thumbs_down, color: _isThumbDownPressed ? Colors.white : null)),
+                        child: IconButton(
+                            onPressed: () => _handleFeedback(false),
+                            icon: SvgPicture.asset(
+                                Assets.customiconsThumbsDown,
+                                color: _isThumbDownPressed ? AppColors.whiteColor : null
+                            )
+                        ),
                       ),
                     ],
                   ),

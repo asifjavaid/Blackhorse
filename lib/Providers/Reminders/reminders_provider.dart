@@ -16,9 +16,12 @@ import 'package:ekvi/Utils/helpers/local_notification_helper.dart';
 import 'package:ekvi/Utils/helpers/reminder_helper.dart';
 import 'package:ekvi/Widgets/Dialogs/custom_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import '../../generated/assets.dart';
 
 class RemindersProvider extends ChangeNotifier {
   List<ContraceptionReminderModel> contraceptionReminders = [];
@@ -397,27 +400,30 @@ class RemindersProvider extends ChangeNotifier {
   }
 
   Widget getReminderIcon({MedicineReminderRequest? medicine, ContraceptionReminderModel? contraception, PeriodReminderModel? period}) {
-    Icon? icon;
+    Widget? icon;
     Color? bgColor;
     if (medicine?.id != null) {
-      icon = const Icon(
-        AppCustomIcons.pill_1,
+      icon = SvgPicture.asset(
+        Assets.customiconsPill1,
+        height: 24,
+        width: 24,
         color: AppColors.accentColorFour500,
-        size: 24,
       );
       bgColor = AppColors.accentColorFour400;
     } else if (contraception?.id != null) {
-      icon = const Icon(
-        AppCustomIcons.hormones,
+      icon = SvgPicture.asset(
+        Assets.customiconsHormones,
+        height: 24,
+        width: 24,
         color: AppColors.accentColorFour500,
-        size: 24,
       );
       bgColor = AppColors.accentColorFour400;
     } else if (period?.id != null) {
-      icon = const Icon(
-        AppCustomIcons.drip,
+      icon = SvgPicture.asset(
+        Assets.customiconsDrip,
+        height: 24,
+        width: 24,
         color: AppColors.primaryColor600,
-        size: 24,
       );
       bgColor = AppColors.primaryColor400;
     }

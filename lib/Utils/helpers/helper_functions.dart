@@ -30,6 +30,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../generated/assets.dart';
+
 class HelperFunctions {
   static Future<void> initializeApplication() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -278,18 +280,18 @@ class HelperFunctions {
     );
   }
 
-  static IconData getPhaseIcon(String phase) {
+  static String getPhaseIcon(String phase) {
     switch (phase) {
       case 'follicular phase':
-        return AppCustomIcons.follicular;
+        return Assets.customiconsFollicular;
       case 'luteal phase':
-        return AppCustomIcons.luteal;
+        return Assets.customiconsLuteal;
       case 'ovulation phase':
-        return AppCustomIcons.ovulation;
+        return Assets.customiconsOvulation;
       case 'menstruation phase':
-        return AppCustomIcons.drip;
+        return Assets.customiconsDrip;
       default:
-        return AppCustomIcons.drip;
+        return Assets.customiconsDrip;
     }
   }
 
@@ -453,7 +455,8 @@ class HelperFunctions {
     return DateTime(now.year, now.month, 1);
   }
 
-  static Container giveBackgroundToIcon(Widget icon,
+  static Container giveBackgroundToIcon(
+      Widget icon,
       {Color? bgColor, bool? isRectangle, double? height, double? width}) {
     return Container(
       height: height ?? 50,

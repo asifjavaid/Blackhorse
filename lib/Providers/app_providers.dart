@@ -23,6 +23,7 @@ import 'package:ekvi/Providers/DailyTracker/PregnancyTest/pregnancy_test_provide
 import 'package:ekvi/Providers/DailyTracker/SelfCare/selfcare_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/SelfCare/selfcare_vault_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/Stress/stress_provider.dart';
+import 'package:ekvi/Providers/DailyTracker/Urination/urination_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/YourWellBeing/your_well_being_provider.dart';
 import 'package:ekvi/Providers/DailyTracker/daily_tracker_provider.dart';
 import 'package:ekvi/Providers/Dashboard/dashboard_provider.dart';
@@ -84,6 +85,7 @@ List<SingleChildWidget> appProviders = [
   ChangeNotifierProvider(create: (_) => OnboardingProvider()),
   ChangeNotifierProvider(create: (_) => DeleteAccountProvider()),
   ChangeNotifierProvider(create: (_) => BowelMovementProvider()),
+  ChangeNotifierProvider(create: (_) => UrinationProvider()),
   ChangeNotifierProvider(create: (_) => SelfcareProvider()),
   ChangeNotifierProvider(create: (_) => SubscriptionProvider()),
   ChangeNotifierProvider(create: (_) => EkvipediaArticleProvider()),
@@ -133,6 +135,7 @@ List<SingleChildWidget> getDailyTrackerProviders() => [
       ChangeNotifierProvider(create: (_) => OvulationTestProvider()),
       ChangeNotifierProvider(create: (_) => PregnancyTestProvider()),
       ChangeNotifierProvider(create: (_) => BowelMovementProvider()),
+      ChangeNotifierProvider(create: (_) => UrinationProvider()),
       ChangeNotifierProvider(create: (_) => HeadacheProvider()),
     ];
 

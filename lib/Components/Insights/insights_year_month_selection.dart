@@ -5,8 +5,11 @@ import 'package:ekvi/Utils/constants/app_enums.dart';
 import 'package:ekvi/Utils/helpers/app_custom_icons.dart';
 import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../../generated/assets.dart';
 
 class YearMonthSelection extends StatefulWidget {
   final VoidCallback toggleYearTimeSelection;
@@ -91,9 +94,10 @@ class _YearMonthSelectionState extends State<YearMonthSelection> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
-                        icon: const Icon(
-                          AppCustomIcons.arrow_left__property_2_ic,
-                          size: 14,
+                        icon: SvgPicture.asset(
+                          Assets.customiconsArrowLeft,
+                          height: 14,
+                          width: 14,
                         ),
                         onPressed: provider.greaterThanMinYear ? () => provider.selectYear(provider.selectedYear - 1) : null,
                       ),
@@ -102,9 +106,10 @@ class _YearMonthSelectionState extends State<YearMonthSelection> {
                         style: textTheme.headlineSmall,
                       ),
                       IconButton(
-                        icon: const Icon(
-                          AppCustomIcons.arrow_right,
-                          size: 14,
+                        icon: SvgPicture.asset(
+                          Assets.customiconsArrowRight,
+                          height: 14,
+                          width: 14,
                         ),
                         onPressed: provider.lessThanCurrentYear ? () => provider.selectYear(provider.selectedYear + 1) : null,
                       ),

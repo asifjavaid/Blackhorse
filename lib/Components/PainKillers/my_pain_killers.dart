@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../generated/assets.dart';
+
 class MyPainkillers extends StatelessWidget {
   const MyPainkillers({super.key});
 
@@ -91,10 +93,11 @@ class MyPainkillers extends StatelessWidget {
                     HelperFunctions.giveBackgroundToIcon(
                       width: 36,
                       height: 36,
-                      const Icon(
-                        AppCustomIcons.pill_1,
+                      SvgPicture.asset(
+                        Assets.customiconsPill1,
                         color: AppColors.actionColor600,
-                        size: 18,
+                        height: 18,
+                        width: 18,
                       ),
                       bgColor: AppColors.actionColor400,
                     ),
