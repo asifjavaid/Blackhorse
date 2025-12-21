@@ -17,6 +17,7 @@ import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/PainKillers/add_p
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/PainKillers/edit_pain_killer_screen.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/Selfcare/add_selfcare_screen.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/Selfcare/update_selfcare_practice_screen.dart';
+import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/TrackingSettings/TrackingSettings.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/daily_tracker_category.dart';
 import 'package:ekvi/Screens/Dashboard/dashboard.dart';
 import 'package:ekvi/Screens/DeleteAccount/delete_account.dart';
@@ -118,6 +119,9 @@ class RouteGenerator {
 
       case AppRoutes.categoryEdit:
         return _screenRoute(screen: const DailyTrackerCategory());
+
+        case AppRoutes.createTrackingSettings:
+        return _screenRoute(screen: const TrackingSettingsScreen());
 
       case AppRoutes.painEventEdit:
         return _screenRoute(screen: const BodyPainEvent());

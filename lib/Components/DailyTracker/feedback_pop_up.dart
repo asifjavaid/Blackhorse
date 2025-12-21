@@ -139,27 +139,25 @@ class _FeatureFeedbackState extends State<FeatureFeedback> {
                       Container(
                         width: 50,
                         height: 50,
-                        decoration: BoxDecoration(color: _isThumbUpPressed ? AppColors.secondaryColor600 : AppColors.whiteColor, borderRadius: BorderRadius.circular(50)),
+                        decoration: BoxDecoration(
+                            color: _isThumbUpPressed ? AppColors.secondaryColor600 : AppColors.whiteColor, borderRadius: BorderRadius.circular(50)),
                         child: IconButton(
-                            onPressed: () => _handleFeedback(true),
-                            icon: SvgPicture.asset(
-                              Assets.customiconsTumbsUp,  // your SVG path
-                              color: _isThumbUpPressed ? AppColors.whiteColor : null,
-                            ),
+                          onPressed: () => _handleFeedback(true),
+                          icon: SvgPicture.asset(
+                            Assets.customiconsTumbsUp, // your SVG path
+                            color: _isThumbUpPressed ? AppColors.whiteColor : null,
+                          ),
                         ),
                       ),
                       const SizedBox(width: 64),
                       Container(
                         width: 50,
                         height: 50,
-                        decoration: BoxDecoration(color: _isThumbDownPressed ? AppColors.secondaryColor600 : AppColors.whiteColor, borderRadius: BorderRadius.circular(50)),
+                        decoration: BoxDecoration(
+                            color: _isThumbDownPressed ? AppColors.secondaryColor600 : AppColors.whiteColor, borderRadius: BorderRadius.circular(50)),
                         child: IconButton(
                             onPressed: () => _handleFeedback(false),
-                            icon: SvgPicture.asset(
-                                Assets.customiconsThumbsDown,
-                                color: _isThumbDownPressed ? AppColors.whiteColor : null
-                            )
-                        ),
+                            icon: SvgPicture.asset(Assets.customiconsThumbsDown, color: _isThumbDownPressed ? AppColors.whiteColor : null)),
                       ),
                     ],
                   ),

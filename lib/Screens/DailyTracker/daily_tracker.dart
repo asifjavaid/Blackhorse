@@ -16,6 +16,9 @@ import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../Routes/app_routes.dart';
+import '../../generated/assets.dart';
+
 class DailyTracker extends StatefulWidget {
   const DailyTracker({
     super.key,
@@ -26,9 +29,7 @@ class DailyTracker extends StatefulWidget {
 }
 
 class _DailyTrackerState extends State<DailyTracker> {
-  var provider = Provider.of<DailyTrackerProvider>(
-      AppNavigation.currentContext!,
-      listen: false);
+  var provider = Provider.of<DailyTrackerProvider>(AppNavigation.currentContext!, listen: false);
 
   @override
   void initState() {
@@ -50,8 +51,7 @@ class _DailyTrackerState extends State<DailyTracker> {
               backdropTapClosesPanel: false,
               controller: value.panelController,
               padding: null,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               backdropEnabled: false,
               backdropOpacity: 0.6,
               renderPanelSheet: true,
@@ -84,35 +84,31 @@ class DailyTrackerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    var provider = Provider.of<DailyTrackerProvider>(
-        AppNavigation.currentContext!,
-        listen: false);
+    var provider = Provider.of<DailyTrackerProvider>(AppNavigation.currentContext!, listen: false);
 
     return Column(
       children: [
         Padding(
           padding: EdgeInsets.only(
-              left: (provider.getDailyTrackerViewMode != null &&
-                      provider.getDailyTrackerViewMode)
-                  ? 40
-                  : 16,
-              right: 16,
-              bottom: 16,
-              top: 16),
+              left: (provider.getDailyTrackerViewMode != null && provider.getDailyTrackerViewMode) ? 40 : 16, right: 16, bottom: 16, top: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              GestureDetector(
+                onTap: () {
+                  AppNavigation.navigateTo(AppRoutes.createTrackingSettings);
+                },
+                child: SvgPicture.asset(
+                  "${Assets.customiconsSetting}",
+                  semanticsLabel: 'Settings',
+                ),
+              ),
               const Spacer(),
-              Text("Daily Tracker",
-                  textAlign: TextAlign.center, style: textTheme.displaySmall),
+              Text("Daily Tracker", textAlign: TextAlign.center, style: textTheme.displaySmall),
               const Spacer(),
-              (provider.getDailyTrackerViewMode != null &&
-                      provider.getDailyTrackerViewMode)
+              (provider.getDailyTrackerViewMode != null && provider.getDailyTrackerViewMode)
                   ? GestureDetector(
-                      onTap: () => HelperFunctions.openCustomBottomSheet(
-                          context,
-                          content: _helpPanel(),
-                          height: Platform.isAndroid ? 300 : 330),
+                      onTap: () => HelperFunctions.openCustomBottomSheet(context, content: _helpPanel(), height: Platform.isAndroid ? 300 : 330),
                       child: SvgPicture.asset(
                         "${AppConstant.assetIcons}info.svg",
                         semanticsLabel: 'Daily Tracker Info',
@@ -133,10 +129,7 @@ Widget _helpPanel() {
   TextTheme textTheme = Theme.of(AppNavigation.currentContext!).textTheme;
   return SingleChildScrollView(
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("What does it mean?",
-          textAlign: TextAlign.start,
-          style: textTheme.headlineSmall!
-              .copyWith(color: AppColors.neutralColor600)),
+      Text("What does it mean?", textAlign: TextAlign.start, style: textTheme.headlineSmall!.copyWith(color: AppColors.neutralColor600)),
       const SizedBox(
         height: 24,
       ),
@@ -193,8 +186,7 @@ Widget _helpPanel() {
           Container(
             decoration: ShapeDecoration(
               shape: RoundedRectangleBorder(
-                side: const BorderSide(
-                    width: 2, color: AppColors.primaryColor500),
+                side: const BorderSide(width: 2, color: AppColors.primaryColor500),
                 borderRadius: BorderRadius.circular(50),
               ),
             ),

@@ -10,6 +10,7 @@ import 'package:ekvi/Screens/CycleCalendar/cycle_calendar_screen.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/Movement/movement_practices_screen.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/Pain-Relief/add_pain_relief_screen.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/PainKillers/your_pills_screen.dart';
+import 'package:ekvi/Screens/DailyTrackerCategory/PanelScreens/TrackingSettings/TrackingSettings.dart';
 import 'package:ekvi/Screens/Ekvipedia/EkviJourneys/EkviJourneysModuleCompletion/ekvi_journeys_module_completion_screen.dart';
 import 'package:ekvi/Screens/DailyTrackerCategory/YourWellBeing/your_well_being_screen.dart';
 import 'package:ekvi/Screens/Ekvipedia/EkvipediaEvents/ekvipedia_events_list_screen.dart';
@@ -118,6 +119,9 @@ class AppRoutes {
   static const String wellnessWeeklyScreen = "/wellnessWeeklyScreen";
   static const String createWellnessWeeklyJournal = "/createWellnessWeeklyJournal";
 
+  //Tracking
+  static const String createTrackingSettings = "/createTrackingSettings";
+
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       AppRoutes.initial: (context) => const SplashScreen(),
@@ -158,6 +162,7 @@ class AppRoutes {
       AppRoutes.ekvipediaSavedLessonsByType: (context) => const EkvipediaSavedLessonsByTypeScreen(),
       AppRoutes.wellnessWeeklyScreen: (context) => const WellnessWeeklyScreen(),
       AppRoutes.createWellnessWeeklyJournal: (context) => const CreateWellnessWeeklyJournal(),
+      AppRoutes.createWellnessWeeklyJournal: (context) => const TrackingSettingsScreen(),
     };
   }
 }
