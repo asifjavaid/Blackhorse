@@ -99,6 +99,7 @@ class DailyTrackerHeader extends StatelessWidget {
                   AppNavigation.navigateTo(AppRoutes.createTrackingSettings);
                 },
                 child: SvgPicture.asset(
+                   color: AppColors.actionColor600,
                   "${Assets.customiconsSetting}",
                   semanticsLabel: 'Settings',
                 ),

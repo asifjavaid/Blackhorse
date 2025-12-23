@@ -162,7 +162,7 @@ class AppRoutes {
       AppRoutes.ekvipediaSavedLessonsByType: (context) => const EkvipediaSavedLessonsByTypeScreen(),
       AppRoutes.wellnessWeeklyScreen: (context) => const WellnessWeeklyScreen(),
       AppRoutes.createWellnessWeeklyJournal: (context) => const CreateWellnessWeeklyJournal(),
-      AppRoutes.createWellnessWeeklyJournal: (context) => const TrackingSettingsScreen(),
+      AppRoutes.createTrackingSettings: (context) => const TrackingSettingsScreen(),
     };
   }
 }
