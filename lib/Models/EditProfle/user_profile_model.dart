@@ -15,6 +15,8 @@ class UserProfileModel {
   String? id;
   String? picLink;
   NotificationPreferences? notificationPreferences;
+  // ✅ NEW
+  Map<String, bool>? symptomTrackingPreferences;
 
   UserProfileModel(
       {this.nickName,
@@ -26,6 +28,7 @@ class UserProfileModel {
       this.firstName,
       this.gender,
       this.notificationPreferences,
+        this.symptomTrackingPreferences,
       this.phoneNum,
       this.weight,
       this.active,
@@ -40,6 +43,11 @@ class UserProfileModel {
     userName = json['userName'];
     email = json['email'];
     notificationPreferences = json['notificationPreferences'] != null ? NotificationPreferences.fromJson(json['notificationPreferences']) : null;
+    // ✅ Parse symptomTrackingPreferences
+    if (json['symptomTrackingPreferences'] != null) {
+      symptomTrackingPreferences =
+      Map<String, bool>.from(json['symptomTrackingPreferences']);
+    }
     fullName = json['fullName'];
     phonePrefix = json['phonePrefix'];
     firstName = json['firstName'];
@@ -62,6 +70,12 @@ class UserProfileModel {
     data['dob'] = dob ?? "";
     if (notificationPreferences != null) {
       data['notificationPreferences'] = notificationPreferences!.toJson();
+    }
+
+    // ✅ Serialize symptomTrackingPreferences
+    if (symptomTrackingPreferences != null) {
+      data['symptomTrackingPreferences'] =
+          symptomTrackingPreferences;
     }
 
     return data;

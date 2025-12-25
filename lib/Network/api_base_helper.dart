@@ -41,6 +41,10 @@ class ApiBaseHelper {
       String endPoint, dynamic requestBody) async {
     http.Response response;
     try {
+
+      print("endpoint: ${AppConstant.appBaseURL}$endPoint}");
+      print("request: ${requestBody}");
+
       response = await http.patch(
           Uri.parse('${AppConstant.appBaseURL}$endPoint'),
           body: requestBody,
@@ -49,6 +53,9 @@ class ApiBaseHelper {
             'Accept': 'application/json',
             'Authorization': 'Bearer ${await HelperFunctions.getAccessToken()}',
           });
+
+      print("respose: ${response.body}");
+
     } on SocketException {
       throw FetchDataException(AppConstant.exceptionMessage);
     } on FormatException {

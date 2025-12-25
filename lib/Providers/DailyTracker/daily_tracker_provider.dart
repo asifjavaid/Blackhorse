@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart' as dartz;
 import 'package:ekvi/Models/DailyTracker/categories_by_date.dart';
 import 'package:ekvi/Models/DailyTracker/daily_tracker_amplitude_events.dart';
@@ -53,6 +55,7 @@ import 'package:ekvi/Services/DailyTracker/SelfCare/selfcare_service.dart';
 import 'package:ekvi/Services/DailyTracker/Stress/stress_service.dart';
 import 'package:ekvi/Services/DailyTracker/Urination/urination_service.dart';
 import 'package:ekvi/Services/DailyTracker/daily_tracker_service.dart';
+import 'package:ekvi/Services/EditProfile/edit_profile_service.dart' show EditProfileService;
 import 'package:ekvi/Utils/constants/app_constant.dart';
 import 'package:ekvi/Utils/constants/app_enums.dart';
 import 'package:ekvi/Utils/constants/ui_data_initializations.dart';
@@ -64,6 +67,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import '../../Models/DailyTracker/TrackingSettings/TrackingCategory.dart';
+import '../../Models/DailyTracker/TrackingSettings/TrackingItem.dart';
+import '../../Models/EditProfle/user_profile_model.dart';
 
 class DailyTrackerProvider extends ChangeNotifier {
   bool? _dailyTrackerViewMode;
@@ -79,6 +86,61 @@ class DailyTrackerProvider extends ChangeNotifier {
   PainEventsCategory _selectedPainEventCategory = PainEventsCategory.Existing;
   bool isBodyPoseFront = true;
   DailyTrackerNotes categoriestNotes = DailyTrackerNotes();
+
+  final List<TrackingCategory> categories = [
+    TrackingCategory(
+      title: 'Things I experience',
+      items: [
+        TrackingItem(title: 'Pain'),
+        TrackingItem(title: 'Bleeding'),
+        TrackingItem(title: 'Headache'),
+        TrackingItem(title: 'Mood'),
+        TrackingItem(title: 'Stress'),
+        TrackingItem(title: 'Energy'),
+      ],
+    ),
+    // ... all other categories remain the same as in the previous response
+    TrackingCategory(
+      title: 'Symptoms',
+      items: [
+        TrackingItem(title: 'Nausea'),
+        TrackingItem(title: 'Fatigue'),
+        TrackingItem(title: 'Bloating'),
+        TrackingItem(title: 'Brain fog'),
+      ],
+    ),
+    TrackingCategory(
+      title: 'Things I put in my body',
+      items: [
+        TrackingItem(title: 'Painkillers'),
+        TrackingItem(title: 'Hormones'),
+        TrackingItem(title: 'Alcohol'),
+      ],
+    ),
+    TrackingCategory(
+      title: 'Bathroom habits',
+      items: [
+        TrackingItem(title: 'Bowel movement'),
+        TrackingItem(title: 'Urination'),
+      ],
+    ),
+    TrackingCategory(
+      title: 'Wellbeing',
+      items: [
+        TrackingItem(title: 'Movement'),
+        TrackingItem(title: 'Self-care'),
+        TrackingItem(title: 'Pain relief'),
+      ],
+    ),
+    TrackingCategory(
+      title: 'Intimacy & Fertility',
+      items: [
+        TrackingItem(title: 'Intimacy'),
+        TrackingItem(title: 'Ovulation test'),
+        TrackingItem(title: 'Pregnancy test'),
+      ],
+    ),
+  ];
 
   Map<String, Data?> filledCategoryTimes = {};
 
@@ -1777,6 +1839,57 @@ class DailyTrackerProvider extends ChangeNotifier {
   final List<CategoriesData> fertilityAndPregnancy = DataInitializations.fertilityAndPregnancy;
   final List<CategoriesData> eventCategories = DataInitializations.eventCategories;
   final List<CategoriesData> wellbeing = DataInitializations.wellbeing;
+
+  void patchSaveUserTrackingPreferences(BuildContext context) async{
+    String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    String? userProfileJson = await SharedPreferencesHelper.getStringPrefValue(key: "userProfile");
+    if (userProfileJson != null) {
+      UserProfileModel userProfile = UserProfileModel.fromJson(jsonDecode(userProfileJson));
+      userProfile.symptomTrackingPreferences = buildSymptomTrackingPreferences(categories);
+      CustomLoading.showLoadingIndicator();
+      var result = await EditProfileService.updateUserProfileFromApi(
+          UserProfileModel(
+            firstName: userProfile.firstName,
+            lastName: userProfile.lastName,
+            email: userProfile.email,
+            phoneNum: userProfile.phoneNum,
+            dob: userProfile.dob,
+            symptomTrackingPreferences: userProfile.symptomTrackingPreferences
+          ),
+          userId!);
+      result.fold(
+            (l) {
+          HelperFunctions.showNotification(AppNavigation.currentContext!, AppConstant.exceptionMessage);
+          CustomLoading.hideLoadingIndicator();
+        },
+            (r) async {
+          CustomLoading.hideLoadingIndicator();
+          await HelperFunctions.showNotification(AppNavigation.currentContext!, "Profile Updated Successfully");
+        },
+      );
+    }
+  }
+
+  Map<String, bool> buildSymptomTrackingPreferences(
+      List<TrackingCategory> categories,
+      ) {
+    final Map<String, bool> result = {};
+
+    for (final category in categories) {
+      for (final item in category.items) {
+        final key = item.title
+            .toLowerCase()
+            .replaceAll(' ', '')
+            .replaceAll('&', '')
+            .replaceAll(RegExp(r'[^a-z0-9]'), '');
+
+        result[key] = item.isEnabled;
+      }
+    }
+
+    return result;
+  }
+
 }
 
 class CategoryTracker {

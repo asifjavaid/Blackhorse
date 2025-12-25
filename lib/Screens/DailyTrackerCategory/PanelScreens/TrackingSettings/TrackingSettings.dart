@@ -1,12 +1,15 @@
 import 'dart:io';
 
 import 'package:ekvi/Utils/Constants/app_colors.dart';
+import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../Models/DailyTracker/TrackingSettings/TrackingCategory.dart';
 import '../../../../Models/DailyTracker/TrackingSettings/TrackingItem.dart';
+import '../../../../Providers/DailyTracker/daily_tracker_provider.dart';
 import '../../../../Routes/app_navigation.dart';
 import '../../../../Utils/constants/app_constant.dart';
 import '../../../../Utils/helpers/helper_functions.dart';
@@ -20,60 +23,9 @@ class TrackingSettingsScreen extends StatefulWidget {
 }
 
 class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
-  final List<TrackingCategory> categories = [
-    TrackingCategory(
-      title: 'Things I experience',
-      items: [
-        TrackingItem(title: 'Pain'),
-        TrackingItem(title: 'Bleeding'),
-        TrackingItem(title: 'Headache'),
-        TrackingItem(title: 'Mood'),
-        TrackingItem(title: 'Stress'),
-        TrackingItem(title: 'Energy'),
-      ],
-    ),
-    // ... all other categories remain the same as in the previous response
-    TrackingCategory(
-      title: 'Symptoms',
-      items: [
-        TrackingItem(title: 'Nausea'),
-        TrackingItem(title: 'Fatigue'),
-        TrackingItem(title: 'Bloating'),
-        TrackingItem(title: 'Brain fog'),
-      ],
-    ),
-    TrackingCategory(
-      title: 'Things I put in my body',
-      items: [
-        TrackingItem(title: 'Painkillers'),
-        TrackingItem(title: 'Hormones'),
-        TrackingItem(title: 'Alcohol'),
-      ],
-    ),
-    TrackingCategory(
-      title: 'Bathroom habits',
-      items: [
-        TrackingItem(title: 'Bowel movement'),
-        TrackingItem(title: 'Urination'),
-      ],
-    ),
-    TrackingCategory(
-      title: 'Wellbeing',
-      items: [
-        TrackingItem(title: 'Movement'),
-        TrackingItem(title: 'Self-care'),
-        TrackingItem(title: 'Pain relief'),
-      ],
-    ),
-    TrackingCategory(
-      title: 'Intimacy & Fertility',
-      items: [
-        TrackingItem(title: 'Intimacy'),
-        TrackingItem(title: 'Ovulation test'),
-        TrackingItem(title: 'Pregnancy test'),
-      ],
-    ),
-  ];
+
+
+  var provider = Provider.of<DailyTrackerProvider>(AppNavigation.currentContext!, listen: false);
 
   @override
   void initState() {
@@ -85,7 +37,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
   Future<void> _loadToggleStates() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      for (var category in categories) {
+      for (var category in provider.categories) {
         for (var item in category.items) {
           // Use a unique key for each item, defaulting to true if not found
           final key = _generateKey(category.title, item.title);
@@ -117,7 +69,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back_ios, color: AppColors.actionColor600, size: 16,),
@@ -125,19 +77,23 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                       Navigator.pop(context);
                     },
                   ),
-                  const Spacer(),
+
                   Text("Customize tracking", textAlign: TextAlign.center, style: textTheme.displaySmall),
-                  const Spacer(),
+
                   GestureDetector(
                     onTap: () => HelperFunctions.openCustomBottomSheet(context, content: _helpPanel(), height: Platform.isAndroid ? 300 : 330),
-                    child: SvgPicture.asset(
-                      height: 16,
-                      width: 16,
-                      color: AppColors.actionColor600,
-                      "${AppConstant.assetIcons}info.svg",
-                      semanticsLabel: 'Tracker Settings Info',
+                    child: Container(
+                      margin: EdgeInsets.only(right: 16),
+                      child: SvgPicture.asset(
+                        height: 16,
+                        width: 16,
+                        color: AppColors.actionColor600,
+                        "${AppConstant.assetIcons}info.svg",
+                        semanticsLabel: 'Tracker Settings Info',
+                      ),
                     ),
-                  )
+                  ),
+
                 ],
               ),
 
@@ -150,64 +106,78 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                       horizontal: 16.0,
                     ),
                     child: Column(
-                      children: categories.map((category) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              category.title,
-                              style: textTheme.titleMedium,
-                            ),
-                            Card(
-                              margin: const EdgeInsets.only(bottom: 10, top: 10),
-                              color: Colors.white,
-                              elevation: 3.0,
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 24.0),
-                                child: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: category.items.length,
-                                  itemBuilder: (context, index) {
-                                    final item = category.items[index];
-                                    return ListTile(
-                                      shape: const Border(),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                                      dense: true,
-                                      title: Text(
-                                        item.title,
-                                        style: textTheme.titleMedium?.copyWith(
-                                          color: AppColors.neutralColor600,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                      trailing: CustomSwitch(
-                                        value: item.isEnabled,
-                                        width: 45,
-                                        height: 25,
-                                        activeColor: AppColors.actionColor600,
-                                        inactiveColor: AppColors.neutralColor300,
-                                        thumbColor: AppColors.neutralColor50,
-                                        onChanged: (newValue) {
-                                          setState(() {
-                                            item.isEnabled = newValue;
-                                          });
-                                          _saveToggleState(
-                                            category.title,
-                                            item.title,
-                                            newValue,
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  },
+                      children: [
+                        Column(
+                          children: provider.categories.map((category) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  category.title,
+                                  style: textTheme.titleMedium,
                                 ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
+                                Card(
+                                  margin: const EdgeInsets.only(bottom: 10, top: 10),
+                                  color: Colors.white,
+                                  elevation: 3.0,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 24.0),
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: category.items.length,
+                                      itemBuilder: (context, index) {
+                                        final item = category.items[index];
+                                        return ListTile(
+                                          shape: const Border(),
+                                          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                          dense: true,
+                                          title: Text(
+                                            item.title,
+                                            style: textTheme.titleMedium?.copyWith(
+                                              color: AppColors.neutralColor600,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          trailing: CustomSwitch(
+                                            value: item.isEnabled,
+                                            width: 45,
+                                            height: 25,
+                                            activeColor: AppColors.actionColor600,
+                                            inactiveColor: AppColors.neutralColor300,
+                                            thumbColor: AppColors.neutralColor50,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                item.isEnabled = newValue;
+                                              });
+                                              _saveToggleState(
+                                                category.title,
+                                                item.title,
+                                                newValue,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                        Consumer<DailyTrackerProvider>(
+                          builder: (context, provider, child) {
+
+                            return CustomButton(
+                              title: "Save",
+
+                              onPressed: () => provider.patchSaveUserTrackingPreferences(context)
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
