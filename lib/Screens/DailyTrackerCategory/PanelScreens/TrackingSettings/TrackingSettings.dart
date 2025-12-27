@@ -118,9 +118,8 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                   style: textTheme.titleMedium,
                                 ),
                                 Card(
-                                  margin: const EdgeInsets.only(bottom: 10, top: 10),
+                                  margin: const EdgeInsets.only(bottom: 14, top: 10),
                                   color: Colors.white,
-                                  elevation: 3.0,
                                   child: Padding(
                                     padding: const EdgeInsets.only(bottom: 24.0),
                                     child: ListView.builder(

@@ -102,6 +102,8 @@ class DailyTrackerHeader extends StatelessWidget {
                   });
                 },
                 child: SvgPicture.asset(
+                  height: 16,
+                   width: 16,
                    color: AppColors.actionColor600,
                   "${Assets.customiconsSetting}",
                   semanticsLabel: 'Settings',
