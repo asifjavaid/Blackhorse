@@ -30,7 +30,8 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
   @override
   void initState() {
     super.initState();
-    _loadToggleStates();
+    //_loadToggleStates();
+    provider.fetchUserProfile(showLoader: true);
   }
 
   // Load the saved states from SharedPreferences
@@ -151,11 +152,11 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                               setState(() {
                                                 item.isEnabled = newValue;
                                               });
-                                              _saveToggleState(
+                                              /*_saveToggleState(
                                                 category.title,
                                                 item.title,
                                                 newValue,
-                                              );
+                                              );*/
                                             },
                                           ),
                                         );

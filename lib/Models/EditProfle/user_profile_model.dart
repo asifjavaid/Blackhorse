@@ -37,6 +37,10 @@ class UserProfileModel {
       this.id,
       this.picLink});
 
+  bool isSymptomEnabled(String key) {
+    return symptomTrackingPreferences?[key] == true;
+  }
+
   UserProfileModel.fromJson(Map<String, dynamic> json) {
     nickName = json['nickName'];
     lastName = json['lastName'];

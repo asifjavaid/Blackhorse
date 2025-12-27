@@ -34,6 +34,7 @@ class _DailyTrackerState extends State<DailyTracker> {
   @override
   void initState() {
     super.initState();
+    provider.fetchUserProfile(showLoader: false);
   }
 
   @override
@@ -96,7 +97,9 @@ class DailyTrackerHeader extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  AppNavigation.navigateTo(AppRoutes.createTrackingSettings);
+                  AppNavigation.navigateTo(AppRoutes.createTrackingSettings).then((value) {
+                    provider.fetchUserProfile(showLoader: false);
+                  });
                 },
                 child: SvgPicture.asset(
                    color: AppColors.actionColor600,

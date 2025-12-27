@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dartz/dartz.dart' as dartz;
@@ -1832,15 +1833,313 @@ class DailyTrackerProvider extends ChangeNotifier {
   SymptomCategoriesModel categoriesData = DataInitializations.categoriesData();
   final List<CategoriesData> eventsAndThingsIdo = DataInitializations.eventsAndThingsIdo;
 
-  final List<CategoriesData> painAndBleedingCategories = DataInitializations.painAndBleedingCategories;
-  final List<CategoriesData> symptomsCategories = DataInitializations.symptomsCategories;
-  final List<CategoriesData> thingsPutinBody = DataInitializations.thingsPutinBody;
-  final List<CategoriesData> bathroomHabits = DataInitializations.bathroomHabits;
-  final List<CategoriesData> fertilityAndPregnancy = DataInitializations.fertilityAndPregnancy;
-  final List<CategoriesData> eventCategories = DataInitializations.eventCategories;
-  final List<CategoriesData> wellbeing = DataInitializations.wellbeing;
+  List<CategoriesData> painAndBleedingCategories = DataInitializations.painAndBleedingCategories;
+  List<CategoriesData> symptomsCategories = DataInitializations.symptomsCategories;
+  List<CategoriesData> thingsPutinBody = DataInitializations.thingsPutinBody;
+  List<CategoriesData> bathroomHabits = DataInitializations.bathroomHabits;
+  List<CategoriesData> fertilityAndPregnancy = DataInitializations.fertilityAndPregnancy;
+  List<CategoriesData> eventCategories = DataInitializations.eventCategories;
+  List<CategoriesData> wellbeing = DataInitializations.wellbeing;
 
-  void patchSaveUserTrackingPreferences(BuildContext context) async{
+  Future<UserProfileModel> fetchUserProfile({bool? showLoader}) async {
+    String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
+    if (showLoader ?? true) CustomLoading.showLoadingIndicator();
+    final completer = Completer<UserProfileModel>();
+    var result = await EditProfileService.fetchUserProfileFromApi(userId!);
+    result.fold(
+          (l) {
+        HelperFunctions.showNotification(AppNavigation.currentContext!, AppConstant.exceptionMessage);
+        if (showLoader ?? true) CustomLoading.hideLoadingIndicator();
+        completer.completeError(l);
+      },
+          (r) async {
+        if (showLoader ?? true) CustomLoading.hideLoadingIndicator();
+        UserProfileModel userData = r;
+
+        painAndBleedingCategories =
+            List.from(DataInitializations.painAndBleedingCategories);
+        symptomsCategories =
+            List.from(DataInitializations.symptomsCategories);
+        thingsPutinBody =
+            List.from(DataInitializations.thingsPutinBody);
+        bathroomHabits =
+            List.from(DataInitializations.bathroomHabits);
+        fertilityAndPregnancy =
+            List.from(DataInitializations.fertilityAndPregnancy);
+        eventCategories =
+            List.from(DataInitializations.eventCategories);
+        wellbeing =
+            List.from(DataInitializations.wellbeing);
+
+        if (userData.symptomTrackingPreferences != null) {
+          userData.symptomTrackingPreferences!.forEach((key, isEnabled) {
+
+            switch (key) {
+              case "pain":
+              // Handle pain
+                if(!isEnabled)
+                  {
+                    painAndBleedingCategories.removeWhere((cat) {
+                      return cat.title == "Body Pain";
+                    });
+                  }
+
+                setTrackingItemState(isEnabled, "Pain");
+
+                break;
+
+              case "bleeding":
+              // Handle bleeding
+                if(!isEnabled)
+                {
+                  painAndBleedingCategories.removeWhere((cat) {
+                    return cat.title == "Bleeding";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Bleeding");
+                break;
+
+              case "headache":
+              // Handle headache
+                if(!isEnabled)
+                {
+                  painAndBleedingCategories.removeWhere((cat) {
+                    return cat.title == "Headache";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Headache");
+                break;
+
+              case "mood":
+              // Handle mood
+                if(!isEnabled)
+                {
+                  painAndBleedingCategories.removeWhere((cat) {
+                    return cat.title == "Mood";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Mood");
+                break;
+
+              case "stress":
+              // Handle stress
+                if(!isEnabled)
+                {
+                  painAndBleedingCategories.removeWhere((cat) {
+                    return cat.title == "Stress";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Stress");
+                break;
+
+              case "energy":
+              // Handle energy
+                if(!isEnabled)
+                {
+                  painAndBleedingCategories.removeWhere((cat) {
+                    return cat.title == "Energy";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Energy");
+                break;
+
+              case "nausea":
+              // Handle nausea
+                if(!isEnabled)
+                {
+                  symptomsCategories.removeWhere((cat) {
+                    return cat.title == "Nausea";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Nausea");
+                break;
+
+              case "fatigue":
+              // Handle fatigue
+                if(!isEnabled)
+                {
+                  symptomsCategories.removeWhere((cat) {
+                    return cat.title == "Fatigue";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Fatigue");
+                break;
+
+              case "bloating":
+              // Handle bloating
+                if(!isEnabled)
+                {
+                  symptomsCategories.removeWhere((cat) {
+                    return cat.title == "Bloating";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Bloating");
+                break;
+
+              case "brainfog":
+              // Handle brain fog
+                if(!isEnabled)
+                {
+                  symptomsCategories.removeWhere((cat) {
+                    return cat.title == "Brain fog";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Brain fog");
+                break;
+
+              case "painkiller":
+              // Handle painkiller
+                if(!isEnabled)
+                {
+                  thingsPutinBody.removeWhere((cat) {
+                    return cat.title == "Painkillers";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Painkillers");
+                break;
+
+              case "hormone":
+              // Handle hormone
+                if(!isEnabled)
+                {
+                  thingsPutinBody.removeWhere((cat) {
+                    return cat.title == "Hormones";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Hormones");
+                break;
+
+              case "alcohol":
+              // Handle alcohol
+                if(!isEnabled)
+                {
+                  thingsPutinBody.removeWhere((cat) {
+                    return cat.title == "Alcohol";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Alcohol");
+                break;
+
+              case "bowelmovement":
+              // Handle bowel movement
+                if(!isEnabled)
+                {
+                  bathroomHabits.removeWhere((cat) {
+                    return cat.title == "Bowel movement";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Bowel movement");
+                break;
+
+              case "urination":
+              // Handle urination
+                if(!isEnabled)
+                {
+                  bathroomHabits.removeWhere((cat) {
+                    return cat.title == "Urination";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Urination");
+                break;
+
+              case "movement":
+              // Handle movement
+                if(!isEnabled)
+                {
+                  wellbeing.removeWhere((cat) {
+                    return cat.title == "Movement";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Movement");
+                break;
+
+              case "selfcare":
+              // Handle self care
+                if(!isEnabled)
+                {
+                  wellbeing.removeWhere((cat) {
+                    return cat.title == "Self-care";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Self-care");
+                break;
+
+              case "painrelief":
+              // Handle pain relief
+                if(!isEnabled)
+                {
+                  wellbeing.removeWhere((cat) {
+                    return cat.title == "Pain relief";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Pain relief");
+                break;
+
+              case "intimacy":
+              // Handle intimacy
+                if(!isEnabled)
+                {
+                  fertilityAndPregnancy.removeWhere((cat) {
+                    return cat.title == "Intimacy";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Intimacy");
+                break;
+
+              case "ovulationtest":
+              // Handle ovulation test
+                if(!isEnabled)
+                {
+                  fertilityAndPregnancy.removeWhere((cat) {
+                    return cat.title == "Ovulation test";
+                  });
+                }
+                setTrackingItemState(isEnabled, "Ovulation test");
+                break;
+
+              case "pregnancytest":
+              // Handle pregnancy test
+                if(!isEnabled)
+                {
+                  fertilityAndPregnancy.removeWhere((cat) {
+                    return cat.title == "Pregnancy test";
+                  });
+                }
+
+                setTrackingItemState(isEnabled, "Pregnancy test");
+                break;
+
+              default:
+              // Unknown or new symptom (safe fallback)
+                break;
+            }
+          });
+        }
+
+
+        completer.complete(r);
+        notifyListeners();
+      },
+    );
+
+    return completer.future;
+  }
+
+  void setTrackingItemState(bool isEnabled, String title) {
+    final TrackingItem? item = categories
+        .expand((category) => category.items)
+        .firstWhere(
+          (ti) => ti.title == title,
+    );
+
+    if (item != null) {
+      item.isEnabled = isEnabled;
+    }
+  }
+
+
+
+  void patchSaveUserTrackingPreferences(BuildContext context) async {
     String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     String? userProfileJson = await SharedPreferencesHelper.getStringPrefValue(key: "userProfile");
     if (userProfileJson != null) {
@@ -1849,20 +2148,19 @@ class DailyTrackerProvider extends ChangeNotifier {
       CustomLoading.showLoadingIndicator();
       var result = await EditProfileService.updateUserProfileFromApi(
           UserProfileModel(
-            firstName: userProfile.firstName,
-            lastName: userProfile.lastName,
-            email: userProfile.email,
-            phoneNum: userProfile.phoneNum,
-            dob: userProfile.dob,
-            symptomTrackingPreferences: userProfile.symptomTrackingPreferences
-          ),
+              firstName: userProfile.firstName,
+              lastName: userProfile.lastName,
+              email: userProfile.email,
+              phoneNum: userProfile.phoneNum,
+              dob: userProfile.dob,
+              symptomTrackingPreferences: userProfile.symptomTrackingPreferences),
           userId!);
       result.fold(
-            (l) {
+        (l) {
           HelperFunctions.showNotification(AppNavigation.currentContext!, AppConstant.exceptionMessage);
           CustomLoading.hideLoadingIndicator();
         },
-            (r) async {
+        (r) async {
           CustomLoading.hideLoadingIndicator();
           await HelperFunctions.showNotification(AppNavigation.currentContext!, "Profile Updated Successfully");
         },
@@ -1871,17 +2169,13 @@ class DailyTrackerProvider extends ChangeNotifier {
   }
 
   Map<String, bool> buildSymptomTrackingPreferences(
-      List<TrackingCategory> categories,
-      ) {
+    List<TrackingCategory> categories,
+  ) {
     final Map<String, bool> result = {};
 
     for (final category in categories) {
       for (final item in category.items) {
-        final key = item.title
-            .toLowerCase()
-            .replaceAll(' ', '')
-            .replaceAll('&', '')
-            .replaceAll(RegExp(r'[^a-z0-9]'), '');
+        final key = item.title.toLowerCase().replaceAll(' ', '').replaceAll('&', '').replaceAll(RegExp(r'[^a-z0-9]'), '');
 
         result[key] = item.isEnabled;
       }
@@ -1889,7 +2183,6 @@ class DailyTrackerProvider extends ChangeNotifier {
 
     return result;
   }
-
 }
 
 class CategoryTracker {
