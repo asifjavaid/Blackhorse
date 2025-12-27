@@ -5,15 +5,11 @@ import 'package:ekvi/Widgets/Buttons/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../Models/DailyTracker/TrackingSettings/TrackingCategory.dart';
-import '../../../../Models/DailyTracker/TrackingSettings/TrackingItem.dart';
 import '../../../../Providers/DailyTracker/daily_tracker_provider.dart';
 import '../../../../Routes/app_navigation.dart';
 import '../../../../Utils/constants/app_constant.dart';
 import '../../../../Utils/helpers/helper_functions.dart';
-import '../../../../Widgets/Gradient/gradient_background.dart'; // Import the package
+import '../../../../Widgets/Gradient/gradient_background.dart';
 
 class TrackingSettingsScreen extends StatefulWidget {
   const TrackingSettingsScreen({super.key});
