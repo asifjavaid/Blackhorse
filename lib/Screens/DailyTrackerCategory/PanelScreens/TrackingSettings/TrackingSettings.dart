@@ -34,32 +34,6 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
     provider.fetchUserProfile(showLoader: true);
   }
 
-  // Load the saved states from SharedPreferences
-  Future<void> _loadToggleStates() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      for (var category in provider.categories) {
-        for (var item in category.items) {
-          // Use a unique key for each item, defaulting to true if not found
-          final key = _generateKey(category.title, item.title);
-          item.isEnabled = prefs.getBool(key) ?? true;
-        }
-      }
-    });
-  }
-
-  // Save the state of a single toggle button
-  Future<void> _saveToggleState(String categoryTitle, String itemTitle, bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    final key = _generateKey(categoryTitle, itemTitle);
-    await prefs.setBool(key, value);
-  }
-
-  // Helper function to create unique keys (e.g., "Things I experience_Pain")
-  String _generateKey(String categoryTitle, String itemTitle) {
-    return '${categoryTitle}_$itemTitle'.replaceAll(' ', '_').toLowerCase();
-  }
-
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
