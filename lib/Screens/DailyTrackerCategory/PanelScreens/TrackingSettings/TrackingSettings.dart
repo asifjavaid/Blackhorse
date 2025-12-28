@@ -100,6 +100,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                     style: textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w500),
                                   ),
                                   Card(
+                                    elevation: 0,
                                     margin: const EdgeInsets.only(bottom: 14, top: 10),
                                     color: Colors.white,
                                     child: Padding(
