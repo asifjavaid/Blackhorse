@@ -85,7 +85,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                   child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 20.0,
+                        vertical: 24.0,
                         horizontal: 16.0,
                       ),
                       child: Column(
@@ -103,44 +103,41 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                     elevation: 0,
                                     margin: const EdgeInsets.only(bottom: 14, top: 10),
                                     color: Colors.white,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(bottom: 24.0),
-                                      child: ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: category.items.length,
-                                        itemBuilder: (context, index) {
-                                          final item = category.items[index];
-                                          return ListTile(
-                                            shape: const Border(),
-                                            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                                            dense: true,
-                                            title: Text(
-                                              item.title,
-                                              style: textTheme.labelMedium!.copyWith(color: AppColors.neutralColor600),
-                                            ),
-                                            trailing: CustomSwitch(
-                                              value: item.isEnabled,
-                                              width: 45,
-                                              height: 25,
-                                              activeColor: AppColors.actionColor600,
-                                              inactiveColor: AppColors.neutralColor300,
-                                              thumbColor: AppColors.neutralColor50,
-                                              onChanged: (newValue) {
-                                                setState(() {
-                                                  item.isEnabled = newValue;
-                                                });
-                                                provider.patchSaveUserTrackingPreferences(context);
-                                                /*_saveToggleState(
-                                                  category.title,
-                                                  item.title,
-                                                  newValue,
-                                                );*/
-                                              },
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: category.items.length,
+                                      itemBuilder: (context, index) {
+                                        final item = category.items[index];
+                                        return ListTile(
+                                          shape: const Border(),
+                                          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                          dense: true,
+                                          title: Text(
+                                            item.title,
+                                            style: textTheme.labelMedium!.copyWith(color: AppColors.neutralColor600),
+                                          ),
+                                          trailing: CustomSwitch(
+                                            value: item.isEnabled,
+                                            width: 45,
+                                            height: 25,
+                                            activeColor: AppColors.actionColor600,
+                                            inactiveColor: AppColors.neutralColor300,
+                                            thumbColor: AppColors.neutralColor50,
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                item.isEnabled = newValue;
+                                              });
+                                              provider.patchSaveUserTrackingPreferences(context);
+                                              /*_saveToggleState(
+                                                category.title,
+                                                item.title,
+                                                newValue,
+                                              );*/
+                                            },
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],
