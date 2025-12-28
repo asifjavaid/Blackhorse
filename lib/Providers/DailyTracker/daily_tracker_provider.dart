@@ -2138,8 +2138,7 @@ class DailyTrackerProvider extends ChangeNotifier {
   }
 
 
-
-  void patchSaveUserTrackingPreferences(BuildContext context) async {
+  Future<void> patchSaveUserTrackingPreferences(BuildContext context) async {
     String? userId = await SharedPreferencesHelper.getStringPrefValue(key: "userId");
     String? userProfileJson = await SharedPreferencesHelper.getStringPrefValue(key: "userProfile");
     if (userProfileJson != null) {
@@ -2162,7 +2161,7 @@ class DailyTrackerProvider extends ChangeNotifier {
         },
         (r) async {
           CustomLoading.hideLoadingIndicator();
-          await HelperFunctions.showNotification(AppNavigation.currentContext!, "Profile Updated Successfully");
+          //await HelperFunctions.showNotification(AppNavigation.currentContext!, "Profile Updated Successfully");
         },
       );
     }

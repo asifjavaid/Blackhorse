@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:ekvi/Utils/Constants/app_colors.dart';
@@ -26,139 +27,168 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
   @override
   void initState() {
     super.initState();
-    //_loadToggleStates();
     provider.fetchUserProfile(showLoader: true);
+    //startTrackingPreferencesSync(context);
+  }
+
+  @override
+  void dispose() {
+    //stopTrackingPreferencesSync(); // 🔥 REQUIRED
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      body: GradientBackground(
-        child: SafeArea(
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: AppColors.actionColor600, size: 16,),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
+    return WillPopScope(
+      onWillPop: () async {
 
-                  Text("Customize tracking", textAlign: TextAlign.center, style: textTheme.displaySmall),
+        return true; // allow back navigation
+      },
+      child: Scaffold(
+        body: GradientBackground(
+          child: SafeArea(
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios, color: AppColors.actionColor600, size: 16,),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
 
-                  GestureDetector(
-                    onTap: () => HelperFunctions.openCustomBottomSheet(context, content: _helpPanel(), height: Platform.isAndroid ? 300 : 330),
-                    child: Container(
-                      margin: EdgeInsets.only(right: 16),
-                      child: SvgPicture.asset(
-                        height: 16,
-                        width: 16,
-                        color: AppColors.actionColor600,
-                        "${AppConstant.assetIcons}info.svg",
-                        semanticsLabel: 'Tracker Settings Info',
+                    Text("Customize tracking", textAlign: TextAlign.center, style: textTheme.displaySmall),
+
+                    GestureDetector(
+                      onTap: () => HelperFunctions.openCustomBottomSheet(context, content: _helpPanel(), height: Platform.isAndroid ? 300 : 330),
+                      child: Container(
+                        margin: EdgeInsets.only(right: 16),
+                        child: SvgPicture.asset(
+                          height: 16,
+                          width: 16,
+                          color: AppColors.actionColor600,
+                          "${AppConstant.assetIcons}info.svg",
+                          semanticsLabel: 'Tracker Settings Info',
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
+
+                // 🔽 Page content
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 20.0,
+                        horizontal: 16.0,
+                      ),
+                      child: Column(
+                        children: [
+                          Column(
+                            children: provider.categories.map((category) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    category.title,
+                                    style: textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w500),
+                                  ),
+                                  Card(
+                                    margin: const EdgeInsets.only(bottom: 14, top: 10),
+                                    color: Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 24.0),
+                                      child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemCount: category.items.length,
+                                        itemBuilder: (context, index) {
+                                          final item = category.items[index];
+                                          return ListTile(
+                                            shape: const Border(),
+                                            contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                            dense: true,
+                                            title: Text(
+                                              item.title,
+                                              style: textTheme.labelMedium!.copyWith(color: AppColors.neutralColor600),
+                                            ),
+                                            trailing: CustomSwitch(
+                                              value: item.isEnabled,
+                                              width: 45,
+                                              height: 25,
+                                              activeColor: AppColors.actionColor600,
+                                              inactiveColor: AppColors.neutralColor300,
+                                              thumbColor: AppColors.neutralColor50,
+                                              onChanged: (newValue) {
+                                                setState(() {
+                                                  item.isEnabled = newValue;
+                                                });
+                                                provider.patchSaveUserTrackingPreferences(context);
+                                                /*_saveToggleState(
+                                                  category.title,
+                                                  item.title,
+                                                  newValue,
+                                                );*/
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }).toList(),
+                          ),/*
+                          Consumer<DailyTrackerProvider>(
+                            builder: (context, provider, child) {
+
+                              return CustomButton(
+                                title: "Save",
+
+                                onPressed: () => provider.patchSaveUserTrackingPreferences(context)
+                              );
+                            },
+                          ),*/
+                        ],
                       ),
                     ),
                   ),
-
-                ],
-              ),
-
-              // 🔽 Page content
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20.0,
-                      horizontal: 16.0,
-                    ),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: provider.categories.map((category) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  category.title,
-                                  style: textTheme.titleMedium,
-                                ),
-                                Card(
-                                  margin: const EdgeInsets.only(bottom: 14, top: 10),
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 24.0),
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      itemCount: category.items.length,
-                                      itemBuilder: (context, index) {
-                                        final item = category.items[index];
-                                        return ListTile(
-                                          shape: const Border(),
-                                          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                                          dense: true,
-                                          title: Text(
-                                            item.title,
-                                            style: textTheme.titleMedium?.copyWith(
-                                              color: AppColors.neutralColor600,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          trailing: CustomSwitch(
-                                            value: item.isEnabled,
-                                            width: 45,
-                                            height: 25,
-                                            activeColor: AppColors.actionColor600,
-                                            inactiveColor: AppColors.neutralColor300,
-                                            thumbColor: AppColors.neutralColor50,
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                item.isEnabled = newValue;
-                                              });
-                                              /*_saveToggleState(
-                                                category.title,
-                                                item.title,
-                                                newValue,
-                                              );*/
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          }).toList(),
-                        ),
-                        Consumer<DailyTrackerProvider>(
-                          builder: (context, provider, child) {
-
-                            return CustomButton(
-                              title: "Save",
-
-                              onPressed: () => provider.patchSaveUserTrackingPreferences(context)
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  Timer? _trackingTimer;
+  void startTrackingPreferencesSync(BuildContext context) {
+    _trackingTimer?.cancel(); // prevent duplicates
+
+    _trackingTimer = Timer.periodic(
+      const Duration(seconds: 7),
+          (timer) {
+        provider.patchSaveUserTrackingPreferences(context);
+      },
+    );
+  }
+
+  void stopTrackingPreferencesSync() {
+    _trackingTimer?.cancel();
+    _trackingTimer = null;
+  }
+
 }
+
+
 
 class CustomSwitch extends StatelessWidget {
   final bool value;

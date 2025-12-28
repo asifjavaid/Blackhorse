@@ -60,42 +60,60 @@ class _DailyTrackerCardsState extends State<DailyTrackerCards> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          HorizontalCategoryList(
-              title: "Things I experience",
-              options: value.painAndBleedingCategories,
-              callback: (String title) async {
-                value.handleSelectedCategory(title);
-              }),
-          HorizontalCategoryList(
-              title: "Symptoms",
-              options: value.symptomsCategories,
-              callback: (String title) async {
-                value.handleSelectedCategory(title);
-              }),
-          HorizontalCategoryList(
-              title: "Things that I put in my body",
-              options: value.thingsPutinBody,
-              callback: (String title) {
-                value.handleSelectedCategory(title);
-              }),
-          HorizontalCategoryList(
-              title: "Bathroom habits",
-              options: value.bathroomHabits,
-              callback: (String title) {
-                value.handleSelectedCategory(title);
-              }),
-          HorizontalCategoryList(
-              title: "Wellbeing",
-              options: value.wellbeing,
-              callback: (String title) {
-                value.handleSelectedCategory(title);
-              }),
-          HorizontalCategoryList(
-              title: "Fertility and pregnancy",
-              options: value.fertilityAndPregnancy,
-              callback: (String title) {
-                value.handleSelectedCategory(title);
-              }),
+          Visibility(
+            visible: value.thingsPutinBody.isNotEmpty,
+            child: HorizontalCategoryList(
+                title: "Things I experience",
+                options: value.painAndBleedingCategories,
+                callback: (String title) async {
+                  value.handleSelectedCategory(title);
+                }),
+          ),
+          Visibility(
+            visible: value.symptomsCategories.isNotEmpty,
+            child: HorizontalCategoryList(
+                title: "Symptoms",
+                options: value.symptomsCategories,
+                callback: (String title) async {
+                  value.handleSelectedCategory(title);
+                }),
+          ),
+          Visibility(
+            visible: value.thingsPutinBody.isNotEmpty,
+            child: HorizontalCategoryList(
+                title: "Things that I put in my body",
+                options: value.thingsPutinBody,
+                callback: (String title) {
+                  value.handleSelectedCategory(title);
+                }),
+          ),
+          Visibility(
+            visible: value.bathroomHabits.isNotEmpty,
+            child: HorizontalCategoryList(
+                title: "Bathroom habits",
+                options: value.bathroomHabits,
+                callback: (String title) {
+                  value.handleSelectedCategory(title);
+                }),
+          ),
+          Visibility(
+            visible: value.wellbeing.isNotEmpty,
+            child: HorizontalCategoryList(
+                title: "Wellbeing",
+                options: value.wellbeing,
+                callback: (String title) {
+                  value.handleSelectedCategory(title);
+                }),
+          ),
+          Visibility(
+            visible: value.fertilityAndPregnancy.isNotEmpty,
+            child: HorizontalCategoryList(
+                title: "Fertility and pregnancy",
+                options: value.fertilityAndPregnancy,
+                callback: (String title) {
+                  value.handleSelectedCategory(title);
+                }),
+          ),
         ],
       );
     });

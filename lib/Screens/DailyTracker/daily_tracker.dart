@@ -98,7 +98,7 @@ class DailyTrackerHeader extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   AppNavigation.navigateTo(AppRoutes.createTrackingSettings).then((value) {
-                    provider.fetchUserProfile(showLoader: false);
+                    provider.fetchUserProfile(showLoader: true);
                   });
                 },
                 child: SvgPicture.asset(
