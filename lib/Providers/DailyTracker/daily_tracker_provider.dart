@@ -1987,7 +1987,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 setTrackingItemState(isEnabled, "Brain fog");
                 break;
 
-              case "painkiller":
+              case "painkillers":
               // Handle painkiller
                 if(!isEnabled)
                 {
@@ -1998,7 +1998,7 @@ class DailyTrackerProvider extends ChangeNotifier {
                 setTrackingItemState(isEnabled, "Painkillers");
                 break;
 
-              case "hormone":
+              case "hormones":
               // Handle hormone
                 if(!isEnabled)
                 {

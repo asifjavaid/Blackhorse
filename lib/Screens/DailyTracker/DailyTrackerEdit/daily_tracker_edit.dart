@@ -61,7 +61,7 @@ class _DailyTrackerCardsState extends State<DailyTrackerCards> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Visibility(
-            visible: value.thingsPutinBody.isNotEmpty,
+            visible: value.painAndBleedingCategories.isNotEmpty,
             child: HorizontalCategoryList(
                 title: "Things I experience",
                 options: value.painAndBleedingCategories,
