@@ -97,7 +97,11 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                 children: [
                                   Text(
                                     category.title,
-                                    style: textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w500),
+                                    style: textTheme.titleMedium!.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.neutralColor600,
+                                        fontSize: 16
+                                    ),
                                   ),
                                   Card(
                                     elevation: 0,
@@ -115,7 +119,11 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                           dense: true,
                                           title: Text(
                                             item.title,
-                                            style: textTheme.labelMedium!.copyWith(color: AppColors.neutralColor600),
+                                            style: textTheme.titleMedium!.copyWith(
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.neutralColor600,
+                                                fontSize: 14
+                                            ),
                                           ),
                                           trailing: CustomSwitch(
                                             value: item.isEnabled,
