@@ -65,7 +65,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                     Text("Customize tracking", textAlign: TextAlign.center, style: textTheme.displaySmall),
 
                     GestureDetector(
-                      onTap: () => HelperFunctions.openCustomBottomSheet(context, content: _helpPanel(), height: Platform.isAndroid ? 300 : 330),
+                      onTap: () => HelperFunctions.openCustomBottomSheet(context, content: _helpPanel(), height: 700),
                       child: Container(
                         margin: EdgeInsets.only(right: 16),
                         child: SvgPicture.asset(
@@ -252,90 +252,72 @@ class CustomSwitch extends StatelessWidget {
   }
 }
 
+class _TitleText extends TextSpan {
+  _TitleText(String text, TextTheme textTheme)
+      : super(
+    text: text,
+    style: textTheme.titleSmall?.copyWith(color: AppColors.neutralColor600, fontWeight: FontWeight.w700, height: 0),
+  );
+}
+
+class _SubtitleText extends TextSpan {
+  _SubtitleText(String text, TextTheme textTheme)
+      : super(
+    text: text,
+    style: textTheme.bodySmall?.copyWith(
+      color: AppColors.neutralColor600,
+      height: 1.60,
+    ),
+  );
+}
+
 
 Widget _helpPanel() {
   TextTheme textTheme = Theme.of(AppNavigation.currentContext!).textTheme;
   return SingleChildScrollView(
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text("What does it mean?", textAlign: TextAlign.start, style: textTheme.headlineSmall!.copyWith(color: AppColors.neutralColor600)),
-      const SizedBox(
-        height: 24,
-      ),
-      Row(
-        children: [
-          Text(
-            "1-10",
-            style: textTheme.bodySmall,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Customize your tracking',
+          style: textTheme.headlineSmall?.copyWith(
+            color: AppColors.neutralColor600,
           ),
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            "Intensity of the tracked symptom",
-            style: textTheme.bodySmall,
-          )
-        ],
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-      Row(
-        children: [
-          SvgPicture.asset("${AppConstant.assetIcons}dt_help_1.svg"),
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            "Tracked intensity",
-            style: textTheme.bodySmall,
-          )
-        ],
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-      Row(
-        children: [
-          SvgPicture.asset("${AppConstant.assetIcons}dt_help_2.svg"),
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            "Tracked symptom, without intensity",
-            style: textTheme.bodySmall,
-          )
-        ],
-      ),
-      const SizedBox(
-        height: 12,
-      ),
-      Row(
-        children: [
-          Container(
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(width: 2, color: AppColors.primaryColor500),
-                borderRadius: BorderRadius.circular(50),
-              ),
-            ),
-            width: 32,
-            height: 32,
-            child: Center(
-              child: Text(
-                '1',
-                style: textTheme.bodyLarge!.copyWith(fontSize: 14),
-              ),
+        ),
+        const SizedBox(height: 24),
+        Text.rich(TextSpan(
+          children: [
+            _SubtitleText(
+                'This is your space to decide what you want to track right now.\n\n'
+                    'You don’t need to track everything. '
+                    'Many women find it more helpful to focus on the symptoms, actions, and '
+                    'life areas that feel most relevant in this phase of their life or cycle.\n\n',
+                textTheme),
+            _TitleText('How it works', textTheme),
+          ],
+        )),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6.0),
+          child: Text.rich(
+            TextSpan(
+              children: [
+                _SubtitleText('• Turn items on to include them in your Daily  Tracker\n', textTheme),
+                _SubtitleText('• Turn items off to hide them from view\n', textTheme),
+                _SubtitleText('• You can change this anytime if your needs  change\n', textTheme),
+              ],
             ),
           ),
-          const SizedBox(
-            width: 16,
-          ),
-          Text(
-            "Units tracked",
-            style: textTheme.bodySmall,
-          )
-        ],
-      ),
-    ]),
+        ),
+        Text.rich(TextSpan(children: [
+          _SubtitleText(
+              'Nothing you turn off is deleted. Your past data stays safe, and you can always add things back later.\n\n'
+                  'Think of tracking as a conversation with your body. Start small, stay curious, and let this evolve with you.',
+              textTheme),
+        ])),
+        const SizedBox(height: 32),
+      ],
+    ),
   );
 }
