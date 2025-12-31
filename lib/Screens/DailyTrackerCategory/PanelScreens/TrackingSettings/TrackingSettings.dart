@@ -58,6 +58,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                       icon: const Icon(Icons.arrow_back_ios, color: AppColors.actionColor600, size: 16,),
                       onPressed: () {
                         Navigator.pop(context);
+                        provider.patchSaveUserTrackingPreferences(context);
                       },
                     ),
 
@@ -136,7 +137,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                               setState(() {
                                                 item.isEnabled = newValue;
                                               });
-                                              provider.patchSaveUserTrackingPreferences(context);
+                                              // provider.patchSaveUserTrackingPreferences(context);
                                               /*_saveToggleState(
                                                 category.title,
                                                 item.title,
