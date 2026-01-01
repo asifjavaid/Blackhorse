@@ -65,6 +65,7 @@ import 'package:ekvi/Providers/WellnessWeekly/wellbeing_levels_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
+import 'ConsentProvider/consent_provider.dart';
 import 'DailyTracker/BowelMovement/bowel_movement_provider.dart';
 
 List<SingleChildWidget> appProviders = [
@@ -76,6 +77,7 @@ List<SingleChildWidget> appProviders = [
   ChangeNotifierProvider(create: (_) => DailyTrackerProvider()),
   ChangeNotifierProvider(create: (_) => EditProfileProvider()),
   ChangeNotifierProvider(create: (_) => NotificationsProvider()),
+  ChangeNotifierProvider(create: (_) => ConsentProvider()),
   ChangeNotifierProvider(create: (_) => CycleCalendarProvider()),
   ChangeNotifierProvider(create: (_) => CycleTrackingProvider()),
   ChangeNotifierProvider(create: (_) => FreeUserProvider()),

@@ -17,6 +17,7 @@ class NotificationsProvider extends ChangeNotifier {
   ];
   DateTime selectedTime = DateTime.now();
 
+  bool showTimeControl = false;
   final List<bool> notificationCategoriesEnabled = List.filled(3, false);
   final PanelController panelController = PanelController();
   final UserManager _userManager = UserManager();
@@ -116,6 +117,9 @@ class NotificationsProvider extends ChangeNotifier {
   void updateValue(int index, bool value) {
     if (index >= 0 && index < notificationCategoriesEnabled.length) {
       notificationCategoriesEnabled[index] = value;
+      if(index == 2)
+        showTimeControl = value;
+
       notifyListeners();
     }
   }

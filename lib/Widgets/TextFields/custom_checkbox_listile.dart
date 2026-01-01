@@ -24,12 +24,25 @@ class CustomCheckboxListTile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Checkbox(
                 isError: isError,
                 value: value,
                 onChanged: onChanged,
                 activeColor: AppColors.actionColor600,
+                fillColor: WidgetStateProperty.resolveWith<Color?>(
+                      (states) {
+                    if (states.contains(WidgetState.selected)) {
+                      return AppColors.actionColor600;
+                    }
+                    return Colors.white; // inactive background
+                  },
+                ),
+                visualDensity: const VisualDensity(
+                  horizontal: -4,
+                  vertical: -4,
+                ),
                 side: isError
                     ? WidgetStateBorderSide.resolveWith(
                         (states) => const BorderSide(width: 2.0, color: AppColors.errorColor500),

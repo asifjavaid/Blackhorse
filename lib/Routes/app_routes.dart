@@ -77,6 +77,7 @@ class AppRoutes {
   static const String cycleTracking = "/cycleTracking";
   static const String faqs = "/faqs";
   static const String deleteAccount = "/deleteAccount";
+  static const String consentAccount = "/consentAccount";
   static const String multisymptomschart = "/multisymptomschart";
   static const String multisymptomselection = "/multisymptomselection";
   static const String ekvipediaArticle = "/ekvipediaArticle";

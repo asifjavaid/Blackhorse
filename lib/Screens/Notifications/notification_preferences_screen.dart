@@ -146,31 +146,29 @@ class _NotificationsPreferencesScreenState extends State<NotificationsPreference
                                 const SizedBox(
                                   height: 20,
                                 ),
-
-                                CustomButton(
-                                  title: DateFormat("hh:mm a")
-                                      .format(value.selectedTime),
-                                  color: AppColors.primaryColor400,
-                                  fontColor: AppColors.blackColor,
-                                  tralingIcon: SvgPicture.asset(
-                                    Assets.customiconsArrowDown,
-                                    color: AppColors.actionColor600,
-                                    height: 16,
-                                    width: 16,
+                                Visibility(
+                                  visible: provider.showTimeControl,
+                                  child: CustomButton(
+                                    title: DateFormat("hh:mm a").format(value.selectedTime),
+                                    color: AppColors.primaryColor400,
+                                    fontColor: AppColors.blackColor,
+                                    tralingIcon: SvgPicture.asset(
+                                      Assets.customiconsArrowDown,
+                                      color: AppColors.actionColor600,
+                                      height: 16,
+                                      width: 16,
+                                    ),
+                                    leadingIcon: SvgPicture.asset(
+                                      Assets.iconsClock16,
+                                      height: 16,
+                                      width: 16,
+                                      color: AppColors.actionColor600,
+                                    ),
+                                    elevation: 0,
+                                    onPressed: () => HelperFunctions.showSheet(context,
+                                        child: HelperFunctions.buildTimePicker(value.selectedTime, value.setSelectedTime),
+                                        onClicked: (() => Navigator.pop(context))),
                                   ),
-                                  leadingIcon: SvgPicture.asset(
-                                    Assets.iconsClock16,
-                                    height: 16,
-                                    width: 16,
-                                    color: AppColors.actionColor600,
-                                  ),
-                                  elevation: 0,
-                                  onPressed: () => HelperFunctions.showSheet(
-                                      context,
-                                      child: HelperFunctions.buildTimePicker(
-                                          value.selectedTime,
-                                          value.setSelectedTime),
-                                      onClicked: (() => Navigator.pop(context))),
                                 ),
                               ],
                             ),
@@ -260,6 +258,10 @@ class _NotificationHelpText extends StatelessWidget {
                   ),
                   TextSpan(
                     text: description,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: AppColors.neutralColor600,
+                      height: 1.60,
+                    ),
                   ),
                 ],
               ),
