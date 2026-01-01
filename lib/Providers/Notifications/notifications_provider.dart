@@ -13,9 +13,10 @@ class NotificationsProvider extends ChangeNotifier {
   final List<String> notificationCategories = [
     "Subscription renewal",
     "Trial period ending",
+    "Daily tracking"
   ];
 
-  final List<bool> notificationCategoriesEnabled = List.filled(2, false);
+  final List<bool> notificationCategoriesEnabled = List.filled(3, false);
   final PanelController panelController = PanelController();
   final UserManager _userManager = UserManager();
   UserProfileModel? _profileModel;

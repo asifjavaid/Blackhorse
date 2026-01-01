@@ -21,12 +21,10 @@ class NotificationsPreferencesScreen extends StatefulWidget {
   const NotificationsPreferencesScreen({super.key});
 
   @override
-  State<NotificationsPreferencesScreen> createState() =>
-      _NotificationsPreferencesScreenState();
+  State<NotificationsPreferencesScreen> createState() => _NotificationsPreferencesScreenState();
 }
 
-class _NotificationsPreferencesScreenState
-    extends State<NotificationsPreferencesScreen> {
+class _NotificationsPreferencesScreenState extends State<NotificationsPreferencesScreen> {
   late NotificationsProvider provider;
 
   @override
@@ -40,17 +38,14 @@ class _NotificationsPreferencesScreenState
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     var localizations = AppLocalizations.of(context)!;
-    var sideNavManagerProvider = Provider.of<SideNavManagerProvider>(
-        AppNavigation.currentContext!,
-        listen: false);
+    var sideNavManagerProvider = Provider.of<SideNavManagerProvider>(AppNavigation.currentContext!, listen: false);
     return Scaffold(
       body: GradientBackground(
         child: Consumer<NotificationsProvider>(builder: (c, value, x) {
           return SafeArea(
             child: SlidingUpPanel(
               controller: value.panelController,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               backdropEnabled: false,
               isDraggable: true,
               renderPanelSheet: true,
@@ -76,9 +71,7 @@ class _NotificationsPreferencesScreenState
                           color: AppColors.actionColor600,
                         ),
                       ),
-                      callback: () => sideNavManagerProvider.onSelected(
-                          MenuItems(AppNavigation.currentContext!)
-                              .bottomNavManager),
+                      callback: () => sideNavManagerProvider.onSelected(MenuItems(AppNavigation.currentContext!).bottomNavManager),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 2.h),
@@ -113,16 +106,49 @@ class _NotificationsPreferencesScreenState
                                   (index) {
                                     return _CommonNotificationToggle(
                                       textTheme: textTheme,
-                                      title:
-                                          value.notificationCategories[index],
-                                      titleValue: value
-                                          .notificationCategoriesEnabled[index],
+                                      title: value.notificationCategories[index],
+                                      titleValue: value.notificationCategoriesEnabled[index],
                                       index: index,
                                       callBack: (values) {
                                         value.updateValue(index, values);
                                       },
                                     );
                                   },
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Material(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  color: AppColors.accentColorOne400,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                Assets.iconsClock16,
+                                                height: 16,
+                                                width: 16,
+                                                color: AppColors.actionColor600,
+                                              ),
+                                              const SizedBox(width: 10),
+                                              Text("10:00AM", style: textTheme.titleSmall!.copyWith(fontSize: 12)),
+                                            ],
+                                          ),
+                                          SvgPicture.asset(
+                                            Assets.customiconsArrowDown,
+                                            height: 14,
+                                            width: 14,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
@@ -132,8 +158,7 @@ class _NotificationsPreferencesScreenState
                           ),
                           CustomButton(
                             title: 'Save',
-                            onPressed: () =>
-                                value.updateNotificationPreferences(),
+                            onPressed: () => value.updateNotificationPreferences(),
                           ),
                         ],
                       ),
@@ -302,14 +327,11 @@ class CustomSwitchState extends State<CustomSwitch> {
         height: 25,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: widget.value
-              ? AppColors.actionColor600
-              : AppColors.neutralColor300,
+          color: widget.value ? AppColors.actionColor600 : AppColors.neutralColor300,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Align(
-          alignment:
-              widget.value ? Alignment.centerRight : Alignment.centerLeft,
+          alignment: widget.value ? Alignment.centerRight : Alignment.centerLeft,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             width: 17, // Thumb size
