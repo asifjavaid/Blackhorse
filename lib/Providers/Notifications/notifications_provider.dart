@@ -15,6 +15,7 @@ class NotificationsProvider extends ChangeNotifier {
     "Trial period ending",
     "Daily tracking"
   ];
+  DateTime selectedTime = DateTime.now();
 
   final List<bool> notificationCategoriesEnabled = List.filled(3, false);
   final PanelController panelController = PanelController();
@@ -104,6 +105,11 @@ class NotificationsProvider extends ChangeNotifier {
 
   void toggleBottomSheet() {
     panelController.isPanelOpen ? panelController.close() : panelController.open();
+    notifyListeners();
+  }
+
+  void setSelectedTime(DateTime time) {
+    selectedTime = time;
     notifyListeners();
   }
 

@@ -11,10 +11,12 @@ import 'package:ekvi/core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../Utils/helpers/helper_functions.dart';
 import '../../generated/assets.dart';
 
 class NotificationsPreferencesScreen extends StatefulWidget {
@@ -26,6 +28,32 @@ class NotificationsPreferencesScreen extends StatefulWidget {
 
 class _NotificationsPreferencesScreenState extends State<NotificationsPreferencesScreen> {
   late NotificationsProvider provider;
+  TimeOfDay _selectedTime = const TimeOfDay(hour: 10, minute: 0);
+  bool _isTimePickerOpen = false;
+
+  Future<void> _pickTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        _isTimePickerOpen = false;
+        _selectedTime = pickedTime;
+      });
+    }
+  }
+
+  String _formattedTime(BuildContext context) {
+    return _selectedTime.format(context);
+  }
 
   @override
   void initState() {
@@ -115,41 +143,34 @@ class _NotificationsPreferencesScreenState extends State<NotificationsPreference
                                     );
                                   },
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
-                                Material(
-                                  borderRadius: BorderRadius.circular(30.0),
+
+                                CustomButton(
+                                  title: DateFormat("hh:mm a")
+                                      .format(value.selectedTime),
                                   color: AppColors.primaryColor400,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              SvgPicture.asset(
-                                                Assets.iconsClock16,
-                                                height: 16,
-                                                width: 16,
-                                                color: AppColors.actionColor600,
-                                              ),
-                                              const SizedBox(width: 16),
-                                              Text("10:00 AM", style: textTheme.bodySmall!.copyWith(fontSize: 14)),
-                                            ],
-                                          ),
-                                          SvgPicture.asset(
-                                            color: AppColors.actionColor600,
-                                            Assets.customiconsArrowDown,
-                                            height: 16,
-                                            width: 16,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                  fontColor: AppColors.blackColor,
+                                  tralingIcon: SvgPicture.asset(
+                                    Assets.customiconsArrowDown,
+                                    color: AppColors.actionColor600,
+                                    height: 16,
+                                    width: 16,
                                   ),
+                                  leadingIcon: SvgPicture.asset(
+                                    Assets.iconsClock16,
+                                    height: 16,
+                                    width: 16,
+                                    color: AppColors.actionColor600,
+                                  ),
+                                  elevation: 0,
+                                  onPressed: () => HelperFunctions.showSheet(
+                                      context,
+                                      child: HelperFunctions.buildTimePicker(
+                                          value.selectedTime,
+                                          value.setSelectedTime),
+                                      onClicked: (() => Navigator.pop(context))),
                                 ),
                               ],
                             ),
