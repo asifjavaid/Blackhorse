@@ -1,9 +1,5 @@
 final bulletPoints = [
   // {
-  //   'title': 'Daily tracking reminders: ',
-  //   'description': 'Gentle nudges to log your symptoms and activities, helping you stay consistent.',
-  // },
-  // {
   //   'title': 'Community events: ',
   //   'description': 'Invitations to webinars, discussions, and live events to connect and learn.',
   // },
@@ -22,5 +18,9 @@ final bulletPoints = [
   {
     'title': 'Trial period ending: ',
     'description': 'Notifications as your free trial nears its end, so you’re prepared to decide.',
+  },
+  {
+    'title': 'Daily tracking: ',
+    'description': 'A daily tracking reminder.',
   },
 ];

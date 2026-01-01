@@ -120,11 +120,11 @@ class _NotificationsPreferencesScreenState extends State<NotificationsPreference
                                 ),
                                 Material(
                                   borderRadius: BorderRadius.circular(30.0),
-                                  color: AppColors.accentColorOne400,
+                                  color: AppColors.primaryColor400,
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(30.0),
                                     child: Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
@@ -136,14 +136,15 @@ class _NotificationsPreferencesScreenState extends State<NotificationsPreference
                                                 width: 16,
                                                 color: AppColors.actionColor600,
                                               ),
-                                              const SizedBox(width: 10),
-                                              Text("10:00AM", style: textTheme.titleSmall!.copyWith(fontSize: 12)),
+                                              const SizedBox(width: 16),
+                                              Text("10:00 AM", style: textTheme.bodySmall!.copyWith(fontSize: 14)),
                                             ],
                                           ),
                                           SvgPicture.asset(
+                                            color: AppColors.actionColor600,
                                             Assets.customiconsArrowDown,
-                                            height: 14,
-                                            width: 14,
+                                            height: 16,
+                                            width: 16,
                                           ),
                                         ],
                                       ),
