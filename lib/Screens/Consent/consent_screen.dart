@@ -85,8 +85,11 @@ class _ConsentScreenState extends State<ConsentScreen> {
                             children: [
                               TextSpan(
                                 text: value.consentMessages.first,
-                                style: textTheme.labelMedium!
-                                    .copyWith(color: AppColors.neutralColor500),
+                                style: textTheme.bodySmall!
+                                    .copyWith(color: AppColors.neutralColor600,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400
+                                ),
                               ),
                             ],
                           ),
@@ -99,8 +102,11 @@ class _ConsentScreenState extends State<ConsentScreen> {
                             children: [
                               TextSpan(
                                 text: value.consentMessages[1],
-                                style: textTheme.labelMedium!
-                                    .copyWith(color: AppColors.neutralColor500),
+                                style: textTheme.bodySmall!
+                                    .copyWith(color: AppColors.neutralColor600,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400
+                                ),
                               ),
                             ],
                           ),
@@ -113,8 +119,11 @@ class _ConsentScreenState extends State<ConsentScreen> {
                             children: [
                               TextSpan(
                                 text: value.consentMessages[2],
-                                style: textTheme.labelMedium!
-                                    .copyWith(color: AppColors.neutralColor500),
+                                style: textTheme.bodySmall!
+                                    .copyWith(color: AppColors.neutralColor600,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400
+                                ),
                               ),
                             ],
                           ),
