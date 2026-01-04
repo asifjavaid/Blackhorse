@@ -2144,7 +2144,7 @@ class DailyTrackerProvider extends ChangeNotifier {
     if (userProfileJson != null) {
       UserProfileModel userProfile = UserProfileModel.fromJson(jsonDecode(userProfileJson));
       userProfile.symptomTrackingPreferences = buildSymptomTrackingPreferences(categories);
-      CustomLoading.showLoadingIndicator();
+      // CustomLoading.showLoadingIndicator();
       var result = await EditProfileService.updateUserProfileFromApi(
           UserProfileModel(
               firstName: userProfile.firstName,
@@ -2157,10 +2157,10 @@ class DailyTrackerProvider extends ChangeNotifier {
       result.fold(
         (l) {
           HelperFunctions.showNotification(AppNavigation.currentContext!, AppConstant.exceptionMessage);
-          CustomLoading.hideLoadingIndicator();
+          // CustomLoading.hideLoadingIndicator();
         },
         (r) async {
-          CustomLoading.hideLoadingIndicator();
+          // CustomLoading.hideLoadingIndicator();
           //await HelperFunctions.showNotification(AppNavigation.currentContext!, "Profile Updated Successfully");
         },
       );

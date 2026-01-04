@@ -137,7 +137,7 @@ class _TrackingSettingsScreenState extends State<TrackingSettingsScreen> {
                                               setState(() {
                                                 item.isEnabled = newValue;
                                               });
-                                              // provider.patchSaveUserTrackingPreferences(context);
+                                              provider.patchSaveUserTrackingPreferences(context);
                                               /*_saveToggleState(
                                                 category.title,
                                                 item.title,
