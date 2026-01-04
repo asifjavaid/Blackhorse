@@ -17,8 +17,24 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../l10n/app_localizations.dart';
 
-class ConsentScreen extends StatelessWidget {
+class ConsentScreen extends StatefulWidget {
   const ConsentScreen({super.key});
+
+  @override
+  State<ConsentScreen> createState() => _ConsentScreenState();
+}
+
+class _ConsentScreenState extends State<ConsentScreen> {
+
+  late ConsentProvider provider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    provider = Provider.of<ConsentProvider>(context, listen: false);
+    provider.getConsentPreferences();
+  }
 
   @override
   Widget build(BuildContext context) {

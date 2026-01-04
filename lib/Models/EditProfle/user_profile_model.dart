@@ -74,11 +74,19 @@ class NotificationPreferences {
   bool? dailyTrackingReminder;
   String? dailyTrackingReminderTime;
 
+  bool? processDataConsent;  //I consent to Ekvi processing
+  bool? shareDataConsent;    //I consent to my anonymized health
+  bool? marketingConsent;    //I would like to receive information
+
+
   NotificationPreferences({
     this.subscriptionRenewal,
     this.trialPeriodEnding,
     this.dailyTrackingReminder,
-    this.dailyTrackingReminderTime
+    this.dailyTrackingReminderTime,
+    this.processDataConsent,
+    this.shareDataConsent,
+    this.marketingConsent
   });
 
   NotificationPreferences.fromJson(Map<String, dynamic> json) {
@@ -86,6 +94,11 @@ class NotificationPreferences {
     trialPeriodEnding = json['trialPeriodEnding'];
     dailyTrackingReminder = json['dailyTrackingReminder'];
     dailyTrackingReminderTime = json['dailyTrackingReminderTime'];
+
+    processDataConsent = json['processDataConsent'];
+    shareDataConsent = json['shareDataConsent'];
+    marketingConsent = json['marketingConsent'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -104,6 +117,18 @@ class NotificationPreferences {
 
     if (dailyTrackingReminderTime != null) {
       data['dailyTrackingReminderTime'] = dailyTrackingReminderTime;
+    }
+
+    if (processDataConsent != null) {
+      data['processDataConsent'] = processDataConsent;
+    }
+
+    if (shareDataConsent != null) {
+      data['shareDataConsent'] = shareDataConsent;
+    }
+
+    if (marketingConsent != null) {
+      data['marketingConsent'] = marketingConsent;
     }
 
     return data;

@@ -30,7 +30,6 @@ class ConsentProvider extends ChangeNotifier {
   UserProfileModel? _profileModel;
   String? errorMessage;
 
-
   void toggleBottomSheet() {
     panelController.isPanelOpen ? panelController.close() : panelController.open();
     notifyListeners();
@@ -39,15 +38,112 @@ class ConsentProvider extends ChangeNotifier {
   void setWantsConsent1(bool? value, {bool notify = true}) {
     _wantsConsent1 = value ?? false;
     if (notify) notifyListeners();
+    updateNotificationPreferences();
   }
 
   void setWantsConsent2(bool? value, {bool notify = true}) {
     _wantsConsent2 = value ?? false;
     if (notify) notifyListeners();
+    updateNotificationPreferences();
   }
 
   void setWantsConsent3(bool? value, {bool notify = true}) {
     _wantsConsent3 = value ?? false;
     if (notify) notifyListeners();
+    updateNotificationPreferences();
+  }
+
+  Future<void> getConsentPreferences() async {
+    final id = _userManager.userId;
+    if (id == null) {
+      errorMessage = 'User ID is null';
+      notifyListeners();
+      return;
+    }
+
+    CustomLoading.showLoadingIndicator();
+
+    try {
+      final res = await NotificationsService.fetchNotificationApi(id);
+      res.fold(
+        (error) {
+          errorMessage = error.toString();
+          notifyListeners();
+        },
+        (data) {
+          _profileModel = data;
+          final prefs = _profileModel?.notificationPreferences;
+          if (prefs != null) {
+            _updateCategoriesEnabledFromPreferences(prefs);
+          }
+          notifyListeners();
+        },
+      );
+    } catch (e) {
+      errorMessage = e.toString();
+      notifyListeners();
+    } finally {
+      CustomLoading.hideLoadingIndicator();
+    }
+  }
+
+  Future<void> updateNotificationPreferences() async {
+    final id = _userManager.userId;
+    final email = _userManager.email;
+    if (id == null || email == null) {
+      errorMessage = 'User ID or email is null';
+      notifyListeners();
+      return;
+    }
+
+    CustomLoading.showLoadingIndicator();
+
+    try {
+      final notifies = UserNotificationPreferences(
+        email: email,
+        notificationPreferences: _createPreferencesFromCategoriesEnabled(),
+      );
+
+      final res = await NotificationsService.updateNotificationApi(notifies, id);
+
+      res.fold(
+        (error) {
+          errorMessage = error.toString();
+          notifyListeners();
+        },
+        (data) {
+          _profileModel = data;
+          final prefs = _profileModel?.notificationPreferences;
+          if (prefs != null) {
+            _updateCategoriesEnabledFromPreferences(prefs);
+          }
+          // Navigate to the desired screen after successful update
+          final context = AppNavigation.currentContext;
+          if (context != null) {
+            Provider.of<SideNavManagerProvider>(context, listen: false).onSelected(MenuItems(context).bottomNavManager);
+          }
+          notifyListeners();
+        },
+      );
+    } catch (e) {
+      errorMessage = e.toString();
+      notifyListeners();
+    } finally {
+      CustomLoading.hideLoadingIndicator();
+    }
+  }
+
+  void _updateCategoriesEnabledFromPreferences(NotificationPreferences prefs) {
+    _wantsConsent1 = prefs.processDataConsent ?? false;
+    _wantsConsent2 = prefs.shareDataConsent ?? false;
+    _wantsConsent3 = prefs.marketingConsent ?? false;
+  }
+
+  NotificationPreferences _createPreferencesFromCategoriesEnabled() {
+    return NotificationPreferences(
+      processDataConsent: wantsConsent1,
+      shareDataConsent: wantsConsent2,
+      marketingConsent: wantsConsent3,
+    );
   }
 }
