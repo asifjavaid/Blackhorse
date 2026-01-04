@@ -11,23 +11,49 @@ import 'package:ekvi/core/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:ekvi/l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../Utils/helpers/helper_functions.dart';
 import '../../generated/assets.dart';
 
 class NotificationsPreferencesScreen extends StatefulWidget {
   const NotificationsPreferencesScreen({super.key});
 
   @override
-  State<NotificationsPreferencesScreen> createState() =>
-      _NotificationsPreferencesScreenState();
+  State<NotificationsPreferencesScreen> createState() => _NotificationsPreferencesScreenState();
 }
 
-class _NotificationsPreferencesScreenState
-    extends State<NotificationsPreferencesScreen> {
+class _NotificationsPreferencesScreenState extends State<NotificationsPreferencesScreen> {
   late NotificationsProvider provider;
+  TimeOfDay _selectedTime = const TimeOfDay(hour: 10, minute: 0);
+  bool _isTimePickerOpen = false;
+
+  Future<void> _pickTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: _selectedTime,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        _isTimePickerOpen = false;
+        _selectedTime = pickedTime;
+      });
+    }
+  }
+
+  String _formattedTime(BuildContext context) {
+    return _selectedTime.format(context);
+  }
 
   @override
   void initState() {
@@ -40,17 +66,14 @@ class _NotificationsPreferencesScreenState
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     var localizations = AppLocalizations.of(context)!;
-    var sideNavManagerProvider = Provider.of<SideNavManagerProvider>(
-        AppNavigation.currentContext!,
-        listen: false);
+    var sideNavManagerProvider = Provider.of<SideNavManagerProvider>(AppNavigation.currentContext!, listen: false);
     return Scaffold(
       body: GradientBackground(
         child: Consumer<NotificationsProvider>(builder: (c, value, x) {
           return SafeArea(
             child: SlidingUpPanel(
               controller: value.panelController,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
               backdropEnabled: false,
               isDraggable: true,
               renderPanelSheet: true,
@@ -76,9 +99,7 @@ class _NotificationsPreferencesScreenState
                           color: AppColors.actionColor600,
                         ),
                       ),
-                      callback: () => sideNavManagerProvider.onSelected(
-                          MenuItems(AppNavigation.currentContext!)
-                              .bottomNavManager),
+                      callback: () => sideNavManagerProvider.onSelected(MenuItems(AppNavigation.currentContext!).bottomNavManager),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 2.h),
@@ -113,16 +134,41 @@ class _NotificationsPreferencesScreenState
                                   (index) {
                                     return _CommonNotificationToggle(
                                       textTheme: textTheme,
-                                      title:
-                                          value.notificationCategories[index],
-                                      titleValue: value
-                                          .notificationCategoriesEnabled[index],
+                                      title: value.notificationCategories[index],
+                                      titleValue: value.notificationCategoriesEnabled[index],
                                       index: index,
                                       callBack: (values) {
                                         value.updateValue(index, values);
                                       },
                                     );
                                   },
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Visibility(
+                                  visible: provider.showTimeControl,
+                                  child: CustomButton(
+                                    title: DateFormat("hh:mm a").format(value.selectedTime),
+                                    color: AppColors.primaryColor400,
+                                    fontColor: AppColors.blackColor,
+                                    tralingIcon: SvgPicture.asset(
+                                      Assets.customiconsArrowDown,
+                                      color: AppColors.actionColor600,
+                                      height: 16,
+                                      width: 16,
+                                    ),
+                                    leadingIcon: SvgPicture.asset(
+                                      Assets.iconsClock16,
+                                      height: 16,
+                                      width: 16,
+                                      color: AppColors.actionColor600,
+                                    ),
+                                    elevation: 0,
+                                    onPressed: () => HelperFunctions.showSheet(context,
+                                        child: HelperFunctions.buildTimePicker(value.selectedTime, value.setSelectedTime),
+                                        onClicked: (() => Navigator.pop(context))),
+                                  ),
                                 ),
                               ],
                             ),
@@ -132,8 +178,7 @@ class _NotificationsPreferencesScreenState
                           ),
                           CustomButton(
                             title: 'Save',
-                            onPressed: () =>
-                                value.updateNotificationPreferences(),
+                            onPressed: () => value.updateNotificationPreferences(),
                           ),
                         ],
                       ),
@@ -213,6 +258,10 @@ class _NotificationHelpText extends StatelessWidget {
                   ),
                   TextSpan(
                     text: description,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: AppColors.neutralColor600,
+                      height: 1.60,
+                    ),
                   ),
                 ],
               ),
@@ -302,14 +351,11 @@ class CustomSwitchState extends State<CustomSwitch> {
         height: 25,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: widget.value
-              ? AppColors.actionColor600
-              : AppColors.neutralColor300,
+          color: widget.value ? AppColors.actionColor600 : AppColors.neutralColor300,
         ),
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: Align(
-          alignment:
-              widget.value ? Alignment.centerRight : Alignment.centerLeft,
+          alignment: widget.value ? Alignment.centerRight : Alignment.centerLeft,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             width: 17, // Thumb size

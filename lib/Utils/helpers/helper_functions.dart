@@ -36,21 +36,15 @@ class HelperFunctions {
   static Future<void> initializeApplication() async {
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarBrightness: Brightness.light,
-        statusBarIconBrightness: Brightness.dark));
+        statusBarColor: Colors.transparent, statusBarBrightness: Brightness.light, statusBarIconBrightness: Brightness.dark));
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
 
     await Future.delayed(const Duration(milliseconds: 500));
     await LocaleProvider().init();
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-        FlutterLocalNotificationsPlugin();
-    flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestExactAlarmsPermission();
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestExactAlarmsPermission();
     LocalNotificationsHelper().initNotifications(initScheduled: true);
     TimeHelper.initializeTimezones();
     listenNotifications();
@@ -62,22 +56,15 @@ class HelperFunctions {
 
   static Future<void> initializeUserData() async {
     try {
-      var userProfileProvider = Provider.of<EditProfileProvider>(
-          AppNavigation.currentContext!,
-          listen: false);
-      await userProfileProvider
-          .fetchUserProfile(showLoader: false)
-          .then((userProfile) async {
+      var userProfileProvider = Provider.of<EditProfileProvider>(AppNavigation.currentContext!, listen: false);
+      await userProfileProvider.fetchUserProfile(showLoader: false).then((userProfile) async {
         IntercomHelper.initializeIntercomUser(userProfile);
         AmplitudeHelper.setUserId(userProfile.id);
-        AmplitudeHelper.setUserProperties(
-            {"email": userProfile.email, "username": userProfile.userName});
+        AmplitudeHelper.setUserProperties({"email": userProfile.email, "username": userProfile.userName});
         await initializeAppServices();
       });
 
-      var remindersProvider = Provider.of<RemindersProvider>(
-          AppNavigation.currentContext!,
-          listen: false);
+      var remindersProvider = Provider.of<RemindersProvider>(AppNavigation.currentContext!, listen: false);
       remindersProvider.clearAndGetAllRemindersAndSchedule();
     } catch (e) {
       throw "Error initializing user data, $e";
@@ -92,14 +79,11 @@ class HelperFunctions {
   }
 
   static Future<String> getAccessToken() async {
-    final userToken =
-        await SharedPreferencesHelper.getStringPrefValue(key: "token");
+    final userToken = await SharedPreferencesHelper.getStringPrefValue(key: "token");
     return userToken ?? "";
   }
 
-  static Widget buildDatePicker(
-          DateTime? selectedDate, Function(DateTime) callback) =>
-      SizedBox(
+  static Widget buildDatePicker(DateTime? selectedDate, Function(DateTime) callback) => SizedBox(
         height: 35.h,
         child: CupertinoDatePicker(
             minimumYear: 1970,
@@ -108,9 +92,7 @@ class HelperFunctions {
             mode: CupertinoDatePickerMode.date,
             onDateTimeChanged: (dateTime) => callback(dateTime)),
       );
-  static Widget buildTimePicker(
-          DateTime selectedTime, Function(DateTime) callback) =>
-      SizedBox(
+  static Widget buildTimePicker(DateTime selectedTime, Function(DateTime) callback) => SizedBox(
         height: 35.h,
         child: CupertinoDatePicker(
             minimumYear: 1970,
@@ -124,10 +106,8 @@ class HelperFunctions {
     DateTime firstDateOfMonth = DateTime(date.year, date.month, 1);
     DateTime lastDateOfThirdMonth = DateTime(date.year, date.month + 3, 0);
 
-    String firstDateFormatted =
-        DateFormat('yyyy-MM-dd').format(firstDateOfMonth);
-    String lastDateFormatted =
-        DateFormat('yyyy-MM-dd').format(lastDateOfThirdMonth);
+    String firstDateFormatted = DateFormat('yyyy-MM-dd').format(firstDateOfMonth);
+    String lastDateFormatted = DateFormat('yyyy-MM-dd').format(lastDateOfThirdMonth);
 
     return {
       'startDate': firstDateFormatted,
@@ -213,8 +193,7 @@ class HelperFunctions {
     return cleanedString;
   }
 
-  static double calculatePercentageDiscount(
-      double originalPrice, double discountedPrice) {
+  static double calculatePercentageDiscount(double originalPrice, double discountedPrice) {
     double discountAmount = originalPrice - discountedPrice;
     double percentageDiscount = (discountAmount / originalPrice) * 100;
     return percentageDiscount;
@@ -295,34 +274,22 @@ class HelperFunctions {
     }
   }
 
-  static void showSheet(BuildContext context,
-          {required Widget child, required VoidCallback onClicked}) =>
-      showCupertinoModalPopup(
-          context: context,
-          builder: (context) => CupertinoActionSheet(
-                actions: [child],
-                cancelButton: CupertinoActionSheetAction(
-                    onPressed: onClicked, child: const Text("Done")),
-              ));
+  static void showSheet(BuildContext context, {required Widget child, required VoidCallback onClicked}) => showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+            actions: [child],
+            cancelButton: CupertinoActionSheetAction(onPressed: onClicked, child: const Text("Done")),
+          ));
 
-  static String generateEventLink(
-      String staticURL, List<BodyPart> bodyParts, PainEventsCategory event) {
-    String name = bodyParts.length == 1
-        ? bodyParts[0].nameForUser.replaceAll(" ", "-")
-        : bodyParts[0].category1!.replaceAll(" ", "-");
+  static String generateEventLink(String staticURL, List<BodyPart> bodyParts, PainEventsCategory event) {
+    String name = bodyParts.length == 1 ? bodyParts[0].nameForUser.replaceAll(" ", "-") : bodyParts[0].category1!.replaceAll(" ", "-");
     return "$staticURL/$name/event/${event.toString().split(".")[1]}";
   }
 
-  static String generateLinkByUserIdDateAndTime(
-      String url, String userId, String date, String? time) {
+  static String generateLinkByUserIdDateAndTime(String url, String userId, String date, String? time) {
     return time == null
-        ? url
-            .replaceAll("userIdPlaceholder", userId)
-            .replaceAll("datePlaceholder", date)
-        : url
-            .replaceAll("userIdPlaceholder", userId)
-            .replaceAll("datePlaceholder", date)
-            .replaceAll("timeOfDayPlaceHolder", time);
+        ? url.replaceAll("userIdPlaceholder", userId).replaceAll("datePlaceholder", date)
+        : url.replaceAll("userIdPlaceholder", userId).replaceAll("datePlaceholder", date).replaceAll("timeOfDayPlaceHolder", time);
   }
 
   static String generateLinkByUserId(String url, String userId) {
@@ -356,8 +323,7 @@ class HelperFunctions {
       return SymptomCategory.Bowel_movement;
     } else if (title.toLowerCase() == "urination") {
       return SymptomCategory.Urination;
-    }
-    else if (title.toLowerCase() == "painkillers") {
+    } else if (title.toLowerCase() == "painkillers") {
       return SymptomCategory.Pain_Killers;
     } else if (title.toLowerCase() == "self-care") {
       return SymptomCategory.Self_Care;
@@ -425,9 +391,8 @@ class HelperFunctions {
     if (title == "I’m_just_existing") {
       return PainEventsCategory.Existing;
     } else {
-      PainEventsCategory category = PainEventsCategory.values[
-          PainEventsCategory.values.indexWhere(
-              (category) => category.toString().split('.').last == title)];
+      PainEventsCategory category =
+          PainEventsCategory.values[PainEventsCategory.values.indexWhere((category) => category.toString().split('.').last == title)];
       return category;
     }
   }
@@ -455,28 +420,20 @@ class HelperFunctions {
     return DateTime(now.year, now.month, 1);
   }
 
-  static Container giveBackgroundToIcon(
-      Widget icon,
-      {Color? bgColor, bool? isRectangle, double? height, double? width}) {
+  static Container giveBackgroundToIcon(Widget icon, {Color? bgColor, bool? isRectangle, double? height, double? width}) {
     return Container(
       height: height ?? 50,
       width: width ?? 50,
       decoration: (isRectangle ?? false)
-          ? BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: bgColor ?? AppColors.secondaryColor400,
-              borderRadius: BorderRadius.circular(6))
-          : BoxDecoration(
-              shape: BoxShape.circle,
-              color: bgColor ?? AppColors.secondaryColor400),
+          ? BoxDecoration(shape: BoxShape.rectangle, color: bgColor ?? AppColors.secondaryColor400, borderRadius: BorderRadius.circular(6))
+          : BoxDecoration(shape: BoxShape.circle, color: bgColor ?? AppColors.secondaryColor400),
       child: Center(
         child: icon,
       ),
     );
   }
 
-  static showNotification(BuildContext context, String message,
-      {int seconds = 1}) {
+  static showNotification(BuildContext context, String message, {int seconds = 1}) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: Duration(seconds: seconds),
@@ -491,8 +448,7 @@ class HelperFunctions {
   }
 
   static void initializeOnboarding() {
-    var provider =
-        Provider.of<OnboardingProvider>(AppNavigation.currentContext!);
+    var provider = Provider.of<OnboardingProvider>(AppNavigation.currentContext!);
     provider.fetchUserProgress();
   }
 
@@ -521,27 +477,20 @@ class HelperFunctions {
   }
 
   static String getFormattedDateFromDateTime(DateTime dateTime) {
-    return DateFormat("d'${getDaySuffix(dateTime.day)}' MMMM, yyyy")
-        .format(dateTime);
+    return DateFormat("d'${getDaySuffix(dateTime.day)}' MMMM, yyyy").format(dateTime);
   }
 
   static String getFormattedDate(SelectedDateOfUserForTracking date) {
-    return DateFormat(
-            "EEEE d'${getDaySuffix(DateFormat('yyyy-MM-dd').parse(date.date).day)}', MMMM")
+    return DateFormat("EEEE d'${getDaySuffix(DateFormat('yyyy-MM-dd').parse(date.date).day)}', MMMM")
         .format(DateFormat('yyyy-MM-dd').parse(date.date));
   }
 
-  static List<BodyPart> getMatchingBodyParts(
-      EventData eventData, List<BodyPart> availableBodyParts) {
+  static List<BodyPart> getMatchingBodyParts(EventData eventData, List<BodyPart> availableBodyParts) {
     List<BodyPart> matchingBodyParts = [];
 
     if (eventData.bodyPartName != null) {
-      Set<String> bodyPartNames = eventData.bodyPartName!
-          .map((bp) => bp.bodyPart!.replaceAll("-", " "))
-          .toSet();
-      matchingBodyParts = availableBodyParts
-          .where((bodyPart) => bodyPartNames.contains(bodyPart.nameForUser))
-          .toList();
+      Set<String> bodyPartNames = eventData.bodyPartName!.map((bp) => bp.bodyPart!.replaceAll("-", " ")).toSet();
+      matchingBodyParts = availableBodyParts.where((bodyPart) => bodyPartNames.contains(bodyPart.nameForUser)).toList();
     }
 
     return matchingBodyParts;
@@ -631,14 +580,12 @@ class HelperFunctions {
   static bool isJourneyLocked(String? accessType) {
     final premiumUser = UserManager().isPremium;
     final isPremiumContent = (accessType ?? '').toLowerCase() == 'premium';
-    final premiumLike =
-        isPremiumContent || accessType == null || accessType.isEmpty;
+    final premiumLike = isPremiumContent || accessType == null || accessType.isEmpty;
     return premiumLike && !premiumUser;
   }
 
   static String getCurrencySymbol(String currencyCode) {
-    String currencySymbol =
-        NumberFormat.simpleCurrency(name: currencyCode).currencySymbol;
+    String currencySymbol = NumberFormat.simpleCurrency(name: currencyCode).currencySymbol;
     return currencySymbol;
   }
 
@@ -647,8 +594,7 @@ class HelperFunctions {
   }
 }
 
-void listenNotifications() => LocalNotificationsHelper.onNotifications.stream
-    .listen(onClickedNotification);
+void listenNotifications() => LocalNotificationsHelper.onNotifications.stream.listen(onClickedNotification);
 void onClickedNotification(String? payLoad) {
   // AppNavigation.navigateTo(AppRoutes.notifications);
 }

@@ -2,6 +2,7 @@ import 'package:ekvi/Routes/app_routes.dart';
 import 'package:ekvi/Routes/screen_arguments.dart';
 import 'package:ekvi/Screens/BodyPain/body_pain.dart';
 import 'package:ekvi/Screens/BodyPain/body_pain_event.dart';
+import 'package:ekvi/Screens/Consent/consent_screen.dart';
 import 'package:ekvi/Screens/ContraceptionReminders/contraceptive_implant.dart';
 import 'package:ekvi/Screens/ContraceptionReminders/contraceptive_injection_reminder.dart';
 import 'package:ekvi/Screens/ContraceptionReminders/contraceptive_patch_reminder.dart';
@@ -149,6 +150,8 @@ class RouteGenerator {
         return _screenRoute(screen: const FAQScreen());
       case AppRoutes.deleteAccount:
         return _screenRoute(screen: const DeleteAccountScreen());
+      case AppRoutes.consentAccount:
+        return _screenRoute(screen: const ConsentScreen());
       case AppRoutes.ekvipediaArticle:
         return _screenRoute(
             screen: EkvipediaArticleScreen(

@@ -38,6 +38,18 @@ class EditProfileSettings extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: ListTile(
+                    title: Text("Consent", style: Theme.of(AppNavigation.currentContext!).textTheme.bodyMedium),
+                    trailing: const Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: AppColors.actionColor600,
+                      size: 24,
+                    ),
+                    onTap: () => AppNavigation.navigateTo(AppRoutes.consentAccount),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: ListTile(
                     title: Text("Delete account", style: Theme.of(AppNavigation.currentContext!).textTheme.bodyMedium),
                     trailing: const Icon(
                       Icons.arrow_forward_ios_rounded,

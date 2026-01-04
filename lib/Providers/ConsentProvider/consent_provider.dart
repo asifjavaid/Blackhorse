@@ -6,28 +6,54 @@ import 'package:ekvi/Routes/app_navigation.dart';
 import 'package:ekvi/Services/Notifications/notifications_service.dart';
 import 'package:ekvi/Widgets/Dialogs/custom_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../../Utils/helpers/helper_functions.dart';
-
-class NotificationsProvider extends ChangeNotifier {
-  final List<String> notificationCategories = [
-    "Subscription renewal",
-    "Trial period ending",
-    "Daily tracking"
+class ConsentProvider extends ChangeNotifier {
+  final List<String> consentMessages = [
+    "I consent to Ekvi processing the health data I choose to share with the app, so that the app can provide me with personalized information and guidance.",
+    "I consent to my anonymized health data being used for women's health research to help improve understanding and care for all women.",
+    "I would like to receive information, tips and updates from Ekvi via email."
   ];
-  DateTime selectedTime = DateTime.now();
 
-  bool showTimeControl = false;
-  final List<bool> notificationCategoriesEnabled = List.filled(3, false);
+  bool _wantsConsent1 = false;
+  bool get wantsConsent1 => _wantsConsent1;
+
+  bool _wantsConsent2 = false;
+  bool get wantsConsent2 => _wantsConsent2;
+
+  bool _wantsConsent3 = false;
+  bool get wantsConsent3 => _wantsConsent3;
+
   final PanelController panelController = PanelController();
   final UserManager _userManager = UserManager();
   UserProfileModel? _profileModel;
   String? errorMessage;
 
-  Future<void> getNotificationPreferences() async {
+  void toggleBottomSheet() {
+    panelController.isPanelOpen ? panelController.close() : panelController.open();
+    notifyListeners();
+  }
+
+  void setWantsConsent1(bool? value, {bool notify = true}) {
+    _wantsConsent1 = value ?? false;
+    if (notify) notifyListeners();
+    updateNotificationPreferences();
+  }
+
+  void setWantsConsent2(bool? value, {bool notify = true}) {
+    _wantsConsent2 = value ?? false;
+    if (notify) notifyListeners();
+    updateNotificationPreferences();
+  }
+
+  void setWantsConsent3(bool? value, {bool notify = true}) {
+    _wantsConsent3 = value ?? false;
+    if (notify) notifyListeners();
+    updateNotificationPreferences();
+  }
+
+  Future<void> getConsentPreferences() async {
     final id = _userManager.userId;
     if (id == null) {
       errorMessage = 'User ID is null';
@@ -48,7 +74,6 @@ class NotificationsProvider extends ChangeNotifier {
           _profileModel = data;
           final prefs = _profileModel?.notificationPreferences;
           if (prefs != null) {
-            showTimeControl = prefs.dailyTrackingReminder ?? false;
             _updateCategoriesEnabledFromPreferences(prefs);
           }
           notifyListeners();
@@ -108,40 +133,17 @@ class NotificationsProvider extends ChangeNotifier {
     }
   }
 
-  void toggleBottomSheet() {
-    panelController.isPanelOpen ? panelController.close() : panelController.open();
-    notifyListeners();
-  }
-
-  void setSelectedTime(DateTime time) {
-    selectedTime = time;
-    notifyListeners();
-  }
-
-  void updateValue(int index, bool value) {
-    if (index >= 0 && index < notificationCategoriesEnabled.length) {
-      notificationCategoriesEnabled[index] = value;
-      if(index == 2)
-        showTimeControl = value;
-
-      notifyListeners();
-    }
-  }
-
   void _updateCategoriesEnabledFromPreferences(NotificationPreferences prefs) {
-    notificationCategoriesEnabled[0] = prefs.subscriptionRenewal ?? false;
-    notificationCategoriesEnabled[1] = prefs.trialPeriodEnding ?? false;
-    notificationCategoriesEnabled[2] = prefs.dailyTrackingReminder ?? false;
-    String date = HelperFunctions.formatDate(DateTime.now());
-    selectedTime = prefs.dailyTrackingReminderTime != null ? HelperFunctions.combineDateTime(date, prefs.dailyTrackingReminderTime!) : DateTime.now();
+    _wantsConsent1 = prefs.processDataConsent ?? false;
+    _wantsConsent2 = prefs.shareDataConsent ?? false;
+    _wantsConsent3 = prefs.marketingConsent ?? false;
   }
 
   NotificationPreferences _createPreferencesFromCategoriesEnabled() {
     return NotificationPreferences(
-      subscriptionRenewal: notificationCategoriesEnabled[0],
-      trialPeriodEnding: notificationCategoriesEnabled[1],
-      dailyTrackingReminder: notificationCategoriesEnabled[2],
-      dailyTrackingReminderTime: HelperFunctions.formatTime(selectedTime),
+      processDataConsent: wantsConsent1,
+      shareDataConsent: wantsConsent2,
+      marketingConsent: wantsConsent3,
     );
   }
 }

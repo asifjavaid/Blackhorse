@@ -11,7 +11,8 @@ class NotificationsService {
   static Future<Either<dynamic, UserProfileModel>> fetchNotificationApi(String userId) async {
     return await ApiManager.safeApiCall(() async {
       var response = await ApiBaseHelper.httpGetRequest("${ApiLinks.getUser}/$userId");
-      final UserProfileModel responseModel = UserProfileModel.fromJson(response);
+      print("response: $response");
+      final UserProfileModel responseModel = UserProfileModel.fromJson((response as List).first);
       return responseModel;
     }, showLoader: false);
   }
