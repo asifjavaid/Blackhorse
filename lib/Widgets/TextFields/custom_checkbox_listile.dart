@@ -32,7 +32,7 @@ class CustomCheckboxListTile extends StatelessWidget {
                 onChanged: onChanged,
                 activeColor: AppColors.actionColor600,
                 fillColor: WidgetStateProperty.resolveWith<Color?>(
-                      (states) {
+                  (states) {
                     if (states.contains(WidgetState.selected)) {
                       return AppColors.actionColor600;
                     }

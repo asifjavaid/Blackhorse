@@ -41,6 +41,10 @@ class ApiBaseHelper {
       String endPoint, dynamic requestBody) async {
     http.Response response;
     try {
+
+      print("endpoint: ${AppConstant.appBaseURL}$endPoint}");
+      print("request: ${requestBody}");
+
       response = await http.patch(
           Uri.parse('${AppConstant.appBaseURL}$endPoint'),
           body: requestBody,

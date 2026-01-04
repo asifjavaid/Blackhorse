@@ -71,15 +71,21 @@ class UserProfileModel {
 class NotificationPreferences {
   bool? subscriptionRenewal;
   bool? trialPeriodEnding;
+  bool? dailyTrackingReminder;
+  String? dailyTrackingReminderTime;
 
   NotificationPreferences({
     this.subscriptionRenewal,
     this.trialPeriodEnding,
+    this.dailyTrackingReminder,
+    this.dailyTrackingReminderTime
   });
 
   NotificationPreferences.fromJson(Map<String, dynamic> json) {
     subscriptionRenewal = json['subscriptionRenewal'];
     trialPeriodEnding = json['trialPeriodEnding'];
+    dailyTrackingReminder = json['dailyTrackingReminder'];
+    dailyTrackingReminderTime = json['dailyTrackingReminderTime'];
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +96,14 @@ class NotificationPreferences {
 
     if (trialPeriodEnding != null) {
       data['trialPeriodEnding'] = trialPeriodEnding;
+    }
+
+    if (dailyTrackingReminder != null) {
+      data['dailyTrackingReminder'] = dailyTrackingReminder;
+    }
+
+    if (dailyTrackingReminderTime != null) {
+      data['dailyTrackingReminderTime'] = dailyTrackingReminderTime;
     }
 
     return data;

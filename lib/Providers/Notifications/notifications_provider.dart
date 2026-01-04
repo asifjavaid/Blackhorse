@@ -6,8 +6,11 @@ import 'package:ekvi/Routes/app_navigation.dart';
 import 'package:ekvi/Services/Notifications/notifications_service.dart';
 import 'package:ekvi/Widgets/Dialogs/custom_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import '../../Utils/helpers/helper_functions.dart';
 
 class NotificationsProvider extends ChangeNotifier {
   final List<String> notificationCategories = [
@@ -45,6 +48,7 @@ class NotificationsProvider extends ChangeNotifier {
           _profileModel = data;
           final prefs = _profileModel?.notificationPreferences;
           if (prefs != null) {
+            showTimeControl = prefs.dailyTrackingReminder ?? false;
             _updateCategoriesEnabledFromPreferences(prefs);
           }
           notifyListeners();
@@ -127,12 +131,17 @@ class NotificationsProvider extends ChangeNotifier {
   void _updateCategoriesEnabledFromPreferences(NotificationPreferences prefs) {
     notificationCategoriesEnabled[0] = prefs.subscriptionRenewal ?? false;
     notificationCategoriesEnabled[1] = prefs.trialPeriodEnding ?? false;
+    notificationCategoriesEnabled[2] = prefs.dailyTrackingReminder ?? false;
+    String date = HelperFunctions.formatDate(DateTime.now());
+    selectedTime = prefs.dailyTrackingReminderTime != null ? HelperFunctions.combineDateTime(date, prefs.dailyTrackingReminderTime!) : DateTime.now();
   }
 
   NotificationPreferences _createPreferencesFromCategoriesEnabled() {
     return NotificationPreferences(
       subscriptionRenewal: notificationCategoriesEnabled[0],
       trialPeriodEnding: notificationCategoriesEnabled[1],
+      dailyTrackingReminder: notificationCategoriesEnabled[2],
+      dailyTrackingReminderTime: HelperFunctions.formatTime(selectedTime),
     );
   }
 }
