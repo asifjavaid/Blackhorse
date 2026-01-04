@@ -159,7 +159,7 @@ class _NotificationsPreferencesScreenState extends State<NotificationsPreference
                                       width: 16,
                                     ),
                                     leadingIcon: SvgPicture.asset(
-                                      Assets.iconsClock16,
+                                      Assets.iconsClock,
                                       height: 16,
                                       width: 16,
                                       color: AppColors.actionColor600,

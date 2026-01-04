@@ -111,7 +111,6 @@ class Assets {
   static const String iconsCategoryIcons = 'assets/icons/categoryIcons.png';
   static const String iconsCelebration = 'assets/icons/celebration.svg';
   static const String iconsClock = 'assets/icons/clock.svg';
-  static const String iconsClock16 = 'assets/icons/clock16.svg';
   static const String iconsCongratsIcon = 'assets/icons/congratsIcon.svg';
   static const String iconsContraception = 'assets/icons/contraception.png';
   static const String iconsCrossIcon = 'assets/icons/crossIcon.svg';
