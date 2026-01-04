@@ -38,19 +38,19 @@ class ConsentProvider extends ChangeNotifier {
   void setWantsConsent1(bool? value, {bool notify = true}) {
     _wantsConsent1 = value ?? false;
     if (notify) notifyListeners();
-    updateNotificationPreferences();
+    // updateNotificationPreferences();
   }
 
   void setWantsConsent2(bool? value, {bool notify = true}) {
     _wantsConsent2 = value ?? false;
     if (notify) notifyListeners();
-    updateNotificationPreferences();
+    // updateNotificationPreferences();
   }
 
   void setWantsConsent3(bool? value, {bool notify = true}) {
     _wantsConsent3 = value ?? false;
     if (notify) notifyListeners();
-    updateNotificationPreferences();
+    // updateNotificationPreferences();
   }
 
   Future<void> getConsentPreferences() async {

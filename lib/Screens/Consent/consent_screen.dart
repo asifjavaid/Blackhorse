@@ -68,6 +68,7 @@ class _ConsentScreenState extends State<ConsentScreen> {
                         ),
                       ),
                       callback: () {
+                        value.updateNotificationPreferences();
                         AppNavigation.goBack();
                       }),
                   Padding(
